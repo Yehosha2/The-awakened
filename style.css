@@ -1,1 +1,557 @@
-.
+/* =========================================================
+   THE AWAKENED
+   Book One: Before the Beginning
+   Main Website Styles
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background:
+    radial-gradient(circle at top, #302517 0%, #17130e 45%, #080706 100%);
+  color: #eee6d5;
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1.8;
+  min-height: 100vh;
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.hero {
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  position: relative;
+
+  background:
+    linear-gradient(
+      rgba(5, 5, 5, 0.48),
+      rgba(5, 5, 5, 0.86)
+    ),
+    radial-gradient(
+      circle at center,
+      #6c512e 0%,
+      #21180e 45%,
+      #050505 100%
+    );
+
+  overflow: hidden;
+}
+
+
+/* subtle atmospheric glow */
+
+.hero::before {
+  content: "";
+
+  position: absolute;
+
+  width: 650px;
+  height: 650px;
+
+  border-radius: 50%;
+
+  background: rgba(197, 153, 76, 0.08);
+
+  filter: blur(80px);
+
+  animation: ancientGlow 8s ease-in-out infinite alternate;
+}
+
+@keyframes ancientGlow {
+
+  from {
+    transform: scale(0.9);
+    opacity: 0.4;
+  }
+
+  to {
+    transform: scale(1.15);
+    opacity: 0.8;
+  }
+
+}
+
+
+.hero-overlay {
+  position: relative;
+  z-index: 2;
+
+  width: min(900px, 90%);
+
+  padding: 40px 20px;
+}
+
+
+/* =========================================================
+   TYPOGRAPHY
+   ========================================================= */
+
+.eyebrow {
+  letter-spacing: 0.35em;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+
+  color: #c7a765;
+
+  margin-bottom: 18px;
+}
+
+h1 {
+  font-size: clamp(3.5rem, 12vw, 8rem);
+
+  letter-spacing: 0.08em;
+
+  line-height: 0.95;
+
+  font-weight: normal;
+
+  color: #f5ead2;
+
+  text-shadow:
+    0 3px 20px rgba(0,0,0,0.9);
+
+  margin-bottom: 25px;
+}
+
+h2 {
+  font-weight: normal;
+
+  color: #d4b477;
+
+  letter-spacing: 0.04em;
+}
+
+.hero h2 {
+  font-size: clamp(1.1rem, 3vw, 1.8rem);
+
+  margin-bottom: 35px;
+}
+
+.tagline {
+  font-style: italic;
+
+  font-size: 1.2rem;
+
+  color: #d9d0bf;
+
+  margin-bottom: 40px;
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.enter-button,
+.read-button {
+
+  display: inline-block;
+
+  padding: 14px 30px;
+
+  border: 1px solid #b99352;
+
+  color: #f3e6ca;
+
+  text-decoration: none;
+
+  letter-spacing: 0.14em;
+
+  text-transform: uppercase;
+
+  font-size: 0.8rem;
+
+  transition:
+    background 0.3s ease,
+    color 0.3s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.enter-button:hover,
+.read-button:hover {
+
+  background: #b99352;
+
+  color: #100d08;
+
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.4);
+}
+
+
+/* =========================================================
+   INTRODUCTION
+   ========================================================= */
+
+.introduction {
+
+  max-width: 850px;
+
+  margin: auto;
+
+  padding: 110px 25px;
+
+  text-align: center;
+}
+
+.introduction h2 {
+
+  font-size: clamp(2rem, 5vw, 3rem);
+
+  margin-bottom: 35px;
+}
+
+.introduction p {
+
+  color: #cfc5b2;
+
+  font-size: 1.08rem;
+
+  margin-bottom: 22px;
+}
+
+.introduction .read-button {
+
+  margin-top: 25px;
+}
+
+
+/* =========================================================
+   MYSTERY SECTION
+   ========================================================= */
+
+.mystery {
+
+  padding: 100px 20px;
+
+  display: flex;
+
+  justify-content: center;
+
+  background:
+    linear-gradient(
+      rgba(0,0,0,0.25),
+      rgba(0,0,0,0.7)
+    );
+}
+
+.mystery-card {
+
+  width: min(750px, 100%);
+
+  padding: 55px 35px;
+
+  text-align: center;
+
+  border-top: 1px solid #8f713e;
+
+  border-bottom: 1px solid #8f713e;
+
+  background: rgba(255,255,255,0.025);
+}
+
+.mystery-card h2 {
+
+  font-size: clamp(2rem, 6vw, 3.5rem);
+
+  margin-bottom: 30px;
+}
+
+.mystery-card p {
+
+  color: #c9bfad;
+
+  margin-bottom: 15px;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+footer {
+
+  padding: 50px 20px;
+
+  text-align: center;
+
+  border-top: 1px solid rgba(255,255,255,0.08);
+
+  color: #827968;
+
+  font-size: 0.8rem;
+}
+
+
+/* =========================================================
+   NOVEL READER
+   These styles will also be used by novel.html
+   ========================================================= */
+
+.novel-page {
+
+  background:
+    radial-gradient(
+      circle at top,
+      #2c2115,
+      #100d09 60%
+    );
+}
+
+.novel-container {
+
+  width: min(850px, 92%);
+
+  margin: auto;
+
+  padding: 70px 0 120px;
+}
+
+.book-title {
+
+  text-align: center;
+
+  margin-bottom: 90px;
+}
+
+.book-title h1 {
+
+  font-size: clamp(3rem, 9vw, 6rem);
+
+  margin-bottom: 20px;
+}
+
+.book-title h2 {
+
+  font-size: 1.3rem;
+
+  color: #b99a62;
+}
+
+.chapter {
+
+  margin-bottom: 100px;
+
+  scroll-margin-top: 40px;
+}
+
+.chapter-number {
+
+  text-align: center;
+
+  color: #a88a57;
+
+  letter-spacing: 0.25em;
+
+  text-transform: uppercase;
+
+  font-size: 0.75rem;
+
+  margin-bottom: 12px;
+}
+
+.chapter-title {
+
+  text-align: center;
+
+  font-size: clamp(2rem, 6vw, 3rem);
+
+  color: #eadbbd;
+
+  margin-bottom: 45px;
+}
+
+.chapter p {
+
+  font-size: 1.12rem;
+
+  color: #d2c7b5;
+
+  margin-bottom: 25px;
+
+  text-align: left;
+}
+
+.chapter p:first-of-type::first-letter {
+
+  float: left;
+
+  font-size: 4.5rem;
+
+  line-height: 0.8;
+
+  padding-right: 10px;
+
+  color: #bd995a;
+}
+
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+.book-nav {
+
+  position: sticky;
+
+  top: 0;
+
+  z-index: 100;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  gap: 10px;
+
+  padding: 12px 15px;
+
+  background: rgba(10,8,6,0.92);
+
+  backdrop-filter: blur(12px);
+
+  border-bottom: 1px solid rgba(200,160,90,0.2);
+}
+
+.book-nav a {
+
+  color: #c9aa70;
+
+  text-decoration: none;
+
+  font-size: 0.75rem;
+
+  letter-spacing: 0.08em;
+
+  text-transform: uppercase;
+}
+
+.book-nav a:hover {
+
+  color: #f0dfbd;
+}
+
+
+/* =========================================================
+   TABLE OF CONTENTS
+   ========================================================= */
+
+.contents {
+
+  margin: 40px auto 100px;
+
+  padding: 30px;
+
+  border: 1px solid rgba(190,150,80,0.25);
+
+  background: rgba(255,255,255,0.025);
+}
+
+.contents h2 {
+
+  margin-bottom: 25px;
+
+  text-align: center;
+}
+
+.contents a {
+
+  display: block;
+
+  padding: 10px 0;
+
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+
+  color: #cbb07b;
+
+  text-decoration: none;
+}
+
+.contents a:hover {
+
+  color: #fff;
+
+  padding-left: 8px;
+}
+
+
+/* =========================================================
+   RESPONSIVE MOBILE DESIGN
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  body {
+    line-height: 1.7;
+  }
+
+  .hero {
+    min-height: 92vh;
+  }
+
+  h1 {
+    letter-spacing: 0.04em;
+  }
+
+  .introduction {
+    padding: 80px 22px;
+  }
+
+  .mystery {
+    padding: 70px 18px;
+  }
+
+  .mystery-card {
+    padding: 40px 22px;
+  }
+
+  .novel-container {
+    width: 90%;
+    padding-top: 45px;
+  }
+
+  .chapter {
+    margin-bottom: 75px;
+  }
+
+  .chapter p {
+    font-size: 1.05rem;
+  }
+
+  .book-nav {
+    font-size: 0.7rem;
+  }
+
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+a:focus {
+
+  outline: 2px solid #c7a765;
+
+  outline-offset: 4px;
+}
