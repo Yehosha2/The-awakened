@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>The Awakened — Book One</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Georgia, "Times New Roman", serif;
+      color: #eee;
+      background:
+        radial-gradient(circle at 50% 0%, #4b4124 0%, #17151a 28%, #07080c 65%, #020305 100%);
+      line-height: 1.8;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 50% 15%, rgba(255, 220, 130, 0.13), transparent 30%),
+        radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.04), transparent 25%),
+        radial-gradient(circle at 80% 70%, rgba(255, 215, 120, 0.04), transparent 25%);
+    }
+
+    .book {
+      width: min(900px, 92%);
+      margin: auto;
+      padding: 40px 0 80px;
+    }
+
+    .cover {
+      min-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .eye {
+      font-size: 3.5rem;
+      margin-bottom: 20px
