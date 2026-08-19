@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>The Awakened — Book One</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: #111;
+      color: #e8dfc8;
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    /* TOP BAR */
+
+    .reader-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(12, 12, 12, 0.96);
+      border-bottom: 1px solid #3b3528;
+      backdrop-filter: blur(10px);
+    }
+
+    .header-inner {
+      max-width: 1000px;
+      margin: auto;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .book-title {
+      font-size: 15px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .menu-button {
+      background: transparent;
+      border: 1px solid #5a513f;
+      color: #e8dfc8;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    /* PROGRESS */
+
+    .progress-container {
+      height: 3px;
+      background: #29251d;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: #b99b61;
+      transition: width 0.2s ease;
+    }
+
+    /* READER */
+
+    .reader {
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 70px 30px 100px;
+    }
+
+    .cover {
+      min-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      border-bottom: 1px solid #40382b;
+      margin-bottom: 80px;
+    }
+
+    .cover h1 {
+      font-size: clamp(42px, 8vw, 82px);
+      letter-spacing: 8px;
+      margin: 0;
+    }
+
+    .cover h2 {
+      font-weight: normal;
+      font-size: 20px;
+      margin-top: 25px;
+      letter-spacing: 3px;
+    }
+
+    .cover p {
+      margin-top: 60px;
+      max-width: 550px;
+      font-style: italic;
+      line-height: 1.8;
+      color: #b9af98;
+    }
+
+    /* CHAPTER */
+
+    .chapter {
+      margin-bottom: 120px;
+    }
+
+    .chapter-number {
+      text-align: center;
+      color: #a98c57;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      font-size: 14px;
+    }
+
+    .chapter h2 {
+      text-align: center;
+      font-size: clamp(30px, 6vw, 48px);
+      font-weight: normal;
+      margin: 15px 0 55px;
+    }
+
+    .chapter p {
+      font-size: 19px;
+      line-height: 2;
+      margin: 0 0 28px;
+    }
+
+    .chapter p:first-of-type::first-letter {
+      float: left;
+      font-size: 70px;
+      line-height: 55px;
+      padding-right: 8px;
+      color: #b99b61;
+    }
+
+    .scene-break {
+      text-align: center;
+      margin: 55px 0;
+      letter-spacing: 12px;
+      color: #9d895f;
+    }
+
+    /* NAVIGATION */
+
+    .reader-navigation {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      margin-top: 100px;
+      border-top: 1px solid #40382b;
+      padding-top: 30px;
+    }
+
+    .reader-navigation button {
+      background: #211e18;
+      color: #e8dfc8;
+      border: 1px solid #554b38;
+      padding: 13px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .reader-navigation button:hover {
+      background: #302a20;
+    }
+
+    .page-counter {
+      text-align: center;
+      color: #8f8777;
+      font-size: 13px;
+      margin-top: 20px;
+    }
+
+    /* CHAPTER MENU */
+
+    .chapter-menu {
+      display: none;
+      position: fixed;
+      top: 60px;
+      right: 15px;
+      width: 270px;
+      background: #181715;
+      border: 1px solid #4b4436;
+      padding: 20px;
+      z-index: 2000;
+      box-shadow: 0 15px 40px rgba(0,0,0,.5);
+    }
+
+    .chapter-menu.open {
+      display: block;
+    }
+
+    .chapter-menu h3 {
+      margin-top: 0;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .chapter-menu a {
+      display: block;
+      color: #d7ccb2;
+      text-decoration: none;
+      padding: 10px 0;
+      border-bottom: 1px solid #2e2a22;
+    }
+
+    .chapter-menu a:hover {
+      color: #c2a76c;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 600px) {
+
+      .reader {
+        padding: 45px 20px 70px;
+      }
+
+      .cover {
+        min-height: 70vh;
+      }
+
+      .chapter p {
+        font-size: 17px;
+        line-height: 1.9;
+      }
+
+      .chapter {
+        margin-bottom: 80px;
+      }
+
+      .reader-navigation button {
+        padding: 11px 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="reader-header">
+
+  <div class="header-inner">
+
+    <div class="book-title">
+      The Awakened
+    </div>
+
+    <button class="menu-button" onclick="toggleMenu()">
+      Chapters ☰
+    </button>
+
+  </div>
+
+  <div class="progress-container">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+
+</header>
+
+<!-- CHAPTER MENU -->
+
+<div class="chapter-menu" id="chapterMenu">
+
+  <h3>Book One</h3>
+
+  <a href="#chapter-1">Chapter One — Before the Beginning</a>
+  <a href="#chapter-2">Chapter Two — The Garden</a>
+  <a href="#chapter-3">Chapter Three — The First Breath</a>
+  <a href="#chapter-4">Chapter Four — The Watchers</a>
+  <a href="#chapter-5">Chapter Five — The Hidden Name</a>
+
+</div>
+
+
+<main class="reader">
+
+  <!-- COVER -->
+
+  <section class="cover">
+
+    <h1>THE AWAKENED</h1>
+
+    <h2>Book One: Before the Beginning</h2>
+
+    <p>
+      Before there were kingdoms, there were whispers.
+      Before there were temples, there were stars.
+      Before humanity remembered its beginning,
+      something was waiting in the darkness.
+    </p>
+
+  </section>
+
+
+  <!-- CHAPTER ONE -->
+
+  <section class="chapter" id="chapter-1">
+
+    <div class="chapter-number">
+      Chapter One
+    </div>
+
+    <h2>Before the Beginning</h2>
+
+    <p>
+      Before there were kingdoms, there were whispers.
+    </p>
+
+    <p>
+      Before there were temples, there were stars.
+    </p>
+
+    <p>
+      Before men carved the names of their gods into stone,
+      there was a mystery older than memory itself.
+    </p>
+
+    <p>
+      And before the first word was spoken upon the earth,
+      something was already waiting.
+    </p>
+
+    <p>
+      The night was silent.
+    </p>
+
+    <p>
+      Not the ordinary silence of sleeping villages or empty
+      deserts, but a silence so complete that it seemed the
+      universe itself had stopped breathing.
+    </p>
+
+    <p>
+      There was no moon.
+    </p>
+
+    <p>
+      No sun.
+    </p>
+
+    <p>
+      No wind moving through trees.
+    </p>
+
+    <p>
+      No sea breaking against a shore.
+    </p>
+
+    <p>
+      Only darkness.
+    </p>
+
+    <div class="scene-break">✦ ✦ ✦</div>
+
+    <p>
+      Then, somewhere beyond the boundaries of what would
+      one day be called creation, a light appeared.
+    </p>
+
+    <p>
+      It was not a flame.
+      It did not burn.
+      It did not cast shadows.
+      It simply existed.
+    </p>
+
+    <p>
+      And within that light stood a figure.
+    </p>
+
+    <p>
+      He was neither old nor young. His face seemed to change
+      whenever the darkness moved around him, as though time
+      itself could not decide what he was supposed to look like.
+    </p>
+
+    <p>
+      He looked into the emptiness.
+    </p>
+
+    <p>
+      And the emptiness looked back.
+    </p>
+
+    <p>
+      For an age beyond counting, nothing happened.
+    </p>
+
+    <p>
+      Then the figure spoke.
+    </p>
+
+    <p>
+      Not loudly.
+      Not with anger.
+      Not with force.
+    </p>
+
+    <p>
+      His voice moved through the darkness like the first
+      breath of existence.
+    </p>
+
+    <p>
+      <em>“Let there be light.”</em>
+    </p>
+
+    <p>
+      And the darkness remembered that it had never truly
+      been empty.
+    </p>
+
+    <p>
+      Something answered.
+    </p>
+
+    <p>
+      A thousand distant lights awakened.
+    </p>
+
+    <p>
+      Then a million.
+    </p>
+
+    <p>
+      Then more than the mind of any future human being
+      would ever be capable of counting.
+    </p>
+
+    <p>
+      The heavens unfolded.
+    </p>
+
+    <p>
+      Stars ignited across the infinite black.
+    </p>
+
+    <p>
+      Worlds formed in silence.
+    </p>
+
+    <p>
+      Dust became stone.
+      Stone became mountains.
+      Water gathered in places where there had never been oceans.
+    </p>
+
+    <div class="scene-break">✦ ✦ ✦</div>
+
+    <p>
+      And somewhere among the countless worlds, one small
+      blue sphere began its long journey toward humanity.
+    </p>
+
+    <p>
+      But the figure watched that world more closely than
+      all the others.
+    </p>
+
+    <p>
+      Because he knew what would happen there.
+    </p>
+
+    <p>
+      He knew about the first cities.
+      The first kings.
+      The first wars.
+      The first prayers.
+    </p>
+
+    <p>
+      He knew about prophets who would wander through
+      deserts carrying messages nobody wanted to hear.
+    </p>
+
+    <p>
+      And he knew that one day, in a small land between
+      empires, a child would be born.
+    </p>
+
+    <p>
+      A child whose name would travel farther than the
+      armies of kings.
+    </p>
+
+    <p>
+      A child who would be called many things.
+    </p>
+
+    <p>
+      Teacher.
+      Prophet.
+      Messiah.
+      Son.
+      Servant.
+      Light.
+    </p>
+
+    <p>
+      And by some, Yehoshua.
+    </p>
+
+    <p>
+      But that birth was still far away.
+    </p>
+
+    <p>
+      First came the beginning.
+    </p>
+
+    <p>
+      And before the beginning, there was a secret.
+    </p>
+
+    <p>
+      The secret was this:
+    </p>
+
+    <p>
+      <strong>
+        Humanity had never been abandoned.
+      </strong>
+    </p>
+
+    <p>
+      It had only forgotten how to listen.
+    </p>
+
+    <p>
+      The figure turned toward the newborn world.
+    </p>
+
+    <p>
+      For the first time, something resembling sorrow crossed
+      his face.
+    </p>
+
+    <p>
+      <em>“Soon,”</em> he whispered.
+    </p>
+
+    <p>
+      Then the stars moved.
+    </p>
+
+    <p>
+      And history began.
+    </p>
+
+  </section>
+
+
+  <!-- FUTURE CHAPTERS -->
+
+  <section class="chapter" id="chapter-2">
+
+    <div class="chapter-number">Chapter Two</div>
+
+    <h2>The Garden</h2>
+
+    <p>
+      The story of humanity had not yet begun.
+      But the place where it would begin was already being prepared.
+    </p>
+
+    <p>
+      Far below the heavens, rivers gathered beneath a sky
+      untouched by smoke, war, or the footsteps of kings.
+    </p>
+
+    <p>
+      Something was coming.
+    </p>
+
+  </section>
+
+
+  <section class="chapter" id="chapter-3">
+
+    <div class="chapter-number">Chapter Three</div>
+
+    <h2>The First Breath</h2>
+
+    <p>
+      The earth was silent when the first man opened his eyes.
+    </p>
+
+    <p>
+      He did not know his name.
+      He did not know the names of the stars.
+      He did not know fear.
+    </p>
+
+    <p>
+      He knew only that he was alive.
+    </p>
+
+  </section>
+
+
+  <section class="chapter" id="chapter-4">
+
+    <div class="chapter-number">Chapter Four</div>
+
+    <h2>The Watchers</h2>
+
+    <p>
+      Above the mountains, something watched.
+    </p>
+
+    <p>
+      They had watched humanity since the first breath.
+      Some were guardians.
+      Others had begun to wonder whether the laws of heaven
+      were meant to be broken.
+    </p>
+
+  </section>
+
+
+  <section class="chapter" id="chapter-5">
+
+    <div class="chapter-number">Chapter Five</div>
+
+    <h2>The Hidden Name</h2>
+
+    <p>
+      Generations would pass before the name Yehoshua was
+      spoken beneath the stars.
+    </p>
+
+    <p>
+      But the name already existed in the mystery waiting
+      at the beginning.
+    </p>
+
+  </section>
+
+
+  <!-- NAVIGATION -->
+
+  <div class="reader-navigation">
+
+    <button onclick="window.scrollTo({top:0, behavior:'smooth'})">
+      ↑ Beginning
+    </button>
+
+    <button onclick="nextChapter()">
+      Next Chapter →
+    </button>
+
+  </div>
+
+  <div class="page-counter">
+    Book One · Before the Beginning
+  </div>
+
+</main>
+
+
+<script>
+
+  function toggleMenu() {
+    document
+      .getElementById("chapterMenu")
+      .classList.toggle("open");
+  }
+
+
+  /* READING PROGRESS */
+
+  window.addEventListener("scroll", function () {
+
+    const scrollTop =
+      document.documentElement.scrollTop ||
+      document.body.scrollTop;
+
+    const scrollHeight =
+      document.documentElement.scrollHeight -
+      document.documentElement.clientHeight;
+
+    const progress =
+      (scrollTop / scrollHeight) * 100;
+
+    document.getElementById("progressBar").style.width =
+      progress + "%";
+
+  });
+
+
+  /* NEXT CHAPTER */
+
+  function nextChapter() {
+
+    const chapters =
+      document.querySelectorAll(".chapter");
+
+    const current =
+      window.scrollY;
+
+    for (let i = 0; i < chapters.length; i++) {
+
+      if (chapters[i].offsetTop > current + 100) {
+
+        chapters[i].scrollIntoView({
+          behavior: "smooth"
+        });
+
+        break;
+      }
+
+    }
+
+  }
+
+</script>
+
+</body>
+</html>
