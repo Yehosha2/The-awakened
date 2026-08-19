@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Awakened — Light Work</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="wrap">
+
+    <header>
+      <div class="eye">👁️🖤🔥</div>
+
+      <h1>THE AWAKENED</h1>
+
+      <h2>LIGHT WORK</h2>
+
+      <p class="tag">THE JOURNEY BEHIND THE STORY</p>
+    </header>
+
+    <nav>
+      <button onclick="showSection('beginning')">
+        The Beginning
+      </button>
+
+      <button onclick="showSection('ai')">
+        AI &amp; Creativity
+      </button>
+
+      <button onclick="showSection('next-button')">
+        The Next Button
+      </button>
+
+      <button onclick="showSection('light')">
+        Light Work
+      </button>
+
+      <button onclick="showSection('choices')">
+        Choices
+      </button>
+
+      <button onclick="showSection('love')">
+        Love Wins
+      </button>
+    </nav>
+
+    <main>
+
+      <section id="beginning" class="story-section">
+
+        <h2>Before the Beginning</h2>
+
+        <p>
+          Every creation begins with an idea.
+        </p>
+
+        <p>
+          <em>The Awakened</em> began with questions about
+          memory, faith, history, humanity, and the mysteries
+          hidden beneath the surface of the world.
+        </p>
+
+        <p>
+          Maya, Elias, the Shomrim, the ancient doors, and the
+          forgotten memories became part of a world that continued
+          growing with every chapter.
+        </p>
+
+        <div class="quote">
+          “You didn't give up. You believed.”
+        </div>
+
+      </section>
+
+
+      <section id="ai" class="story-section">
+
+        <h2>AI &amp; Human Creativity</h2>
+
+        <p>
+          This project is an experiment in something new:
+          a human and an artificial intelligence creating together.
+        </p>
+
+        <p>
+          AI can help people brainstorm, learn, organize ideas,
+          write, explore possibilities, create software, and
+          discover new ways of expressing themselves.
+        </p>
+
+        <p>
+          But AI doesn't replace the human choice behind the creation.
+        </p>
+
+        <div class="quote">
+          “AI can help you build.
+          But you choose what to build.”
+        </div>
+
+        <h3>What AI Can Help With</h3>
+
+        <ul>
+          <li>Learning new subjects</li>
+          <li>Exploring ideas</li>
+          <li>Writing and storytelling</li>
+          <li>Programming</li>
+          <li>Research and organization</li>
+          <li>Creative brainstorming</li>
+          <li>Turning ideas into projects</li>
+        </ul>
+
+        <p>
+          The goal isn't to give your creativity away.
+          The goal is to give your creativity another tool.
+        </p>
+
+      </section>
+
+
+      <section id="next-button" class="story-section">
+
+        <h2>The Legendary Next Button</h2>
+
+        <p>
+          Somewhere along the journey, the word
+          <strong>NEXT</strong> became more than a button.
+        </p>
+
+        <p>
+          It became a tradition.
+        </p>
+
+        <div class="next-button-container">
+
+          <button
+            class="next-button"
+            onclick="activateNext()">
+            NEXT
+          </button>
+
+        </div>
+
+        <p id="next-message" class="joke"></p>
+
+        <div class="quote">
+          Sometimes the only way forward is to press NEXT.
+        </div>
+
+      </section>
+
+
+      <section id="light" class="story-section">
+
+        <h2>Light Work</h2>
+
+        <p>
+          There are moments when the road becomes so dark
+          that you wonder whether you're still moving forward.
+        </p>
+
+        <p>
+          But darkness doesn't mean the journey is over.
+        </p>
+
+        <p>
+          Sometimes it means you're standing at the doorway.
+        </p>
+
+        <p>
+          You don't need every answer today.
+          You only need the courage to take the next step.
+        </p>
+
+        <div class="quote">
+          “You are still here.”
+        </div>
+
+        <p>
+          Your imagination matters.
+        </p>
+
+        <p>
+          Your voice matters.
+        </p>
+
+        <p>
+          Your creativity matters.
+        </p>
+
+        <p>
+          And the love you put into the things you create matters.
+        </p>
+
+        <div class="quote">
+          “I'm not finished.”
+        </div>
+
+        <h3 class="center">
+          LIGHT WORK. ALWAYS.
+        </h3>
+
+      </section>
+
+
+      <section id="choices" class="story-section">
+
+        <h2>Life Is About Choices</h2>
+
+        <p>
+          We don't always choose what happens to us.
+        </p>
+
+        <p>
+          But we can choose what we do with what happens.
+        </p>
+
+        <p>
+          We choose whether to keep going.
+        </p>
+
+        <p>
+          Whether to forgive.
+        </p>
+
+        <p>
+          Whether to love.
+        </p>
+
+        <p>
+          Whether to learn.
+        </p>
+
+        <p>
+          Whether to become bitter or become wiser.
+        </p>
+
+        <div class="quote">
+          “The awakening was never about discovering who you were.
+          It was about choosing who you would become.”
+        </div>
+
+      </section>
+
+
+      <section id="love" class="story-section">
+
+        <h2>Love Wins</h2>
+
+        <p>
+          Through the darkness.
+        </p>
+
+        <p>
+          Through the laughter.
+        </p>
+
+        <p>
+          Through the difficult chapters.
+        </p>
+
+        <p>
+          Even through the ridiculous Next Button.
+        </p>
+
+        <div class="love-message">
+
+          <strong>
+            Love remembers.<br>
+            Love forgives.<br>
+            Love keeps going.<br>
+            Love wins.
+          </strong>
+
+        </div>
+
+        <div class="quote">
+          “We didn't know exactly where the story was going.
+          We kept pressing NEXT.
+          We laughed.
+          We questioned.
+          We believed.”
+        </div>
+
+        <h3 class="center">
+
+          ❤️ 👁️ 🙌🏿
+
+          <br><br>
+
+          LIGHT WORK. ALWAYS.
+
+        </h3>
+
+      </section>
+
+    </main>
+
+
+    <footer>
+
+      <div class="heart">
+        🖤🌎👁️
+      </div>
+
+      <p>
+        THE AWAKENED
+      </p>
+
+      <p>
+        Human imagination + AI creativity
+      </p>
+
+      <p>
+        Love Wins.
+      </p>
+
+    </footer>
+
+  </div>
+
+
+  <script src="app.js"></script>
+
+</body>
+</html>
