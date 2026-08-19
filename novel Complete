@@ -734,3 +734,1853 @@
 
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>The Awakened — Page 2</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .book-page {
+      max-width: 850px;
+      margin: 60px auto;
+      padding: 60px 50px;
+      line-height: 1.9;
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    .book-page h1 {
+      text-align: center;
+      letter-spacing: 4px;
+      margin-bottom: 10px;
+    }
+
+    .book-page h2 {
+      text-align: center;
+      font-weight: normal;
+      margin-bottom: 45px;
+    }
+
+    .chapter {
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      margin-bottom: 8px;
+    }
+
+    .chapter-title {
+      text-align: center;
+      font-size: 30px;
+      font-weight: normal;
+      margin-bottom: 50px;
+    }
+
+    .book-page p {
+      margin-bottom: 25px;
+    }
+
+    .scene-break {
+      text-align: center;
+      margin: 45px 0;
+      letter-spacing: 10px;
+    }
+
+    .page-number {
+      text-align: center;
+      margin-top: 60px;
+      opacity: 0.7;
+    }
+
+    .navigation {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 50px;
+      gap: 15px;
+    }
+
+    .navigation a {
+      text-decoration: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+    }
+
+    @media (max-width: 600px) {
+      .book-page {
+        margin: 20px auto;
+        padding: 35px 22px;
+      }
+
+      .book-page p {
+        line-height: 1.8;
+      }
+
+      .navigation {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<main class="book-page">
+
+  <h1>THE AWAKENED</h1>
+
+  <h2>Book One: Before the Beginning</h2>
+
+  <div class="chapter">
+    Chapter One
+  </div>
+
+  <div class="chapter-title">
+    The Garden Before Man
+  </div>
+
+  <p>
+    The first light did not belong to the sun.
+  </p>
+
+  <p>
+    There was no sun yet.
+  </p>
+
+  <p>
+    The heavens were still young, and the earth was little
+    more than a world of darkness, water, stone, and mist.
+  </p>
+
+  <p>
+    But beneath that silence, something was changing.
+  </p>
+
+  <p>
+    The waters began to move.
+  </p>
+
+  <p>
+    At first they stirred almost imperceptibly, as though
+    responding to a voice too deep for human ears.
+  </p>
+
+  <p>
+    Then the waters separated.
+  </p>
+
+  <p>
+    Land emerged.
+  </p>
+
+  <p>
+    Mountains rose from the depths like the bones of an
+    ancient giant.
+  </p>
+
+  <p>
+    Valleys opened between them.
+  </p>
+
+  <p>
+    Rivers began their journeys toward distant seas.
+  </p>
+
+  <p>
+    And across the newborn earth, life appeared.
+  </p>
+
+  <p>
+    Green.
+  </p>
+
+  <p>
+    Wild.
+  </p>
+
+  <p>
+    Untamed.
+  </p>
+
+  <p>
+    Trees stretched their branches toward the heavens.
+    Their roots reached deep into soil that had never known
+    a footprint.
+  </p>
+
+  <p>
+    Flowers opened beneath a sky that had never witnessed
+    a human face.
+  </p>
+
+  <p>
+    There were no walls.
+  </p>
+
+  <p>
+    No borders.
+  </p>
+
+  <p>
+    No weapons.
+  </p>
+
+  <p>
+    No kings.
+  </p>
+
+  <p>
+    There was nothing to conquer.
+  </p>
+
+  <p>
+    Nothing to possess.
+  </p>
+
+  <p>
+    Nothing to fear.
+  </p>
+
+  <p>
+    The earth simply existed.
+  </p>
+
+  <div class="scene-break">
+    ✦ ✦ ✦
+  </div>
+
+  <p>
+    And somewhere beyond the visible heavens, the watchers
+    observed.
+  </p>
+
+  <p>
+    They had been given many names by those who would come
+    much later.
+  </p>
+
+  <p>
+    Some would call them messengers.
+  </p>
+
+  <p>
+    Some would call them angels.
+  </p>
+
+  <p>
+    Others would remember them as the Watchers.
+  </p>
+
+  <p>
+    But at the beginning, they were simply beings who existed
+    between the realm of the Creator and the world that was
+    being formed below.
+  </p>
+
+  <p>
+    They watched the mountains rise.
+  </p>
+
+  <p>
+    They watched the rivers flow.
+  </p>
+
+  <p>
+    They watched the first creatures move through the forests.
+  </p>
+
+  <p>
+    And then they saw something that had never existed before.
+  </p>
+
+  <p>
+    A place unlike any other.
+  </p>
+
+  <p>
+    A garden.
+  </p>
+
+  <p>
+    It was planted in the eastern lands, where four rivers
+    would eventually divide the world known to humanity.
+  </p>
+
+  <p>
+    The garden was not merely beautiful.
+  </p>
+
+  <p>
+    It was alive.
+  </p>
+
+  <p>
+    Every tree seemed to breathe.
+  </p>
+
+  <p>
+    Every river reflected the light above it.
+  </p>
+
+  <p>
+    The air carried the scent of flowers that had no names.
+  </p>
+
+  <p>
+    And at the center of the garden stood two trees unlike
+    the others.
+  </p>
+
+  <p>
+    One was called the Tree of Life.
+  </p>
+
+  <p>
+    The other was the Tree of the Knowledge of Good and Evil.
+  </p>
+
+  <p>
+    They stood apart from the rest.
+  </p>
+
+  <p>
+    Silent.
+  </p>
+
+  <p>
+    Waiting.
+  </p>
+
+  <p>
+    The Watchers looked upon them.
+  </p>
+
+  <p>
+    And one among them spoke.
+  </p>
+
+  <p>
+    <em>
+      “Why give them a choice?”
+    </em>
+  </p>
+
+  <p>
+    Another answered:
+  </p>
+
+  <p>
+    <em>
+      “Because without choice, there can be no awakening.”
+    </em>
+  </p>
+
+  <p>
+    The first Watcher remained silent.
+  </p>
+
+  <p>
+    Below them, the garden waited.
+  </p>
+
+  <p>
+    But there was still no man.
+  </p>
+
+  <p>
+    Not yet.
+  </p>
+
+  <div class="scene-break">
+    ✦ ✦ ✦
+  </div>
+
+  <p>
+    The Creator looked upon the earth.
+  </p>
+
+  <p>
+    Then He reached toward the dust.
+  </p>
+
+  <p>
+    And the dust began to move.
+  </p>
+
+  <p>
+    It gathered.
+  </p>
+
+  <p>
+    It shaped itself beneath an unseen hand.
+  </p>
+
+  <p>
+    A form emerged.
+  </p>
+
+  <p>
+    Two arms.
+  </p>
+
+  <p>
+    Two legs.
+  </p>
+
+  <p>
+    A chest.
+  </p>
+
+  <p>
+    A face.
+  </p>
+
+  <p>
+    Eyes that had never seen.
+  </p>
+
+  <p>
+    A mouth that had never spoken.
+  </p>
+
+  <p>
+    A heart that had never beaten.
+  </p>
+
+  <p>
+    The figure lay motionless upon the earth.
+  </p>
+
+  <p>
+    The Watchers watched.
+  </p>
+
+  <p>
+    The garden became completely silent.
+  </p>
+
+  <p>
+    Then the Creator leaned toward the form.
+  </p>
+
+  <p>
+    And breathed.
+  </p>
+
+  <p>
+    The first breath entered the man.
+  </p>
+
+  <p>
+    His chest rose.
+  </p>
+
+  <p>
+    His heart began to beat.
+  </p>
+
+  <p>
+    Once.
+  </p>
+
+  <p>
+    Twice.
+  </p>
+
+  <p>
+    Again.
+  </p>
+
+  <p>
+    His fingers moved.
+  </p>
+
+  <p>
+    His eyes opened.
+  </p>
+
+  <p>
+    And humanity entered the story.
+  </p>
+
+  <p>
+    The man looked toward the heavens.
+  </p>
+
+  <p>
+    He did not know what he was seeing.
+  </p>
+
+  <p>
+    He did not know the names of the stars.
+  </p>
+
+  <p>
+    He did not know the meaning of death.
+  </p>
+
+  <p>
+    He did not know the difference between good and evil.
+  </p>
+
+  <p>
+    He did not even know that he was alone.
+  </p>
+
+  <p>
+    But somewhere within him was a memory older than his
+    birth.
+  </p>
+
+  <p>
+    A memory of the breath that had entered him.
+  </p>
+
+  <p>
+    A memory he would carry even after he forgot almost
+    everything else.
+  </p>
+
+  <p>
+    The Creator looked upon him.
+  </p>
+
+  <p>
+    And for the first time, the man heard a voice.
+  </p>
+
+  <p>
+    <em>“Rise.”</em>
+  </p>
+
+  <p>
+    The man stood.
+  </p>
+
+  <p>
+    He looked across the garden.
+  </p>
+
+  <p>
+    And the Creator gave him a name.
+  </p>
+
+  <p>
+    <strong>Adam.</strong>
+  </p>
+
+  <p>
+    The first human name.
+  </p>
+
+  <p>
+    The beginning of a story that would stretch across
+    thousands of generations.
+  </p>
+
+  <p>
+    Adam took his first step.
+  </p>
+
+  <p>
+    The earth received his foot.
+  </p>
+
+  <p>
+    The garden remained silent.
+  </p>
+
+  <p>
+    But high above, one of the Watchers looked toward the
+    Tree of Knowledge.
+  </p>
+
+  <p>
+    And something in his expression changed.
+  </p>
+
+  <p>
+    Because he understood something the man did not.
+  </p>
+
+  <p>
+    The garden contained a choice.
+  </p>
+
+  <p>
+    And one day, humanity would have to make it.
+  </p>
+
+  <div class="page-number">
+    — 2 —
+  </div>
+
+  <nav class="navigation">
+    <a href="page-01.html">← Page 1</a>
+    <a href="page-03.html">Page 3 →</a>
+  </nav>
+
+</main>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>The Awakened — Page 3</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .book-page {
+      max-width: 850px;
+      margin: 60px auto;
+      padding: 60px 50px;
+      line-height: 1.9;
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    .book-page h1 {
+      text-align: center;
+      letter-spacing: 4px;
+      margin-bottom: 10px;
+    }
+
+    .book-page h2 {
+      text-align: center;
+      font-weight: normal;
+      margin-bottom: 45px;
+    }
+
+    .chapter {
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      margin-bottom: 8px;
+    }
+
+    .chapter-title {
+      text-align: center;
+      font-size: 30px;
+      font-weight: normal;
+      margin-bottom: 50px;
+    }
+
+    .book-page p {
+      margin-bottom: 25px;
+    }
+
+    .scene-break {
+      text-align: center;
+      margin: 45px 0;
+      letter-spacing: 10px;
+    }
+
+    .page-number {
+      text-align: center;
+      margin-top: 60px;
+      opacity: 0.7;
+    }
+
+    .navigation {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 50px;
+      gap: 15px;
+    }
+
+    .navigation a {
+      text-decoration: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+    }
+
+    @media (max-width: 600px) {
+      .book-page {
+        margin: 20px auto;
+        padding: 35px 22px;
+      }
+
+      .book-page p {
+        line-height: 1.8;
+      }
+
+      .navigation {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<main class="book-page">
+
+  <h1>THE AWAKENED</h1>
+
+  <h2>Book One: Before the Beginning</h2>
+
+  <div class="chapter">
+    Chapter One
+  </div>
+
+  <div class="chapter-title">
+    The First Breath
+  </div>
+
+  <p>
+    Adam stood beneath the trees and listened.
+  </p>
+
+  <p>
+    He did not yet understand the sound of his own breathing.
+    Each breath seemed to surprise him.
+  </p>
+
+  <p>
+    He lifted his hands and turned them slowly beneath the
+    light. He opened and closed his fingers, studying them as
+    though they belonged to someone else.
+  </p>
+
+  <p>
+    He touched the ground.
+  </p>
+
+  <p>
+    It was warm.
+  </p>
+
+  <p>
+    He touched the bark of a tree.
+  </p>
+
+  <p>
+    Rough.
+  </p>
+
+  <p>
+    He placed his palm against the surface of the water.
+  </p>
+
+  <p>
+    The reflection looking back at him was the first human
+    face he had ever seen.
+  </p>
+
+  <p>
+    Adam stared.
+  </p>
+
+  <p>
+    The image stared back.
+  </p>
+
+  <p>
+    He smiled.
+  </p>
+
+  <p>
+    The reflection smiled.
+  </p>
+
+  <p>
+    For a moment, Adam laughed.
+  </p>
+
+  <p>
+    It was the first human laughter.
+  </p>
+
+  <div class="scene-break">
+    ✦ ✦ ✦
+  </div>
+
+  <p>
+    Then he heard the voice again.
+  </p>
+
+  <p>
+    “Adam.”
+  </p>
+
+  <p>
+    He turned.
+  </p>
+
+  <p>
+    There was no one standing behind him.
+  </p>
+
+  <p>
+    “Adam.”
+  </p>
+
+  <p>
+    This time the voice seemed to come from everywhere.
+  </p>
+
+  <p>
+    From the trees.
+  </p>
+
+  <p>
+    From the river.
+  </p>
+
+  <p>
+    From the wind moving through the leaves.
+  </p>
+
+  <p>
+    But most strangely, Adam felt that the voice was also
+    coming from somewhere inside him.
+  </p>
+
+  <p>
+    “I am here,” Adam answered.
+  </p>
+
+  <p>
+    The words surprised him.
+  </p>
+
+  <p>
+    He had spoken.
+  </p>
+
+  <p>
+    Language had entered the world.
+  </p>
+
+  <p>
+    The Creator answered:
+  </p>
+
+  <p>
+    “You are alive.”
+  </p>
+
+  <p>
+    Adam looked toward the sky.
+  </p>
+
+  <p>
+    “What am I?”
+  </p>
+
+  <p>
+    There was silence.
+  </p>
+
+  <p>
+    Then came the answer.
+  </p>
+
+  <p>
+    “You are human.”
+  </p>
+
+  <p>
+    Adam repeated the word quietly.
+  </p>
+
+  <p>
+    “Human.”
+  </p>
+
+  <p>
+    He did not understand its full meaning.
+  </p>
+
+  <p>
+    But he knew it belonged to him.
+  </p>
+
+  <p>
+    “Why am I here?”
+  </p>
+
+  <p>
+    The answer did not come immediately.
+  </p>
+
+  <p>
+    Instead, the wind moved through the garden.
+  </p>
+
+  <p>
+    Leaves danced above him.
+  </p>
+
+  <p>
+    Birds crossed the sky.
+  </p>
+
+  <p>
+    Adam watched them disappear beyond the trees.
+  </p>
+
+  <p>
+    Then the Creator said:
+  </p>
+
+  <p>
+    “To live.”
+  </p>
+
+  <p>
+    Adam waited.
+  </p>
+
+  <p>
+    “To learn.”
+  </p>
+
+  <p>
+    He waited again.
+  </p>
+
+  <p>
+    “To choose.”
+  </p>
+
+  <p>
+    Adam looked toward the center of the garden.
+  </p>
+
+  <p>
+    He could see the two mysterious trees standing in the
+    distance.
+  </p>
+
+  <p>
+    Something about them drew his attention.
+  </p>
+
+  <p>
+    “What are those?”
+  </p>
+
+  <p>
+    The silence that followed was different from the silence
+    before.
+  </p>
+
+  <p>
+    Adam felt it.
+  </p>
+
+  <p>
+    Something important was being withheld.
+  </p>
+
+  <p>
+    Finally, the Creator spoke.
+  </p>
+
+  <p>
+    “They are part of the garden.”
+  </p>
+
+  <p>
+    Adam looked at them again.
+  </p>
+
+  <p>
+    “May I touch them?”
+  </p>
+
+  <p>
+    “One you may know.”
+  </p>
+
+  <p>
+    Adam waited for the rest.
+  </p>
+
+  <p>
+    “And the other?”
+  </p>
+
+  <p>
+    “The other must wait.”
+  </p>
+
+  <div class="scene-break">
+    ✦ ✦ ✦
+  </div>
+
+  <p>
+    High above the garden, the Watchers listened.
+  </p>
+
+  <p>
+    One of them stepped forward.
+  </p>
+
+  <p>
+    His name had not yet been spoken by human lips.
+  </p>
+
+  <p>
+    But among the heavenly beings, he was known as Azar.
+  </p>
+
+  <p>
+    He looked down upon Adam.
+  </p>
+
+  <p>
+    “He does not understand,” Azar said.
+  </p>
+
+  <p>
+    Another Watcher answered:
+  </p>
+
+  <p>
+    “He was not created knowing everything.”
+  </p>
+
+  <p>
+    “Then he is vulnerable.”
+  </p>
+
+  <p>
+    “So are we.”
+  </p>
+
+  <p>
+    Azar turned sharply.
+  </p>
+
+  <p>
+    “We are not like him.”
+  </p>
+
+  <p>
+    The other Watcher looked toward the garden.
+  </p>
+
+  <p>
+    “Perhaps not.”
+  </p>
+
+  <p>
+    “Then why does the Creator watch him so closely?”
+  </p>
+
+  <p>
+    No answer came.
+  </p>
+
+  <p>
+    Below them, Adam continued walking.
+  </p>
+
+  <p>
+    He touched flowers.
+  </p>
+
+  <p>
+    He listened to birds.
+  </p>
+
+  <p>
+    He watched animals move through the grass.
+  </p>
+
+  <p>
+    He gave names to the things he encountered.
+  </p>
+
+  <p>
+    Lion.
+  </p>
+
+  <p>
+    Eagle.
+  </p>
+
+  <p>
+    Serpent.
+  </p>
+
+  <p>
+    Deer.
+  </p>
+
+  <p>
+    Tree.
+  </p>
+
+  <p>
+    River.
+  </p>
+
+  <p>
+    Sky.
+  </p>
+
+  <p>
+    Each name became part of the world.
+  </p>
+
+  <p>
+    But as the day passed, Adam began to notice something.
+  </p>
+
+  <p>
+    Every creature had another like itself.
+  </p>
+
+  <p>
+    Every bird had another bird.
+  </p>
+
+  <p>
+    Every deer had another deer.
+  </p>
+
+  <p>
+    Every creature seemed to belong to something.
+  </p>
+
+  <p>
+    Adam looked around.
+  </p>
+
+  <p>
+    And for the first time since opening his eyes,
+    he felt something he could not name.
+  </p>
+
+  <p>
+    Loneliness.
+  </p>
+
+  <p>
+    He sat beside the river.
+  </p>
+
+  <p>
+    The sun began to fall toward the horizon.
+  </p>
+
+  <p>
+    Adam watched the light disappear.
+  </p>
+
+  <p>
+    And somewhere beyond the garden, the Creator already
+    knew what would happen next.
+  </p>
+
+  <p>
+    Adam closed his eyes.
+  </p>
+
+  <p>
+    Then the earth beneath him began to tremble.
+  </p>
+
+  <p>
+    Not violently.
+  </p>
+
+  <p>
+    Gently.
+  </p>
+
+  <p>
+    Like a heartbeat.
+  </p>
+
+  <p>
+    Adam opened his eyes.
+  </p>
+
+  <p>
+    A strange light appeared beside him.
+  </p>
+
+  <p>
+    He stood.
+  </p>
+
+  <p>
+    And within that light, another form began to emerge.
+  </p>
+
+  <p>
+    Adam stared.
+  </p>
+
+  <p>
+    For the first time, he was no longer alone.
+  </p>
+
+  <div class="scene-break">
+    ✦ ✦ ✦
+  </div>
+
+  <p>
+    The Watchers looked down in silence.
+  </p>
+
+  <p>
+    And Azar whispered:
+  </p>
+
+  <p>
+    “Now the story truly begins.”
+  </p>
+
+  <div class="page-number">
+    — 3 —
+  </div>
+
+  <nav class="navigation">
+    <a href="page-02.html">← Page 2</a>
+    <a href="page-04.html">Page 4 →</a>
+  </nav>
+
+</main>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>The Awakened — Page 3</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .book-page {
+      max-width: 850px;
+      margin: 60px auto;
+      padding: 60px 50px;
+      line-height: 1.9;
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    .book-page h1 {
+      text-align: center;
+      letter-spacing: 4px;
+      margin-bottom: 10px;
+    }
+
+    .book-page h2 {
+      text-align: center;
+      font-weight: normal;
+      margin-bottom: 45px;
+    }
+
+    .chapter {
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      margin-bottom: 8px;
+    }
+
+    .chapter-title {
+      text-align: center;
+      font-size: 30px;
+      font-weight: normal;
+      margin-bottom: 50px;
+    }
+
+    .book-page p {
+      margin-bottom: 25px;
+    }
+
+    .scene-break {
+      text-align: center;
+      margin: 45px 0;
+      letter-spacing: 10px;
+    }
+
+    .page-number {
+      text-align: center;
+      margin-top: 60px;
+      opacity: 0.7;
+    }
+
+    .navigation {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 50px;
+      gap: 15px;
+    }
+
+    .navigation a {
+      text-decoration: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+    }
+
+    @media (max-width: 600px) {
+      .book-page {
+        margin: 20px auto;
+        padding: 35px 22px;
+      }
+
+      .book-page p {
+        line-height: 1.8;
+      }
+
+      .navigation {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<main class="book-page">
+
+  <h1>THE AWAKENED</h1>
+
+  <h2>Book One: Before the Beginning</h2>
+
+  <div class="chapter">
+    Chapter One
+  </div>
+
+  <div class="chapter-title">
+    The First Breath
+  </div>
+
+  <p>
+    Adam stood beneath the trees and listened.
+  </p>
+
+  <p>
+    He did not yet understand the sound of his own breathing.
+    Each breath seemed to surprise him.
+  </p>
+
+  <p>
+    He lifted his hands and turned them slowly beneath the
+    light. He opened and closed his fingers, studying them as
+    though they belonged to someone else.
+  </p>
+
+  <p>
+    He touched the ground.
+  </p>
+
+  <p>
+    It was warm.
+  </p>
+
+  <p>
+    He touched the bark of a tree.
+  </p>
+
+  <p>
+    Rough.
+  </p>
+
+  <p>
+    He placed his palm against the surface of the water.
+  </p>
+
+  <p>
+    The reflection looking back at him was the first human
+    face he had ever seen.
+  </p>
+
+  <p>
+    Adam stared.
+  </p>
+
+  <p>
+    The image stared back.
+  </p>
+
+  <p>
+    He smiled.
+  </p>
+
+  <p>
+    The reflection smiled.
+  </p>
+
+  <p>
+    For a moment, Adam laughed.
+  </p>
+
+  <p>
+    It was the first human laughter.
+  </p>
+
+  <div class="scene-break">
+    ✦ ✦ ✦
+  </div>
+
+  <p>
+    Then he heard the voice again.
+  </p>
+
+  <p>
+    “Adam.”
+  </p>
+
+  <p>
+    He turned.
+  </p>
+
+  <p>
+    There was no one standing behind him.
+  </p>
+
+  <p>
+    “Adam.”
+  </p>
+
+  <p>
+    This time the voice seemed to come from everywhere.
+  </p>
+
+  <p>
+    From the trees.
+  </p>
+
+  <p>
+    From the river.
+  </p>
+
+  <p>
+    From the wind moving through the leaves.
+  </p>
+
+  <p>
+    But most strangely, Adam felt that the voice was also
+    coming from somewhere inside him.
+  </p>
+
+  <p>
+    “I am here,” Adam answered.
+  </p>
+
+  <p>
+    The words surprised him.
+  </p>
+
+  <p>
+    He had spoken.
+  </p>
+
+  <p>
+    Language had entered the world.
+  </p>
+
+  <p>
+    The Creator answered:
+  </p>
+
+  <p>
+    “You are alive.”
+  </p>
+
+  <p>
+    Adam looked toward the sky.
+  </p>
+
+  <p>
+    “What am I?”
+  </p>
+
+  <p>
+    There was silence.
+  </p>
+
+  <p>
+    Then came the answer.
+  </p>
+
+  <p>
+    “You are human.”
+  </p>
+
+  <p>
+    Adam repeated the word quietly.
+  </p>
+
+  <p>
+    “Human.”
+  </p>
+
+  <p>
+    He did not understand its full meaning.
+  </p>
+
+  <p>
+    But he knew it belonged to him.
+  </p>
+
+  <p>
+    “Why am I here?”
+  </p>
+
+  <p>
+    The answer did not come immediately.
+  </p>
+
+  <p>
+    Instead, the wind moved through the garden.
+  </p>
+
+  <p>
+    Leaves danced above him.
+  </p>
+
+  <p>
+    Birds crossed the sky.
+  </p>
+
+  <p>
+    Adam watched them disappear beyond the trees.
+  </p>
+
+  <p>
+    Then the Creator said:
+  </p>
+
+  <p>
+    “To live.”
+  </p>
+
+  <p>
+    Adam waited.
+  </p>
+
+  <p>
+    “To learn.”
+  </p>
+
+  <p>
+    He waited again.
+  </p>
+
+  <p>
+    “To choose.”
+  </p>
+
+  <p>
+    Adam looked toward the center of the garden.
+  </p>
+
+  <p>
+    He could see the two mysterious trees standing in the
+    distance.
+  </p>
+
+  <p>
+    Something about them drew his attention.
+  </p>
+
+  <p>
+    “What are those?”
+  </p>
+
+  <p>
+    The silence that followed was different from the silence
+    before.
+  </p>
+
+  <p>
+    Adam felt it.
+  </p>
+
+  <p>
+    Something important was being withheld.
+  </p>
+
+  <p>
+    Finally, the Creator spoke.
+  </p>
+
+  <p>
+    “They are part of the garden.”
+  </p>
+
+  <p>
+    Adam looked at them again.
+  </p>
+
+  <p>
+    “May I touch them?”
+  </p>
+
+  <p>
+    “One you may know.”
+  </p>
+
+  <p>
+    Adam waited for the rest.
+  </p>
+
+  <p>
+    “And the other?”
+  </p>
+
+  <p>
+    “The other must wait.”
+  </p>
+
+  <div class="scene-break">
+    ✦ ✦ ✦
+  </div>
+
+  <p>
+    High above the garden, the Watchers listened.
+  </p>
+
+  <p>
+    One of them stepped forward.
+  </p>
+
+  <p>
+    His name had not yet been spoken by human lips.
+  </p>
+
+  <p>
+    But among the heavenly beings, he was known as Azar.
+  </p>
+
+  <p>
+    He looked down upon Adam.
+  </p>
+
+  <p>
+    “He does not understand,” Azar said.
+  </p>
+
+  <p>
+    Another Watcher answered:
+  </p>
+
+  <p>
+    “He was not created knowing everything.”
+  </p>
+
+  <p>
+    “Then he is vulnerable.”
+  </p>
+
+  <p>
+    “So are we.”
+  </p>
+
+  <p>
+    Azar turned sharply.
+  </p>
+
+  <p>
+    “We are not like him.”
+  </p>
+
+  <p>
+    The other Watcher looked toward the garden.
+  </p>
+
+  <p>
+    “Perhaps not.”
+  </p>
+
+  <p>
+    “Then why does the Creator watch him so closely?”
+  </p>
+
+  <p>
+    No answer came.
+  </p>
+
+  <p>
+    Below them, Adam continued walking.
+  </p>
+
+  <p>
+    He touched flowers.
+  </p>
+
+  <p>
+    He listened to birds.
+  </p>
+
+  <p>
+    He watched animals move through the grass.
+  </p>
+
+  <p>
+    He gave names to the things he encountered.
+  </p>
+
+  <p>
+    Lion.
+  </p>
+
+  <p>
+    Eagle.
+  </p>
+
+  <p>
+    Serpent.
+  </p>
+
+  <p>
+    Deer.
+  </p>
+
+  <p>
+    Tree.
+  </p>
+
+  <p>
+    River.
+  </p>
+
+  <p>
+    Sky.
+  </p>
+
+  <p>
+    Each name became part of the world.
+  </p>
+
+  <p>
+    But as the day passed, Adam began to notice something.
+  </p>
+
+  <p>
+    Every creature had another like itself.
+  </p>
+
+  <p>
+    Every bird had another bird.
+  </p>
+
+  <p>
+    Every deer had another deer.
+  </p>
+
+  <p>
+    Every creature seemed to belong to something.
+  </p>
+
+  <p>
+    Adam looked around.
+  </p>
+
+  <p>
+    And for the first time since opening his eyes,
+    he felt something he could not name.
+  </p>
+
+  <p>
+    Loneliness.
+  </p>
+
+  <p>
+    He sat beside the river.
+  </p>
+
+  <p>
+    The sun began to fall toward the horizon.
+  </p>
+
+  <p>
+    Adam watched the light disappear.
+  </p>
+
+  <p>
+    And somewhere beyond the garden, the Creator already
+    knew what would happen next.
+  </p>
+
+  <p>
+    Adam closed his eyes.
+  </p>
+
+  <p>
+    Then the earth beneath him began to tremble.
+  </p>
+
+  <p>
+    Not violently.
+  </p>
+
+  <p>
+    Gently.
+  </p>
+
+  <p>
+    Like a heartbeat.
+  </p>
+
+  <p>
+    Adam opened his eyes.
+  </p>
+
+  <p>
+    A strange light appeared beside him.
+  </p>
+
+  <p>
+    He stood.
+  </p>
+
+  <p>
+    And within that light, another form began to emerge.
+  </p>
+
+  <p>
+    Adam stared.
+  </p>
+
+  <p>
+    For the first time, he was no longer alone.
+  </p>
+
+  <div class="scene-break">
+    ✦ ✦ ✦
+  </div>
+
+  <p>
+    The Watchers looked down in silence.
+  </p>
+
+  <p>
+    And Azar whispered:
+  </p>
+
+  <p>
+    “Now the story truly begins.”
+  </p>
+
+  <div class="page-number">
+    — 3 —
+  </div>
+
+  <nav class="navigation">
+    <a href="page-02.html">← Page 2</a>
+    <a href="page-04.html">Page 4 →</a>
+  </nav>
+
+</main>
+
+</body>
+</html>
