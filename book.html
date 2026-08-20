@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>THE AWAKENED — Book One</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: #111;
+      color: #eee;
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    .reader {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .page {
+      display: none;
+      min-height: 100vh;
+      padding: 60px 30px 100px;
+      line-height: 1.8;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    .chapter-number {
+      text-align: center;
+      letter-spacing: 3px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      opacity: 0.7;
+    }
+
+    h1,
+    h2 {
+      text-align: center;
+    }
+
+    .divider {
+      text-align: center;
+      margin: 40px 0;
+    }
+
+    .controls {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      background: rgba(0, 0, 0, 0.92);
+      z-index: 1000;
+    }
+
+    button {
+      padding: 10px 18px;
+      border: 1px solid #777;
+      border-radius: 6px;
+      background: #222;
+      color: #fff;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    button:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    #pageCounter {
+      min-width: 110px;
+      text-align: center;
+      font-size: 13px;
+    }
+
+    .progress-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: #333;
+      z-index: 1001;
+    }
+
+    #progressBar {
+      width: 0%;
+      height: 100%;
+      background: #fff;
+      transition: width 0.2s ease;
+    }
+
+    #status {
+      text-align: center;
+      padding: 40px 20px;
+      color: #aaa;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="progress-container">
+    <div id="progressBar"></div>
+  </div>
+
+  <main id="reader" class="reader">
+
+    <div id="status">
+      Loading THE AWAKENED…
+    </div>
+
+  </main>
+
+  <div class="controls">
+
+    <button id="previousButton" onclick="previousPage()">
+      ← PREVIOUS
+    </button>
+
+    <span id="pageCounter">
+      Loading…
+    </span>
+
+    <button id="nextButton" onclick="nextPage()">
+      NEXT →
+    </button>
+
+    <button id="readButton" onclick="toggleReading()">
+      🔊 READ
+    </button>
+
+  </div>
+
+
+<script>
+
+/* =========================================
+   THE AWAKENED — READER
+========================================= */
+
+let pages = [];
+let currentPage = 0;
+
+
+/* =========================================
+   LOAD CHAPTERS
+========================================= */
+
+async function loadChapters() {
+
+  const reader = document.getElementById("reader");
+  const status = document.getElementById("status");
+
+  if (!reader) {
+    console.error("Reader container not found.");
+    return;
+  }
+
+  reader.innerHTML = "";
+
+  const chapters = [];
+
+  /* CHAPTERS 1–40 */
+
+  for (let i = 1; i <= 40; i++) {
+
+    const number =
+      String(i).padStart(2, "0");
+
+    chapters.push(
+      "chapters/chapter-" +
+      number +
+      ".html"
+    );
+
+  }
+
+  /* EPILOGUE */
+
+  chapters.push(
+    "chapters/epilogue.html"
+  );
+
+
+  let loadedCount = 0;
+
+
+  /* =========================================
+     LOAD EACH FILE
+  ========================================= */
+
+  for (const file of chapters) {
+
+    try {
+
+      console.log("Loading:", file);
+
+      const response =
+        await fetch(file);
+
+      if (!response.ok) {
+
+        console.warn(
+          "Chapter not found:",
+          file,
+          response.status
+        );
+
+        continue;
+      }
+
+
+      const html =
+        await response.text();
+
+
+      const parser =
+        new DOMParser();
+
+
+      const doc =
+        parser.parseFromString(
+          html,
+          "text/html"
+        );
+
+
+      /* =========================================
+         FIND PAGE ELEMENTS
+      ========================================= */
+
+      const chapterPages =
+        doc.querySelectorAll(".page");
+
+
+      if (chapterPages.length > 0) {
+
+        chapterPages.forEach(function(page) {
+
+          const newPage =
+            document.importNode(
+              page,
+              true
+            );
+
+          reader.appendChild(
+            newPage
+          );
+
+          loadedCount++;
+
+        });
+
+      } else {
+
+        /* =========================================
+           FALLBACK — USE MAIN
+        ========================================= */
+
+        const chapterMain =
+          doc.querySelector("main");
+
+
+        if (chapterMain) {
+
+          const newPage =
+            document.createElement("section");
+
+          newPage.className =
+            "page";
+
+
+          newPage.innerHTML =
+            chapterMain.innerHTML;
+
+
+          reader.appendChild(
+            newPage
+          );
+
+
+          loadedCount++;
+
+        } else {
+
+          console.warn(
+            "No .page or <main> found:",
+            file
+          );
+
+        }
+
+      }
+
+    } catch (error) {
+
+      console.error(
+        "Could not load:",
+        file,
+        error
+      );
+
+    }
+
+  }
+
+
+  /* =========================================
+     FIND LOADED PAGES
+  ========================================= */
+
+  pages =
+    reader.querySelectorAll(
+      ".page"
+    );
+
+
+  console.log(
+    "Total pages loaded:",
+    pages.length
+  );
+
+
+  if (pages.length === 0) {
+
+    reader.innerHTML = `
+      <div id="status">
+        <h2>THE AWAKENED</h2>
+        <p>
+          No chapters could be loaded.
+        </p>
+        <p>
+          Check the browser console for details.
+        </p>
+      </div>
+    `;
+
+    return;
+  }
+
+
+  /* =========================================
+     START AT PAGE ONE
+  ========================================= */
+
+  currentPage = 0;
+
+  showPage(0);
+
+}
+
+
+/* =========================================
+   PAGE DISPLAY
+========================================= */
+
+function showPage(pageNumber) {
+
+  if (!pages.length) {
+    return;
+  }
+
+
+  if (pageNumber < 0) {
+    pageNumber = 0;
+  }
+
+
+  if (
+    pageNumber >= pages.length
+  ) {
+
+    pageNumber =
+      pages.length - 1;
+
+  }
+
+
+  pages.forEach(
+    function(page, index) {
+
+      page.classList.toggle(
+        "active",
+        index === pageNumber
+      );
+
+    }
+  );
+
+
+  currentPage =
+    pageNumber;
+
+
+  /* PAGE COUNTER */
+
+  const counter =
+    document.getElementById(
+      "pageCounter"
+    );
+
+
+  if (counter) {
+
+    counter.textContent =
+      "Page " +
+      (currentPage + 1) +
+      " of " +
+      pages.length;
+
+  }
+
+
+  /* PREVIOUS */
+
+  const previous =
+    document.getElementById(
+      "previousButton"
+    );
+
+
+  if (previous) {
+
+    previous.disabled =
+      currentPage === 0;
+
+  }
+
+
+  /* NEXT */
+
+  const next =
+    document.getElementById(
+      "nextButton"
+    );
+
+
+  if (next) {
+
+    next.disabled =
+      currentPage ===
+      pages.length - 1;
+
+  }
+
+
+  /* PROGRESS */
+
+  const progressBar =
+    document.getElementById(
+      "progressBar"
+    );
+
+
+  if (progressBar) {
+
+    const progress =
+      (
+        (currentPage + 1) /
+        pages.length
+      ) * 100;
+
+
+    progressBar.style.width =
+      progress + "%";
+
+  }
+
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+}
+
+
+/* =========================================
+   NEXT PAGE
+========================================= */
+
+function nextPage() {
+
+  if (
+    currentPage <
+    pages.length - 1
+  ) {
+
+    if (
+      window.speechSynthesis
+    ) {
+
+      window.speechSynthesis.cancel();
+
+    }
+
+
+    showPage(
+      currentPage + 1
+    );
+
+  }
+
+}
+
+
+/* =========================================
+   PREVIOUS PAGE
+========================================= */
+
+function previousPage() {
+
+  if (
+    currentPage > 0
+  ) {
+
+    if (
+      window.speechSynthesis
+    ) {
+
+      window.speechSynthesis.cancel();
+
+    }
+
+
+    showPage(
+      currentPage - 1
+    );
+
+  }
+
+}
+
+
+/* =========================================
+   TEXT TO SPEECH
+========================================= */
+
+function getPageText(page) {
+
+  const clone =
+    page.cloneNode(true);
+
+
+  clone.querySelectorAll(
+    ".chapter-number, .divider"
+  ).forEach(
+    function(element) {
+
+      element.remove();
+
+    }
+  );
+
+
+  return clone.innerText
+    .replace(/\s+/g, " ")
+    .trim();
+
+}
+
+
+function readCurrentPage() {
+
+  if (
+    !("speechSynthesis" in window)
+  ) {
+
+    alert(
+      "Text-to-speech is not supported."
+    );
+
+    return;
+
+  }
+
+
+  if (!pages.length) {
+    return;
+  }
+
+
+  window.speechSynthesis.cancel();
+
+
+  const text =
+    getPageText(
+      pages[currentPage]
+    );
+
+
+  if (!text) {
+    return;
+  }
+
+
+  const speech =
+    new SpeechSynthesisUtterance(
+      text
+    );
+
+
+  speech.rate = 0.9;
+  speech.pitch = 1;
+  speech.volume = 1;
+
+
+  speech.onstart =
+    function() {
+
+      const button =
+        document.getElementById(
+          "readButton"
+        );
+
+
+      if (button) {
+
+        button.textContent =
+          "⏸ PAUSE";
+
+      }
+
+    };
+
+
+  speech.onend =
+    function() {
+
+      const button =
+        document.getElementById(
+          "readButton"
+        );
+
+
+      if (button) {
+
+        button.textContent =
+          "🔊 READ";
+
+      }
+
+    };
+
+
+  window.speechSynthesis.speak(
+    speech
+  );
+
+}
+
+
+function toggleReading() {
+
+  if (
+    !window.speechSynthesis
+  ) {
+
+    alert(
+      "Text-to-speech is not supported."
+    );
+
+    return;
+
+  }
+
+
+  if (
+    window.speechSynthesis.speaking
+  ) {
+
+    if (
+      window.speechSynthesis.paused
+    ) {
+
+      window.speechSynthesis.resume();
+
+      document.getElementById(
+        "readButton"
+      ).textContent =
+        "⏸ PAUSE";
+
+    } else {
+
+      window.speechSynthesis.pause();
+
+      document.getElementById(
+        "readButton"
+      ).textContent =
+        "▶️ RESUME";
+
+    }
+
+  } else {
+
+    readCurrentPage();
+
+  }
+
+}
+
+
+/* =========================================
+   KEYBOARD CONTROLS
+========================================= */
+
+document.addEventListener(
+  "keydown",
+  function(event) {
+
+    if (
+      event.key === "ArrowRight"
+    ) {
+
+      nextPage();
+
+    }
+
+
+    if (
+      event.key === "ArrowLeft"
+    ) {
+
+      previousPage();
+
+    }
+
+  }
+);
+
+
+/* =========================================
+   START READER
+========================================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function() {
+
+    loadChapters();
+
+  }
+);
+
+</script>
+
+</body>
+</html>
