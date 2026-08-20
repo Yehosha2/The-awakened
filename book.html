@@ -1029,249 +1029,119 @@ uh<!DOCTYPE html>
 
 <script>
 
-<script>
-
-  const pages = document.querySelectorAll(".page");
-
-  let currentPage = 0;
 
 
-  /* =========================
-     TEXT TO SPEECH
-  ========================= */
+const pages = document.querySelectorAll(".page");
+let currentPage = 0;
 
-  function getPageText(page) {
 
-    const clone = page.cloneNode(true);
+/* =========================
+   SHOW PAGE
+========================= */
 
-    clone.querySelectorAll(".chapter-number").forEach(function(el) {
-      el.remove();
-    });
+function showPage(pageNumber) {
 
-    return clone.textContent
-      .replace(/\s+/g, " ")
-      .trim();
+  if (pageNumber < 0) {
+    pageNumber = 0;
   }
 
-
-  function stopReading() {
-
-    if ("speechSynthesis" in window) {
-      window.speechSynthesis.cancel();
-    }
-
-    const button = document.getElementById("readButton");
-
-    if (button) {
-      button.textContent = "🔊 READ";
-    }
+  if (pageNumber >= pages.length) {
+    pageNumber = pages.length - 1;
   }
 
+  pages.forEach(function(page, index) {
 
-  function readCurrentPage() {
-
-    if (!("speechSynthesis" in window)) {
-      alert("Text-to-speech is not supported on this browser.");
-      return;
-    }
-
-    stopReading();
-
-    const text = getPageText(pages[currentPage]);
-
-    if (!text) {
-      return;
-    }
-
-    const speech = new SpeechSynthesisUtterance(text);
-
-    speech.rate = 0.9;
-    speech.pitch = 1;
-    speech.volume = 1;
-
-    speech.onstart = function() {
-
-      const button = document.getElementById("readButton");
-
-      if (button) {
-        button.textContent = "⏸ PAUSE";
-      }
-
-    };
-
-
-    speech.onend = function() {
-
-      const button = document.getElementById("readButton");
-
-      if (button) {
-        button.textContent = "🔊 READ";
-      }
-
-    };
-
-
-    speech.onerror = function() {
-
-      const button = document.getElementById("readButton");
-
-      if (button) {
-        button.textContent = "🔊 READ";
-      }
-
-    };
-
-
-    window.speechSynthesis.speak(speech);
-
-  }
-
-
-  function toggleReading() {
-
-    if (!("speechSynthesis" in window)) {
-      alert("Text-to-speech is not supported on this browser.");
-      return;
-    }
-
-
-    if (window.speechSynthesis.speaking) {
-
-      if (window.speechSynthesis.paused) {
-
-        window.speechSynthesis.resume();
-
-        document.getElementById("readButton").textContent =
-          "⏸ PAUSE";
-
-      } else {
-
-        window.speechSynthesis.pause();
-
-        document.getElementById("readButton").textContent =
-          "▶️ RESUME";
-
-      }
-
+    if (index === pageNumber) {
+      page.classList.add("active");
     } else {
-
-      readCurrentPage();
-
+      page.classList.remove("active");
     }
 
+  });
+
+  currentPage = pageNumber;
+
+
+  /* PAGE COUNTER */
+
+  const counter = document.getElementById("pageCounter");
+
+  if (counter) {
+    counter.textContent =
+      "Page " + (currentPage + 1) +
+      " of " + pages.length;
   }
 
 
-  /* =========================
-     SHOW PAGE
-  ========================= */
+  /* PREVIOUS */
 
-  function showPage(pageNumber) {
+  const previous = document.getElementById("previousButton");
 
-    if (pageNumber < 0) {
-      pageNumber = 0;
-    }
-
-    if (pageNumber >= pages.length) {
-      pageNumber = pages.length - 1;
-    }
+  if (previous) {
+    previous.disabled = currentPage === 0;
+  }
 
 
-    stopReading();
+  /* NEXT */
+
+  const next = document.getElementById("nextButton");
+
+  if (next) {
+    next.disabled = currentPage === pages.length - 1;
+  }
 
 
-    pages.forEach(function(page, index) {
+  /* PROGRESS */
 
-      if (index === pageNumber) {
+  const progressBar =
+    document.getElementById("progressBar");
 
-        page.classList.add("active");
-
-      } else {
-
-        page.classList.remove("active");
-
-      }
-
-    });
-
-
-    currentPage = pageNumber;
-
-
-    /* PAGE COUNTER */
-
-    document.getElementById("pageCounter").textContent =
-      "Page " +
-      (currentPage + 1) +
-      " of " +
-      pages.length;
-
-
-    /* PREVIOUS */
-
-    document.getElementById("previousButton").disabled =
-      currentPage === 0;
-
-
-    /* NEXT */
-
-    document.getElementById("nextButton").disabled =
-      currentPage === pages.length - 1;
-
-
-    /* PROGRESS */
+  if (progressBar) {
 
     const progress =
       ((currentPage + 1) / pages.length) * 100;
 
-    document.getElementById("progressBar").style.width =
-      progress + "%";
-
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
+    progressBar.style.width = progress + "%";
 
   }
 
 
-  /* =========================
-     NEXT
-  ========================= */
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
 
-  function nextPage() {
+}
 
-    if (currentPage < pages.length - 1) {
 
-      showPage(currentPage + 1);
+/* =========================
+   NEXT
+========================= */
 
-    }
+function nextPage() {
 
+  if (currentPage < pages.length - 1) {
+    showPage(currentPage + 1);
   }
 
+}
 
-  /* =========================
-     PREVIOUS
-  ========================= */
 
-  function previousPage() {
+/* =========================
+   PREVIOUS
+========================= */
 
-    if (currentPage > 0) {
+function previousPage() {
 
-      showPage(currentPage - 1);
-
-    }
-
+  if (currentPage > 0) {
+    showPage(currentPage - 1);
   }
 
+}
 
-  /* =========================
-     KEYBOARD
-  ========================= */
 
-  /* =========================
-   KEYBOARD CONTROLS
+/* =========================
+   KEYBOARD
 ========================= */
 
 document.addEventListener("keydown", function(event) {
@@ -1292,6 +1162,7 @@ document.addEventListener("keydown", function(event) {
 ========================= */
 
 showPage(0);
+
 
 </script>
 </body>
