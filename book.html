@@ -1029,10 +1029,92 @@ uh<!DOCTYPE html>
 
 <script>
 
+function getPageText(page) {
 
+  const clone = page.cloneNode(true);
+
+  clone.querySelectorAll(
+    ".chapter-number, .divider"
+  ).forEach(function(el) {
+    el.remove();
+  });
+
+  return clone.innerText
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+
+function readCurrentPage() {
+
+  if (!("speechSynthesis" in window)) {
+    alert("Text-to-speech is not supported by this browser.");
+    return;
+  }
+
+  window.speechSynthesis.cancel();
+
+  const text = getPageText(pages[currentPage]);
+
+  if (!text) return;
+
+  const speech =
+    new SpeechSynthesisUtterance(text);
+
+  speech.rate = 0.9;
+  speech.pitch = 1;
+  speech.volume = 1;
+
+  speech.onstart = function() {
+    document.getElementById("readButton").textContent =
+      "⏸ PAUSE";
+  };
+
+  speech.onend = function() {
+    document.getElementById("readButton").textContent =
+      "🔊 READ";
+  };
+
+  window.speechSynthesis.speak(speech);
+}
+
+
+function toggleReading() {
+
+  if (!window.speechSynthesis) {
+    alert("Text-to-speech is not supported.");
+    return;
+  }
+
+  if (window.speechSynthesis.speaking) {
+
+    if (window.speechSynthesis.paused) {
+      window.speechSynthesis.resume();
+
+      document.getElementById("readButton").textContent =
+        "⏸ PAUSE";
+
+    } else {
+      window.speechSynthesis.pause();
+
+      document.getElementById("readButton").textContent =
+        "▶️ RESUME";
+    }
+
+  } else {
+
+    readCurrentPage();
+
+  }
+
+}
+
+
+/* YOUR EXISTING BOOK JAVASCRIPT STARTS HERE */
 
 const pages = document.querySelectorAll(".page");
 let currentPage = 0;
+
 
 
 /* =========================
