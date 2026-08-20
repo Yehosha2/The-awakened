@@ -434,7 +434,8 @@ uh<!DOCTYPE html>
   </p>
 
 </section>
-<!-- CHAPTER ONE -->
+
+<div id="reader"></div>
 
 <!-- CHAPTER ONE — THE DISCOVERY -->
 
@@ -17177,64 +17178,334 @@ function toggleReading() {
 
 /* YOUR EXISTING BOOK JAVASCRIPT STARTS HERE */
 
-const pages = document.querySelectorAll(".page");
+<script>
+
+/* =========================================
+   THE AWAKENED — CHAPTER LOADER
+========================================= */
+
+let pages = [];
 let currentPage = 0;
 
 
+/* =========================================
+   LOAD CHAPTER FILES
+========================================= */
 
-/* =========================
+async function loadChapters() {
+
+  const reader = document.getElementById("reader");
+
+  if (!reader) {
+    console.error("Reader container not found.");
+    return;
+  }
+
+  const chapters = [];
+
+  for (let i = 1; i <= 40; i++) {
+
+    const number = String(i).padStart(2, "0");
+
+    chapters.push(
+      "chapters/chapter-" + number + ".html"
+    );
+
+  }
+
+  /* Epilogue */
+
+  chapters.push("chapters/epilogue.html");
+
+
+  for (const file of chapters) {
+
+    try {
+
+      const response = await fetch(file);
+
+      if (!response.ok) {
+        console.warn("Chapter not found:", file);
+        continue;
+      }
+
+      const html = await response.text();
+
+      const parser = new DOMParser();
+
+      const documentFragment =
+        parser.parseFromString(html, "text/html");
+
+      const chapterPages =
+        documentFragment.querySelectorAll(".page");
+
+
+      chapterPages.forEach(function(page) {
+
+        const newPage =
+          document.importNode(page, true);
+
+        reader.appendChild(newPage);
+
+      });
+
+    } catch (error) {
+
+      console.error(
+        "Could not load:",
+        file,
+        error
+      );
+
+    }
+
+  }
+
+
+  /* Find all loaded pages */
+
+  pages =
+    document.querySelectorAll("#reader .page");
+
+
+  if (pages.length === 0) {
+
+    console.error(
+      "No chapter pages were loaded."
+    );
+
+    return;
+  }
+
+
+  currentPage = 0;
+
+  showPage(0);
+
+}
+
+
+/* =========================================
+   GET PAGE TEXT FOR AUDIO
+========================================= */
+
+function getPageText(page) {
+
+  const clone =
+    page.cloneNode(true);
+
+  clone.querySelectorAll(
+    ".chapter-number, .divider"
+  ).forEach(function(el) {
+
+    el.remove();
+
+  });
+
+
+  return clone.innerText
+    .replace(/\s+/g, " ")
+    .trim();
+
+}
+
+
+/* =========================================
+   READ CURRENT PAGE
+========================================= */
+
+function readCurrentPage() {
+
+  if (!("speechSynthesis" in window)) {
+
+    alert(
+      "Text-to-speech is not supported by this browser."
+    );
+
+    return;
+  }
+
+
+  window.speechSynthesis.cancel();
+
+
+  const text =
+    getPageText(pages[currentPage]);
+
+
+  if (!text) return;
+
+
+  const speech =
+    new SpeechSynthesisUtterance(text);
+
+
+  speech.rate = 0.9;
+  speech.pitch = 1;
+  speech.volume = 1;
+
+
+  speech.onstart = function() {
+
+    const button =
+      document.getElementById("readButton");
+
+    if (button) {
+      button.textContent = "⏸ PAUSE";
+    }
+
+  };
+
+
+  speech.onend = function() {
+
+    const button =
+      document.getElementById("readButton");
+
+    if (button) {
+      button.textContent = "🔊 READ";
+    }
+
+  };
+
+
+  window.speechSynthesis.speak(speech);
+
+}
+
+
+/* =========================================
+   TOGGLE READING
+========================================= */
+
+function toggleReading() {
+
+  if (!window.speechSynthesis) {
+
+    alert(
+      "Text-to-speech is not supported."
+    );
+
+    return;
+  }
+
+
+  if (window.speechSynthesis.speaking) {
+
+    if (window.speechSynthesis.paused) {
+
+      window.speechSynthesis.resume();
+
+
+      const button =
+        document.getElementById("readButton");
+
+      if (button) {
+        button.textContent = "⏸ PAUSE";
+      }
+
+    } else {
+
+      window.speechSynthesis.pause();
+
+
+      const button =
+        document.getElementById("readButton");
+
+      if (button) {
+        button.textContent = "▶️ RESUME";
+      }
+
+    }
+
+  } else {
+
+    readCurrentPage();
+
+  }
+
+}
+
+
+/* =========================================
    SHOW PAGE
-========================= */
+========================================= */
 
 function showPage(pageNumber) {
+
+  if (!pages.length) return;
+
 
   if (pageNumber < 0) {
     pageNumber = 0;
   }
 
+
   if (pageNumber >= pages.length) {
     pageNumber = pages.length - 1;
   }
 
+
   pages.forEach(function(page, index) {
 
     if (index === pageNumber) {
+
       page.classList.add("active");
+
     } else {
+
       page.classList.remove("active");
+
     }
 
   });
+
 
   currentPage = pageNumber;
 
 
   /* PAGE COUNTER */
 
-  const counter = document.getElementById("pageCounter");
+  const counter =
+    document.getElementById("pageCounter");
+
 
   if (counter) {
+
     counter.textContent =
-      "Page " + (currentPage + 1) +
-      " of " + pages.length;
+      "Page " +
+      (currentPage + 1) +
+      " of " +
+      pages.length;
+
   }
 
 
   /* PREVIOUS */
 
-  const previous = document.getElementById("previousButton");
+  const previous =
+    document.getElementById("previousButton");
+
 
   if (previous) {
-    previous.disabled = currentPage === 0;
+
+    previous.disabled =
+      currentPage === 0;
+
   }
 
 
   /* NEXT */
 
-  const next = document.getElementById("nextButton");
+  const next =
+    document.getElementById("nextButton");
+
 
   if (next) {
-    next.disabled = currentPage === pages.length - 1;
+
+    next.disabled =
+      currentPage === pages.length - 1;
+
   }
 
 
@@ -17243,73 +17514,109 @@ function showPage(pageNumber) {
   const progressBar =
     document.getElementById("progressBar");
 
+
   if (progressBar) {
 
     const progress =
-      ((currentPage + 1) / pages.length) * 100;
+      ((currentPage + 1) /
+      pages.length) * 100;
 
-    progressBar.style.width = progress + "%";
+
+    progressBar.style.width =
+      progress + "%";
 
   }
 
 
   window.scrollTo({
+
     top: 0,
+
     behavior: "smooth"
+
   });
 
 }
 
 
-/* =========================
-   NEXT
-========================= */
+/* =========================================
+   NEXT PAGE
+========================================= */
 
 function nextPage() {
 
-  if (currentPage < pages.length - 1) {
-    showPage(currentPage + 1);
+  if (
+    currentPage <
+    pages.length - 1
+  ) {
+
+    window.speechSynthesis.cancel();
+
+    showPage(
+      currentPage + 1
+    );
+
   }
 
 }
 
 
-/* =========================
-   PREVIOUS
-========================= */
+/* =========================================
+   PREVIOUS PAGE
+========================================= */
 
 function previousPage() {
 
   if (currentPage > 0) {
-    showPage(currentPage - 1);
+
+    window.speechSynthesis.cancel();
+
+    showPage(
+      currentPage - 1
+    );
+
   }
 
 }
 
 
-/* =========================
-   KEYBOARD
-========================= */
+/* =========================================
+   KEYBOARD CONTROLS
+========================================= */
 
-document.addEventListener("keydown", function(event) {
+document.addEventListener(
+  "keydown",
+  function(event) {
 
-  if (event.key === "ArrowRight") {
-    nextPage();
+    if (event.key === "ArrowRight") {
+
+      nextPage();
+
+    }
+
+
+    if (event.key === "ArrowLeft") {
+
+      previousPage();
+
+    }
+
   }
+);
 
-  if (event.key === "ArrowLeft") {
-    previousPage();
+
+/* =========================================
+   START READER
+========================================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function() {
+
+    loadChapters();
+
   }
-
-});
-
-
-/* =========================
-   START BOOK
-========================= */
-
-showPage(0);
-
+);
 
 </script>
 </body>
