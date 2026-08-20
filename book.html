@@ -1270,32 +1270,31 @@ uh<!DOCTYPE html>
      KEYBOARD
   ========================= */
 
-  document.addEventListener("keydown", function(event) {
-
-    if (event.key === "ArrowRight") {
-
-      nextPage();
-
-    }
-
-    if (event.key === "ArrowLeft") {
-
-      previousPage();
-
-    }
-
-  });
-
-
   /* =========================
-     START BOOK
-  ========================= */
+   KEYBOARD CONTROLS
+========================= */
 
-  showPage(0);
+document.addEventListener("keydown", function(event) {
+
+  if (event.key === "ArrowRight") {
+    nextPage();
+  }
+
+  if (event.key === "ArrowLeft") {
+    previousPage();
+  }
+
+});
+
+
+/* =========================
+   START BOOK
+========================= */
+
+showPage(0);
 
 </script>
-  
-  </script>
-
 </body>
 </html>
+
+  
