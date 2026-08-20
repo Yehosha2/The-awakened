@@ -17201,22 +17201,16 @@ async function loadChapters() {
     return;
   }
 
+  reader.innerHTML = "";
+
   const chapters = [];
 
   for (let i = 1; i <= 40; i++) {
-
     const number = String(i).padStart(2, "0");
-
-    chapters.push(
-      "chapters/chapter-" + number + ".html"
-    );
-
+    chapters.push(`chapters/chapter-${number}.html`);
   }
 
-  /* Epilogue */
-
   chapters.push("chapters/epilogue.html");
-
 
   for (const file of chapters) {
 
@@ -17232,22 +17226,51 @@ async function loadChapters() {
       const html = await response.text();
 
       const parser = new DOMParser();
+      const doc = parser.parseFromString(html, "text/html");
 
-      const documentFragment =
-        parser.parseFromString(html, "text/html");
+      /*
+        Look for existing .page elements first.
+        If the chapter doesn't have them,
+        use the chapter's <main> content.
+      */
 
-      const chapterPages =
-        documentFragment.querySelectorAll(".page");
+      let chapterPages = doc.querySelectorAll(".page");
 
+      if (chapterPages.length === 0) {
 
-      chapterPages.forEach(function(page) {
+        const chapterMain = doc.querySelector("main");
 
-        const newPage =
-          document.importNode(page, true);
+        if (chapterMain) {
 
-        reader.appendChild(newPage);
+          const page = document.createElement("div");
 
-      });
+          page.className = "page";
+
+          page.innerHTML = chapterMain.innerHTML;
+
+          reader.appendChild(page);
+
+        } else {
+
+          console.warn(
+            "No <main> or .page found in:",
+            file
+          );
+
+        }
+
+      } else {
+
+        chapterPages.forEach(function(page) {
+
+          const newPage =
+            document.importNode(page, true);
+
+          reader.appendChild(newPage);
+
+        });
+
+      }
 
     } catch (error) {
 
@@ -17260,6 +17283,25 @@ async function loadChapters() {
     }
 
   }
+
+  /* Find all loaded pages */
+
+  pages =
+    document.querySelectorAll("#reader .page");
+
+  if (pages.length === 0) {
+
+    console.error(
+      "No chapter pages were loaded."
+    );
+
+    return;
+  }
+
+  currentPage = 0;
+
+  showPage(0);
+}
 
 
   /* Find all loaded pages */
