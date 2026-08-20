@@ -1237,18 +1237,15 @@ uh<!DOCTYPE html>
   /* =========================
      NEXT
   ========================= */
-
-  function nextPage() {
+function nextPage() {
 
   if (currentPage < pages.length - 1) {
 
-    showPage(currentPage + 1, false);
-
-    readCurrentPage();
+    showPage(currentPage + 1);
 
   }
 
-}}
+}
 
 
   /* =========================
@@ -1259,14 +1256,11 @@ function previousPage() {
 
   if (currentPage > 0) {
 
-    showPage(currentPage - 1, false);
-
-    readCurrentPage();
+    showPage(currentPage - 1);
 
   }
 
-}
-  /* =========================
+}/* =========================
      KEYBOARD CONTROLS
   ========================= */
 
