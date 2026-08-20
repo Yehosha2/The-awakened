@@ -1029,10 +1029,11 @@ uh<!DOCTYPE html>
 
 <script>
 
+<script>
+
   const pages = document.querySelectorAll(".page");
 
   let currentPage = 0;
-  let isSpeaking = false;
 
 
   /* =========================
@@ -1043,10 +1044,9 @@ uh<!DOCTYPE html>
 
     const clone = page.cloneNode(true);
 
-    /*
-      Remove elements that should NOT be read aloud.
-    */
-    clone.querySelectorAll(".chapter-number").forEach(el => el.remove());
+    clone.querySelectorAll(".chapter-number").forEach(function(el) {
+      el.remove();
+    });
 
     return clone.textContent
       .replace(/\s+/g, " ")
@@ -1060,8 +1060,6 @@ uh<!DOCTYPE html>
       window.speechSynthesis.cancel();
     }
 
-    isSpeaking = false;
-
     const button = document.getElementById("readButton");
 
     if (button) {
@@ -1073,7 +1071,7 @@ uh<!DOCTYPE html>
   function readCurrentPage() {
 
     if (!("speechSynthesis" in window)) {
-      alert("Your browser does not support text-to-speech.");
+      alert("Text-to-speech is not supported on this browser.");
       return;
     }
 
@@ -1081,7 +1079,9 @@ uh<!DOCTYPE html>
 
     const text = getPageText(pages[currentPage]);
 
-    if (!text) return;
+    if (!text) {
+      return;
+    }
 
     const speech = new SpeechSynthesisUtterance(text);
 
@@ -1090,45 +1090,50 @@ uh<!DOCTYPE html>
     speech.volume = 1;
 
     speech.onstart = function() {
-      isSpeaking = true;
 
       const button = document.getElementById("readButton");
 
       if (button) {
         button.textContent = "⏸ PAUSE";
       }
+
     };
+
 
     speech.onend = function() {
-      isSpeaking = false;
 
       const button = document.getElementById("readButton");
 
       if (button) {
         button.textContent = "🔊 READ";
       }
+
     };
+
 
     speech.onerror = function() {
-      isSpeaking = false;
 
       const button = document.getElementById("readButton");
 
       if (button) {
         button.textContent = "🔊 READ";
       }
+
     };
 
+
     window.speechSynthesis.speak(speech);
+
   }
 
 
   function toggleReading() {
 
     if (!("speechSynthesis" in window)) {
-      alert("Your browser does not support text-to-speech.");
+      alert("Text-to-speech is not supported on this browser.");
       return;
     }
+
 
     if (window.speechSynthesis.speaking) {
 
@@ -1136,21 +1141,16 @@ uh<!DOCTYPE html>
 
         window.speechSynthesis.resume();
 
-        const button = document.getElementById("readButton");
-
-        if (button) {
-          button.textContent = "⏸ PAUSE";
-        }
+        document.getElementById("readButton").textContent =
+          "⏸ PAUSE";
 
       } else {
 
         window.speechSynthesis.pause();
 
-        const button = document.getElementById("readButton");
+        document.getElementById("readButton").textContent =
+          "▶️ RESUME";
 
-        if (button) {
-          button.textContent = "▶️ RESUME";
-        }
       }
 
     } else {
@@ -1158,14 +1158,15 @@ uh<!DOCTYPE html>
       readCurrentPage();
 
     }
+
   }
 
 
   /* =========================
-     PAGE SYSTEM
+     SHOW PAGE
   ========================= */
 
-  function showPage(pageNumber, readAloud = false) {
+  function showPage(pageNumber) {
 
     if (pageNumber < 0) {
       pageNumber = 0;
@@ -1175,16 +1176,24 @@ uh<!DOCTYPE html>
       pageNumber = pages.length - 1;
     }
 
+
     stopReading();
 
-    pages.forEach((page, index) => {
 
-      page.classList.toggle(
-        "active",
-        index === pageNumber
-      );
+    pages.forEach(function(page, index) {
+
+      if (index === pageNumber) {
+
+        page.classList.add("active");
+
+      } else {
+
+        page.classList.remove("active");
+
+      }
 
     });
+
 
     currentPage = pageNumber;
 
@@ -1198,19 +1207,19 @@ uh<!DOCTYPE html>
       pages.length;
 
 
-    /* PREVIOUS BUTTON */
+    /* PREVIOUS */
 
     document.getElementById("previousButton").disabled =
       currentPage === 0;
 
 
-    /* NEXT BUTTON */
+    /* NEXT */
 
     document.getElementById("nextButton").disabled =
       currentPage === pages.length - 1;
 
 
-    /* PROGRESS BAR */
+    /* PROGRESS */
 
     const progress =
       ((currentPage + 1) / pages.length) * 100;
@@ -1219,80 +1228,72 @@ uh<!DOCTYPE html>
       progress + "%";
 
 
-    /* RETURN TO TOP */
-
     window.scrollTo({
       top: 0,
       behavior: "smooth"
     });
 
+  }
 
-    /*
-      Automatically read the new page
-      when requested.
-    */
-
-    
 
   /* =========================
      NEXT
   ========================= */
-function nextPage() {
 
-  if (currentPage < pages.length - 1) {
+  function nextPage() {
 
-    showPage(currentPage + 1);
+    if (currentPage < pages.length - 1) {
+
+      showPage(currentPage + 1);
+
+    }
 
   }
-
-}
 
 
   /* =========================
      PREVIOUS
   ========================= */
 
-function previousPage() {
+  function previousPage() {
 
-  if (currentPage > 0) {
+    if (currentPage > 0) {
 
-    showPage(currentPage - 1);
+      showPage(currentPage - 1);
+
+    }
 
   }
 
-}/* =========================
-     KEYBOARD CONTROLS
+
+  /* =========================
+     KEYBOARD
   ========================= */
 
-  document.addEventListener(
-    "keydown",
-    function(event) {
+  document.addEventListener("keydown", function(event) {
 
-      if (event.key === "ArrowRight") {
-        nextPage();
-      }
+    if (event.key === "ArrowRight") {
 
-      if (event.key === "ArrowLeft") {
-        previousPage();
-      }
-
-      if (event.key === " ") {
-
-        event.preventDefault();
-
-        toggleReading();
-
-      }
+      nextPage();
 
     }
-  );
+
+    if (event.key === "ArrowLeft") {
+
+      previousPage();
+
+    }
+
+  });
 
 
   /* =========================
-     START
+     START BOOK
   ========================= */
 
-  showPage(0, false);
+  showPage(0);
+
+</script>
   
   </script>
 
