@@ -1,1 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>The Awakened — Book One</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 50% 0%, #1c2948 0%, #0b1020 42%, #020308 100%);
+      color: #eee8d5;
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.8;
+    }
+
+    .reader {
+      width: 100%;
+      max-width: 850px;
+      margin: auto;
+      padding: 20px 16px 50px;
+    }
+
+    /* HEADER */
+
+    .reader-header {
+      text-align: center;
+      padding: 25px 10px 20px;
+    }
+
+    .reader-header .symbol {
+      font-size: 42px;
+      color: #e1c267;
+      text-shadow:
+        0 0 10px #e1c267,
+        0 0 30px rgba(225,194,103,.45);
+    }
+
+    .reader-header h1 {
+      margin: 5px 0;
+      color: #f3d477;
+      font-size: clamp(30px, 8vw, 58px);
+      letter-spacing: 5px;
+    }
+
+    .reader-header p {
+      margin: 0;
+      color: #aaa58f;
+      letter-spacing: 2px;
+      font-size: 13px;
+    }
+
+    /* PAGES */
+
+    .page {
+      display: none;
+      min-height: 62vh;
+      background: rgba(10, 14, 27, .92);
+      border: 1px solid rgba(225,194,103,.25);
+      border-radius: 14px;
+      padding: 42px 34px;
+      box-shadow:
+        0 25px 70px rgba(0,0,0,.45),
+        inset 0 0 35px rgba(255,255,255,.015);
+      animation: fadeIn .45s ease;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* COVER */
+
+    .cover {
+      min-height: 68vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .cover-symbol {
+      font-size: 70px;
+      color: #e1c267;
+      text-shadow:
+        0 0 12px #e1c267,
+        0 0 35px rgba(225,194,103,.5);
+      margin-bottom: 20px;
+    }
+
+    .cover h2 {
+      margin: 0;
+      color: #f3d477;
+      font-size: clamp(38px, 10vw, 72px);
+      letter-spacing: 7px;
+      text-shadow: 0 0 25px rgba(243,212,119,.35);
+    }
+
+    .cover h3 {
+      margin: 15px 0;
+      color: #c8c1ae;
+      font-weight: normal;
+      letter-spacing: 3px;
+    }
+
+    .gold-line {
+      width: 150px;
+      height: 1px;
+      margin: 28px auto;
+      background: #d8b45a;
+      box-shadow: 0 0 12px #d8b45a;
+    }
+
+    .cover .begin {
+      margin-top: 35px;
+      color: #d8b45a;
+      font-size: 13px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    /* CHAPTER */
+
+    .chapter-number {
+      text-align: center;
+      color: #b99a4d;
+      font-size: 13px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+    }
+
+    .page h2 {
+      text-align: center;
+      color: #f1d275;
+      font-size: 34px;
+      margin: 8px 0 35px;
+    }
+
+    .page p {
+      font-size: 18px;
+      margin: 0 0 22px;
+    }
+
+    .dropcap:first-letter {
+      float: left;
+      font-size: 60px;
+      line-height: 45px;
+      padding-right: 8px;
+      color: #e0bd60;
+    }
+
+    .divider {
+      text-align: center;
+      color: #d8b45a;
+      margin: 32px 0;
+      letter-spacing: 7px;
+    }
+
+    /* LOVE WINS */
+
+    .love {
+      text-align: center;
+    }
+
+    .love h2 {
+      font-size: 42px;
+    }
+
+    .love .heart {
+      font-size: 38px;
+      margin: 25px 0;
+    }
+
+    .love strong {
+      color: #f3d477;
+      font-size: 20px;
+      line-height: 2;
+    }
+
+    .light-work {
+      margin-top: 35px;
+      color: #f3d477;
+      letter-spacing: 5px;
+      font-weight: bold;
+    }
+
+    /* NAVIGATION */
+
+    .navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin: 22px 0;
+    }
+
+    .nav-button {
+      border: 1px solid rgba(225,194,103,.45);
+      background: rgba(16,21,38,.95);
+      color: #f1d275;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-family: Georgia, serif;
+      font-size: 15px;
+      cursor: pointer;
+      transition: .2s ease;
+    }
+
+    .nav-button:hover {
+      background: rgba(225,194,103,.12);
+      box-shadow: 0 0 18px rgba(225,194,103,.18);
+    }
+
+    .nav-button:disabled {
+      opacity: .3;
+      cursor: not-allowed;
+    }
+
+    .page-counter {
+      color: #918c7c;
+      font-size: 13px;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .progress {
+      width: 100%;
+      height: 3px;
+      background: rgba(255,255,255,.08);
+      border-radius: 5px;
+      overflow: hidden;
+      margin-bottom: 22px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: #d8b45a;
+      box-shadow: 0 0 10px #d8b45a;
+      transition: width .35s ease;
+    }
+
+    footer {
+      text-align: center;
+      color: #686868;
+      font-size: 12px;
+      margin-top: 35px;
+    }
+
+    @media (max-width: 600px) {
+
+      .reader {
+        padding: 10px 10px 35px;
+      }
+
+      .page {
+        min-height: 65vh;
+        padding: 30px 21px;
+      }
+
+      .page h2 {
+        font-size: 28px;
+      }
+
+      .page p {
+        font-size: 17px;
+      }
+
+      .navigation {
+        gap: 7px;
+      }
+
+      .nav-button {
+        padding: 10px 13px;
+        font-size: 13px;
+      }
+
+      .page-counter {
+        font-size: 11px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="reader">
+
+    <header class="reader-header">
+      <div class="symbol">👁️</div>
+      <h1>THE AWAKENED</h1>
+      <p>BOOK ONE — BEFORE THE BEGINNING</p>
+    </header>
+
+    <div class="progress">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+
+    <!-- PAGE 1 -->
+
+    <section class="page active">
+
+      <div class="cover">
+
+        <div class="cover-symbol">✦</div>
+
+        <h2>THE AWAKENED</h2>
+
+        <h3>BOOK ONE — BEFORE THE BEGINNING</h3>
+
+        <div class="gold-line"></div>
+
+        <p>
+          Some stories begin with a birth.
+          <br>
+          Others begin with a discovery.
+        </p>
+
+        <div class="begin">
+          Before the beginning, something was already waiting.
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- PAGE 2 -->
+
+    <section class="page">
+
+      <div class="chapter-number">
+        Chapter One
+      </div>
+
+      <h2>The Tablet</h2>
+
+      <p class="dropcap">
+        Maya Reed had spent eleven years searching for things that no longer
+        existed. Cities buried beneath sand. Names worn from stone.
+        Civilizations that history had reduced to fragments and footnotes.
+      </p>
+
+      <p>
+        She had learned long ago that the dead were rarely silent.
+      </p>
+
+      <p>
+        Sometimes they whispered through inscriptions.
+        Sometimes through ruins.
+        And sometimes, if the stories were true,
+        they left something behind.
+      </p>
+
+      <div class="divider">✦ ✦ ✦</div>
+
+      <p>
+        The tablet was never supposed to have been found.
+      </p>
+
+      <p>
+        Yet there it was.
+      </p>
+
+      <p>
+        Waiting beneath the darkness.
+      </p>
+
+    </section>
+
+
+    <!-- PAGE 3 -->
+
+    <section class="page">
+
+      <div class="chapter-number">
+        Chapter Two
+      </div>
+
+      <h2>The Eyes in the Dark</h2>
+
+      <p class="dropcap">
+        Elias stood at the entrance to the chamber, staring into a darkness
+        that seemed deeper than the room itself.
+      </p>
+
+      <p>
+        Maya slowly raised the light.
+      </p>
+
+      <p>
+        Something moved beyond it.
+      </p>
+
+      <p>
+        Neither of them spoke.
+      </p>
+
+      <p>
+        Then two pale reflections appeared in the darkness.
+      </p>
+
+      <p>
+        Eyes.
+      </p>
+
+      <div class="divider">✦ ✦ ✦</div>
+
+      <p>
+        Elias whispered one word.
+      </p>
+
+      <p>
+        “Run.”
+      </p>
+
+    </section>
+
+
+    <!-- PAGE 4 -->
+
+    <section class="page">
+
+      <div class="chapter-number">
+        Chapter Three
+      </div>
+
+      <h2>The Ancient Voice</h2>
+
+      <p class="dropcap">
+        The chamber became completely silent.
+      </p>
+
+      <p>
+        Then Maya heard something that should not have been possible.
+      </p>
+
+      <p>
+        A voice.
+      </p>
+
+      <p>
+        Not from Elias.
+        Not from the darkness.
+      </p>
+
+      <p>
+        From somewhere beneath them.
+      </p>
+
+      <div class="divider">✦ ✦ ✦</div>
+
+      <p>
+        The tablet began to glow.
+      </p>
+
+    </section>
+
+
+    <!-- PAGE 5 -->
+
+    <section class="page">
+
+      <div class="chapter-number">
+        Chapter Four
+      </div>
+
+      <h2>The Awakening</h2>
+
+      <p class="dropcap">
+        Maya reached toward the tablet.
+      </p>
+
+      <p>
+        The instant her fingers touched the ancient surface,
+        the room disappeared.
+      </p>
+
+      <p>
+        For one impossible moment, she saw a world that existed
+        before the world she knew.
+      </p>
+
+      <p>
+        Then she heard her own name.
+      </p>
+
+      <div class="divider">✦ ✦ ✦</div>
+
+      <p>
+        Maya opened her eyes.
+      </p>
+
+      <p>
+        Something inside her had awakened.
+      </p>
+
+    </section>
+
+
+    <!-- PAGE 6 -->
+
+    <section class="page">
+
+      <div class="chapter-number">
+        Chapter Five
+      </div>
+
+      <h2>No Man's Land</h2>
+
+      <p class="dropcap">
+        The map led them beyond every road marked on modern charts.
+      </p>
+
+      <p>
+        Elias knew they were crossing a boundary long before
+        the instruments stopped working.
+      </p>
+
+      <p>
+        There were no birds.
+      </p>
+
+      <p>
+        No wind.
+      </p>
+
+      <p>
+        Only the feeling that something was watching them.
+      </p>
+
+    </section>
+
+
+    <!-- PAGE 7 -->
+
+    <section class="page">
+
+      <div class="chapter-number">
+        Chapter Six
+      </div>
+
+      <h2>The Descent</h2>
+
+      <p class="dropcap">
+        The stairs disappeared into darkness.
+      </p>
+
+      <p>
+        Maya counted every step.
+      </p>
+
+      <p>
+        Forty.
+      </p>
+
+      <p>
+        Fifty.
+      </p>
+
+      <p>
+        Then she stopped counting.
+      </p>
+
+      <div class="divider">✦ ✦ ✦</div>
+
+      <p>
+        Something was coming up the stairs.
+      </p>
+
+    </section>
+
+
+    <!-- PAGE 8 -->
+
+    <section class="page">
+
+      <div class="chapter-number">
+        Chapter Seven
+      </div>
+
+      <h2>The Chamber</h2>
+
+      <p class="dropcap">
+        At the bottom stood a doorway carved into the stone.
+      </p>
+
+      <p>
+        There were symbols around its frame that neither Maya
+        nor Elias recognized.
+      </p>
+
+      <p>
+        Yet Maya somehow understood what they meant.
+      </p>
+
+      <div class="divider">✦ ✦ ✦</div>
+
+      <p>
+        <em>What was buried was never forgotten.</em>
+      </p>
+
+    </section>
+
+
+    <!-- PAGE 9 -->
+
+    <section class="page">
+
+      <div class="chapter-number">
+        Chapter Eight
+      </div>
+
+      <h2>The Mark</h2>
+
+      <p class="dropcap">
+        The symbol appeared on Maya's hand before either of them
+        realized the door had opened.
+      </p>
+
+      <p>
+        Elias stared at it.
+      </p>
+
+      <p>
+        He had seen the symbol before.
+      </p>
+
+      <p>
+        In a place where no living person should have seen it.
+      </p>
+
+    </section>
+
+
+    <!-- PAGE 10 -->
+
+    <section class="page">
+
+      <div class="chapter-number">
+        Chapter Nine
+      </div>
+
+      <h2>The Eyes in the Dark</h2>
+
+      <p class="dropcap">
+        The darkness moved.
+      </p>
+
+      <p>
+        Maya raised the light again.
+      </p>
+
+      <p>
+        This time there were more than two eyes.
+      </p>
+
+      <p>
+        Elias stepped backward.
+      </p>
+
+      <div class="divider">✦ ✦ ✦</div>
+
+      <p>
+        Whatever was waiting for them had finally noticed
+        they were there.
+      </p>
+
+    </section>
+
+
+    <!-- PAGE 11 -->
+
+    <section class="page">
+
+      <div class="chapter-number">
+        Chapter Ten
+      </div>
+
+      <h2>The Monster Within Samarian</h2>
+
+      <p class="dropcap">
+        The name Samarian appeared across the ancient wall.
+      </p>
+
+      <p>
+        Maya recognized it from the tablet.
+      </p>
+
+      <p>
+        But the meaning was not what she expected.
+      </p>
+
+      <p>
+        The monster had not been locked away to keep it out.
+      </p>
+
+      <p>
+        It had been locked away to keep something else in.
+      </p>
+
+    </section>
+
+
+    <!-- PAGE 12 -->
+
+    <section class="page">
+
+      <div class="chapter-number">
+        Chapter Eleven
+      </div>
+
+      <h2>The Awakening Within</h2>
+
+      <p class="dropcap">
+        Maya finally understood why the tablet had called to her.
+      </p>
+
+      <p>
+        The ancient memory was not simply information.
+      </p>
+
+      <p>
+        It was a warning.
+      </p>
+
+      <div class="divider">✦ ✦ ✦</div>
+
+      <p>
+        And the warning had been waiting for someone to remember.
+      </p>
+
+    </section>
+
+
+    <!-- PAGE 13 -->
+
+    <section class="page">
+
+      <div class="chapter-number">
+        Chapter Twelve
+      </div>
+
+      <h2>The Door</h2>
+
+      <p class="dropcap">
+        The door opened without being touched.
+      </p>
+
+      <p>
+        Beyond it was not another chamber.
+      </p>
+
+      <p>
+        It was darkness filled with stars.
+      </p>
+
+      <p>
+        Elias looked at Maya.
+      </p>
+
+      <p>
+        Neither of them knew whether they were looking into
+        the beginning of something—or its end.
+      </p>
+
+    </section>
+
+
+    <!-- PAGE 14 -->
+
+    <section class="page">
+
+      <div class="chapter-number">
+        Chapter Thirteen
+      </div>
+
+      <h2>The Presence</h2>
+
+      <p class="dropcap">
+        Maya felt it before she saw it.
+      </p>
+
+      <p>
+        A presence stood beyond the doorway.
+      </p>
+
+      <p>
+        Ancient.
+      </p>
+
+      <p>
+        Patient.
+      </p>
+
+      <p>
+        Waiting.
+      </p>
+
+      <div class="divider">✦ ✦ ✦</div>
+
+      <p>
+        Then the presence spoke.
+      </p>
+
+      <p>
+        And Maya realized the story had never really been about
+        discovering the past.
+      </p>
+
+      <p>
+        It was about what the past had awakened.
+      </p>
+
+    </section>
+
+
+    <!-- FINAL PAGE -->
+
+    <section class="page love">
+
+      <div class="chapter-number">
+        Epilogue
+      </div>
+
+      <h2>Love Wins</h2>
+
+      <p>
+        Through the darkness.
+      </p>
+
+      <p>
+        Through the laughter.
+      </p>
+
+      <p>
+        Through the difficult chapters.
+      </p>
+
+      <p>
+        Even through the ridiculous Next Button.
+      </p>
+
+      <div class="divider">✦ ✦ ✦</div>
+
+      <strong>
+        Love remembers.<br>
+        Love forgives.<br>
+        Love keeps going.<br>
+        Love wins.
+      </strong>
+
+      <div class="divider">✦ ✦ ✦</div>
+
+      <p>
+        “We didn't know exactly where the story was going.
+        We kept pressing NEXT.
+        We laughed.
+        We questioned.
+        We believed.”
+      </p>
+
+      <div class="heart">
+        ❤️ 👁️ 🙌🏿
+      </div>
+
+      <div class="divider">✦ ✦ ✦</div>
+
+      <div class="light-work">
+        LIGHT WORK. ALWAYS.
+      </div>
+
+    </section>
+
+
+    <!-- NAVIGATION -->
+
+    <div class="navigation">
+
+      <button
+        class="nav-button"
+        id="previousButton"
+        onclick="previousPage()">
+        ← PREVIOUS
+      </button>
+
+      <div class="page-counter" id="pageCounter">
+        Page 1
+      </div>
+
+      <button
+        class="nav-button"
+        id="nextButton"
+        onclick="nextPage()">
+        NEXT →
+      </button>
+
+    </div>
+
+
+    <footer>
+      THE AWAKENED — BOOK ONE
+      <br>
+      Before the Beginning
+    </footer>
+
+  </main>
+
+
+  <script>
+
+    const pages = document.querySelectorAll(".page");
+
+    let currentPage = 0;
+
+
+    function showPage(pageNumber) {
+
+      if (pageNumber < 0) {
+        pageNumber = 0;
+      }
+
+      if (pageNumber >= pages.length) {
+        pageNumber = pages.length - 1;
+      }
+
+      pages.forEach((page, index) => {
+        page.classList.toggle("active", index === pageNumber);
+      });
+
+      currentPage = pageNumber;
+
+      document.getElementById("pageCounter").textContent =
+        "Page " + (currentPage + 1) + " of " + pages.length;
+
+      document.getElementById("previousButton").disabled =
+        currentPage === 0;
+
+      document.getElementById("nextButton").disabled =
+        currentPage === pages.length - 1;
+
+      const progress =
+        ((currentPage + 1) / pages.length) * 100;
+
+      document.getElementById("progressBar").style.width =
+        progress + "%";
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+
+
+    function nextPage() {
+
+      if (currentPage < pages.length - 1) {
+        showPage(currentPage + 1);
+      }
+
+    }
+
+
+    function previousPage() {
+
+      if (currentPage > 0) {
+        showPage(currentPage - 1);
+      }
+
+    }
+
+
+    document.addEventListener("keydown", function(event) {
+
+      if (event.key === "ArrowRight") {
+        nextPage();
+      }
+
+      if (event.key === "ArrowLeft") {
+        previousPage();
+      }
+
+    });
+
+
+    showPage(0);
+
+  </script>
+
+</body>
+</html>
