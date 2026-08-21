@@ -1,6 +1,6 @@
 /* =========================================
-   THE AWAKENED — READER
-   BOOK ONE — 38 CHAPTERS
+   THE AWAKENED — BOOK ONE READER
+   38 CHAPTERS
 ========================================= */
 
 let pages = [];
@@ -8,11 +8,10 @@ let currentPage = 0;
 
 
 /* =========================================
-   TABLE OF CONTENTS
+   CHAPTER TITLES
 ========================================= */
 
 const chapters = [
-
   ["Chapter One", "THE TABLET"],
   ["Chapter Two", "THE PROFESSOR"],
   ["Chapter Three", "THE HIDDEN LANGUAGE"],
@@ -53,84 +52,123 @@ const chapters = [
   ["Chapter Thirty-Six", "THE NAME BEFORE NAMES"],
   ["Chapter Thirty-Seven", "AWAKE"],
   ["Chapter Thirty-Eight", "THE DIFFERENCE"]
-
 ];
 
 
 /* =========================================
-   CREATE TABLE OF CONTENTS PAGE
+   CREATE A READER PAGE
 ========================================= */
 
-function createTOCPage(entries, title) {
+function makePage(content) {
 
-  const page =
-    document.createElement("section");
+  const page = document.createElement("section");
 
-  page.className = "page toc";
+  page.className = "page";
 
-  let html = `
-    <div class="chapter-number">
-      THE AWAKENED
-    </div>
-
-    <h2>TABLE OF CONTENTS</h2>
-
-    <div class="toc-section-title">
-      ${title}
-    </div>
-  `;
-
-  entries.forEach(function(item) {
-
-    html += `
-      <div class="toc-line">
-        <span>${item[0]}</span>
-        <span>${item[1]}</span>
-      </div>
-    `;
-
-  });
-
-  page.innerHTML = html;
+  page.innerHTML = content;
 
   return page;
 }
 
 
 /* =========================================
-   CREATE 3 TOC PAGES
+   CREATE TABLE OF CONTENTS
 ========================================= */
 
-function createTableOfContents(reader) {
+function createTOC() {
+
+  const reader = document.getElementById("reader");
+
+  if (!reader) return;
+
+  reader.innerHTML = "";
+
 
   /* TOC PAGE 1 */
 
+  let toc1 = `
+    <div class="chapter-number">
+      THE AWAKENED
+    </div>
+
+    <h1>TABLE OF CONTENTS</h1>
+
+    <div class="divider">✦ ✦ ✦</div>
+  `;
+
+  chapters.slice(0, 13).forEach(function(chapter) {
+
+    toc1 += `
+      <p>
+        <strong>${chapter[0]}</strong><br>
+        ${chapter[1]}
+      </p>
+    `;
+
+  });
+
   reader.appendChild(
-    createTOCPage(
-      chapters.slice(0, 13),
-      "Chapters One — Thirteen"
-    )
+    makePage(toc1)
   );
 
 
   /* TOC PAGE 2 */
 
+  let toc2 = `
+    <div class="chapter-number">
+      THE AWAKENED
+    </div>
+
+    <h2>TABLE OF CONTENTS</h2>
+
+    <div class="divider">✦ ✦ ✦</div>
+  `;
+
+  chapters.slice(13, 27).forEach(function(chapter) {
+
+    toc2 += `
+      <p>
+        <strong>${chapter[0]}</strong><br>
+        ${chapter[1]}
+      </p>
+    `;
+
+  });
+
   reader.appendChild(
-    createTOCPage(
-      chapters.slice(13, 27),
-      "Chapters Fourteen — Twenty-Seven"
-    )
+    makePage(toc2)
   );
 
 
   /* TOC PAGE 3 */
 
+  let toc3 = `
+    <div class="chapter-number">
+      THE AWAKENED
+    </div>
+
+    <h2>TABLE OF CONTENTS</h2>
+
+    <div class="divider">✦ ✦ ✦</div>
+  `;
+
+  chapters.slice(27, 38).forEach(function(chapter) {
+
+    toc3 += `
+      <p>
+        <strong>${chapter[0]}</strong><br>
+        ${chapter[1]}
+      </p>
+    `;
+
+  });
+
   reader.appendChild(
-    createTOCPage(
-      chapters.slice(27, 38),
-      "Chapters Twenty-Eight — Thirty-Eight"
-    )
+    makePage(toc3)
   );
+
+
+  updatePages();
 
 }
 
@@ -141,85 +179,42 @@ function createTableOfContents(reader) {
 
 async function loadChapters() {
 
-  const reader =
-    document.getElementById("reader");
+  const reader = document.getElementById("reader");
 
-  if (!reader) {
-
-    console.error(
-      "Reader container not found."
-    );
-
-    return;
-
-  }
+  if (!reader) return;
 
 
-  /* Clear loading message */
+  /* Show TOC FIRST */
 
-  reader.innerHTML = "";
-
-
-  /* =========================================
-     SHOW TABLE OF CONTENTS FIRST
-  ========================================= */
-
-  createTableOfContents(reader);
+  createTOC();
 
 
-  /* =========================================
-     CHAPTER FILE LIST
-  ========================================= */
+  /*
+     Load chapters after the TOC
+     has already appeared.
+  */
 
-  const files = [];
-
-
-  for (
-    let i = 1;
-    i <= 38;
-    i++
-  ) {
+  for (let i = 1; i <= 38; i++) {
 
     const number =
       String(i).padStart(2, "0");
 
-    files.push(
-      "chapters/chapter-" +
-      number +
-      ".html"
-    );
-
-  }
-
-
-  /* =========================================
-     LOAD EACH CHAPTER
-  ========================================= */
-
-  for (const file of files) {
+    const file =
+      `chapters/chapter-${number}.html`;
 
     try {
 
-      console.log(
-        "Loading:",
-        file
-      );
-
-
       const response =
         await fetch(file);
-
 
       if (!response.ok) {
 
         console.warn(
           "Chapter not found:",
-          file,
-          response.status
+          file
         );
 
         continue;
-
       }
 
 
@@ -238,79 +233,50 @@ async function loadChapters() {
         );
 
 
-      /* =========================================
-         FIND .page ELEMENTS
-      ========================================= */
-
       const chapterPages =
         doc.querySelectorAll(
           ".page"
         );
 
 
-      if (
-        chapterPages.length > 0
-      ) {
+      if (chapterPages.length > 0) {
 
-        chapterPages.forEach(
-          function(page) {
+        chapterPages.forEach(function(page) {
 
-            const newPage =
-              document.importNode(
-                page,
-                true
-              );
+          reader.appendChild(
+            document.importNode(
+              page,
+              true
+            )
+          );
 
-            reader.appendChild(
-              newPage
-            );
-
-          }
-        );
+        });
 
       } else {
 
-        /* =========================================
-           FALLBACK — USE <main>
-        ========================================= */
+        const main =
+          doc.querySelector("main");
 
-        const chapterMain =
-          doc.querySelector(
-            "main"
-          );
+        if (main) {
 
-
-        if (chapterMain) {
-
-          const newPage =
-            document.createElement(
-              "section"
+          const page =
+            makePage(
+              main.innerHTML
             );
 
-          newPage.className =
-            "page";
-
-          newPage.innerHTML =
-            chapterMain.innerHTML;
-
-          reader.appendChild(
-            newPage
-          );
-
-        } else {
-
-          console.warn(
-            "No .page or <main> found:",
-            file
-          );
+          reader.appendChild(page);
 
         }
 
       }
 
+
+      updatePages();
+
+
     } catch (error) {
 
-      console.error(
+      console.warn(
         "Could not load:",
         file,
         error
@@ -320,55 +286,31 @@ async function loadChapters() {
 
   }
 
+}
 
-  /* =========================================
-     FIND ALL READER PAGES
-  ========================================= */
+
+/* =========================================
+   UPDATE PAGE LIST
+========================================= */
+
+function updatePages() {
+
+  const reader =
+    document.getElementById("reader");
+
+  if (!reader) return;
+
 
   pages =
-    reader.querySelectorAll(
-      ".page"
+    Array.from(
+      reader.querySelectorAll(".page")
     );
 
 
-  console.log(
-    "THE AWAKENED pages loaded:",
-    pages.length
-  );
+  if (!pages.length) return;
 
 
-  if (
-    pages.length === 0
-  ) {
-
-    reader.innerHTML = `
-      <section class="page active">
-
-        <div class="chapter-number">
-          THE AWAKENED
-        </div>
-
-        <h2>Reader Error</h2>
-
-        <p>
-          No pages could be loaded.
-        </p>
-
-      </section>
-    `;
-
-    return;
-
-  }
-
-
-  /* =========================================
-     START AT TOC PAGE ONE
-  ========================================= */
-
-  currentPage = 0;
-
-  showPage(0);
+  showPage(currentPage);
 
 }
 
@@ -377,88 +319,60 @@ async function loadChapters() {
    SHOW PAGE
 ========================================= */
 
-function showPage(pageNumber) {
+function showPage(number) {
 
-  if (
-    !pages.length
-  ) {
-
-    return;
-
-  }
+  if (!pages.length) return;
 
 
-  /* Prevent going below page 1 */
+  if (number < 0) {
 
-  if (
-    pageNumber < 0
-  ) {
-
-    pageNumber = 0;
+    number = 0;
 
   }
 
 
-  /* Prevent going beyond final page */
+  if (number >= pages.length) {
 
-  if (
-    pageNumber >= pages.length
-  ) {
-
-    pageNumber =
+    number =
       pages.length - 1;
 
   }
 
 
-  /* Show selected page */
+  pages.forEach(function(page, index) {
 
-  pages.forEach(
-    function(page, index) {
+    page.classList.toggle(
+      "active",
+      index === number
+    );
 
-      page.classList.toggle(
-        "active",
-        index === pageNumber
-      );
-
-    }
-  );
+  });
 
 
-  currentPage =
-    pageNumber;
+  currentPage = number;
 
 
-  /* =========================================
-     PAGE COUNTER
-  ========================================= */
+  /* PAGE COUNTER */
 
   const counter =
     document.getElementById(
       "pageCounter"
     );
 
-
   if (counter) {
 
     counter.textContent =
-      "Page " +
-      (currentPage + 1) +
-      " of " +
-      pages.length;
+      `Page ${currentPage + 1} of ${pages.length}`;
 
   }
 
 
-  /* =========================================
-     PREVIOUS BUTTON
-  ========================================= */
+  /* PREVIOUS BUTTON */
 
   const previous =
     document.getElementById(
       "previousButton"
     );
-
 
   if (previous) {
 
@@ -468,53 +382,41 @@ function showPage(pageNumber) {
   }
 
 
-  /* =========================================
-     NEXT BUTTON
-  ========================================= */
+  /* NEXT BUTTON */
 
   const next =
     document.getElementById(
       "nextButton"
     );
 
-
   if (next) {
 
     next.disabled =
-      currentPage ===
-      pages.length - 1;
+      currentPage === pages.length - 1;
 
   }
 
 
-  /* =========================================
-     PROGRESS BAR
-  ========================================= */
+  /* PROGRESS */
 
-  const progressBar =
+  const progress =
     document.getElementById(
       "progressBar"
     );
 
+  if (progress) {
 
-  if (progressBar) {
-
-    const progress =
+    const percent =
       (
         (currentPage + 1) /
         pages.length
       ) * 100;
 
-
-    progressBar.style.width =
-      progress + "%";
+    progress.style.width =
+      percent + "%";
 
   }
 
-
-  /* =========================================
-     RETURN TO TOP
-  ========================================= */
 
   window.scrollTo({
     top: 0,
@@ -543,7 +445,6 @@ function nextPage() {
 
     }
 
-
     showPage(
       currentPage + 1
     );
@@ -571,42 +472,11 @@ function previousPage() {
 
     }
 
-
     showPage(
       currentPage - 1
     );
 
   }
-
-}
-
-
-/* =========================================
-   TEXT TO SPEECH
-========================================= */
-
-function getPageText(page) {
-
-  const clone =
-    page.cloneNode(true);
-
-
-  clone
-    .querySelectorAll(
-      ".chapter-number, .divider"
-    )
-    .forEach(
-      function(element) {
-
-        element.remove();
-
-      }
-    );
-
-
-  return clone.innerText
-    .replace(/\s+/g, " ")
-    .trim();
 
 }
 
@@ -630,29 +500,35 @@ function readCurrentPage() {
   }
 
 
-  if (
-    !pages.length
-  ) {
-
-    return;
-
-  }
+  if (!pages.length) return;
 
 
   window.speechSynthesis.cancel();
 
 
+  const clone =
+    pages[currentPage]
+      .cloneNode(true);
+
+
+  clone
+    .querySelectorAll(
+      ".chapter-number, .divider"
+    )
+    .forEach(function(element) {
+
+      element.remove();
+
+    });
+
+
   const text =
-    getPageText(
-      pages[currentPage]
-    );
+    clone.innerText
+      .replace(/\s+/g, " ")
+      .trim();
 
 
-  if (!text) {
-
-    return;
-
-  }
+  if (!text) return;
 
 
   const speech =
@@ -666,61 +542,38 @@ function readCurrentPage() {
   speech.volume = 1;
 
 
-  speech.onstart =
-    function() {
+  speech.onstart = function() {
 
-      const button =
-        document.getElementById(
-          "readButton"
-        );
+    const button =
+      document.getElementById(
+        "readButton"
+      );
 
+    if (button) {
 
-      if (button) {
+      button.textContent =
+        "⏸ PAUSE";
 
-        button.textContent =
-          "⏸ PAUSE";
+    }
 
-      }
-
-    };
+  };
 
 
-  speech.onend =
-    function() {
+  speech.onend = function() {
 
-      const button =
-        document.getElementById(
-          "readButton"
-        );
+    const button =
+      document.getElementById(
+        "readButton"
+      );
 
+    if (button) {
 
-      if (button) {
+      button.textContent =
+        "🔊 READ";
 
-        button.textContent =
-          "🔊 READ";
+    }
 
-      }
-
-    };
-
-
-  speech.onerror =
-    function() {
-
-      const button =
-        document.getElementById(
-          "readButton"
-        );
-
-
-      if (button) {
-
-        button.textContent =
-          "🔊 READ";
-
-      }
-
-    };
+  };
 
 
   window.speechSynthesis.speak(
@@ -765,7 +618,6 @@ function toggleReading() {
 
       window.speechSynthesis.resume();
 
-
       if (button) {
 
         button.textContent =
@@ -776,7 +628,6 @@ function toggleReading() {
     } else {
 
       window.speechSynthesis.pause();
-
 
       if (button) {
 
@@ -805,8 +656,7 @@ document.addEventListener(
   function(event) {
 
     if (
-      event.key ===
-      "ArrowRight"
+      event.key === "ArrowRight"
     ) {
 
       nextPage();
@@ -815,8 +665,7 @@ document.addEventListener(
 
 
     if (
-      event.key ===
-      "ArrowLeft"
+      event.key === "ArrowLeft"
     ) {
 
       previousPage();
@@ -828,7 +677,7 @@ document.addEventListener(
 
 
 /* =========================================
-   START READER
+   START
 ========================================= */
 
 document.addEventListener(
