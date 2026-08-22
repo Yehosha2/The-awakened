@@ -27,50 +27,176 @@
          TITLE SCREEN
          ========================================= -->
 
-    <section
-      id="title-screen"
-      class="game-screen active"
-    >
+ /* =========================
+   GAME TITLE SCREEN
+   ========================= */
 
-      <div class="game-content">
+#title-screen {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
 
-        <div class="game-symbol">👁️</div>
+#title-screen .game-content {
+  width: 100%;
+  max-width: 700px;
+  padding: 60px 25px;
+  position: relative;
+}
 
-        <h1>THE AWAKENED</h1>
+#title-screen .game-symbol {
+  font-size: 72px;
+  line-height: 1;
+  margin-bottom: 28px;
 
-        <h2>THE GAME</h2>
+  display: inline-block;
 
-        <p class="game-subtitle">
-          Before the beginning, there was a witness.
-        </p>
+  filter:
+    drop-shadow(0 0 10px rgba(216, 180, 106, 0.55))
+    drop-shadow(0 0 35px rgba(216, 180, 106, 0.25));
 
-        <div class="game-menu">
+  animation: titleEyePulse 4s ease-in-out infinite;
+}
 
-          <button onclick="startNewGame()">
-            NEW GAME
-          </button>
+#title-screen h1 {
+  margin: 0;
 
-          <button
-            id="continue-button"
-            onclick="continueGame()"
-            disabled
-          >
-            CONTINUE
-          </button>
+  font-size: clamp(42px, 10vw, 78px);
+  letter-spacing: 0.12em;
 
-          <button onclick="showInstructions()">
-            HOW TO PLAY
-          </button>
+  text-shadow:
+    0 0 15px rgba(245, 242, 235, 0.12),
+    0 0 40px rgba(216, 180, 106, 0.08);
+}
 
-          <button onclick="returnToBook()">
-            RETURN TO BOOK
-          </button>
+#title-screen h2 {
+  margin: 8px 0 20px;
 
-        </div>
+  color: var(--accent);
 
-      </div>
+  font-family: Arial, sans-serif;
+  font-size: clamp(16px, 4vw, 22px);
 
-    </section>
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+}
+
+#title-screen .game-subtitle {
+  max-width: 500px;
+  margin: 0 auto 45px;
+
+  color: var(--muted);
+
+  font-size: 17px;
+  font-style: italic;
+  letter-spacing: 0.04em;
+}
+
+#title-screen .game-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
+}
+
+#title-screen .game-menu button {
+  width: 100%;
+
+  padding: 15px 22px;
+
+  background: rgba(21, 21, 25, 0.75);
+  color: var(--text);
+
+  border: 1px solid var(--line);
+  border-radius: 999px;
+
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: bold;
+
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+
+  cursor: pointer;
+
+  transition:
+    background 0.25s,
+    color 0.25s,
+    border-color 0.25s,
+    transform 0.25s,
+    box-shadow 0.25s;
+}
+
+#title-screen .game-menu button:hover {
+  background: rgba(216, 180, 106, 0.08);
+  color: var(--accent);
+
+  border-color: var(--accent);
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 8px 25px rgba(216, 180, 106, 0.1);
+}
+
+#title-screen .game-menu button:active {
+  transform: translateY(0);
+}
+
+#title-screen .game-menu button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+@keyframes titleEyePulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+}
+
+/* =========================
+   TITLE SCREEN MOBILE
+   ========================= */
+
+@media (max-width: 600px) {
+
+  #title-screen .game-content {
+    padding: 40px 18px;
+  }
+
+  #title-screen .game-symbol {
+    font-size: 60px;
+    margin-bottom: 22px;
+  }
+
+  #title-screen h1 {
+    font-size: 38px;
+    letter-spacing: 0.08em;
+  }
+
+  #title-screen h2 {
+    font-size: 15px;
+    letter-spacing: 0.25em;
+  }
+
+  #title-screen .game-subtitle {
+    font-size: 15px;
+    margin-bottom: 35px;
+  }
+
+}
 
 
     <!-- =========================================
