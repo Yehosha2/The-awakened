@@ -1,1 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>THE AWAKENED — Book One</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: #111;
+      color: #eee;
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.8;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(17, 17, 17, 0.97);
+      border-bottom: 1px solid #333;
+      padding: 12px 10px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0 0 8px;
+      font-size: 1.25rem;
+      letter-spacing: 2px;
+      color: #fff;
+    }
+
+    .top-buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    button {
+      border: 1px solid #555;
+      background: #222;
+      color: #fff;
+      padding: 9px 15px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: 0.2s ease;
+    }
+
+    button:hover {
+      background: #333;
+      border-color: #888;
+    }
+
+    button:active {
+      transform: scale(0.97);
+    }
+
+    button:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    #reader {
+      width: min(900px, 94%);
+      margin: 30px auto 120px;
+    }
+
+    .page {
+      display: none;
+      min-height: 65vh;
+      padding: 35px 25px;
+      background: #151515;
+      border: 1px solid #292929;
+      border-radius: 10px;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.35);
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    .page h1,
+    .page h2,
+    .page h3 {
+      text-align: center;
+      color: #fff;
+    }
+
+    .page h1 {
+      margin-top: 10px;
+      font-size: 2rem;
+    }
+
+    .page h2 {
+      font-size: 1.5rem;
+      letter-spacing: 1px;
+    }
+
+    .page p {
+      margin: 0 0 1.2em;
+    }
+
+    .cover {
+      min-height: 70vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .cover h1 {
+      font-size: clamp(2.2rem, 8vw, 4.5rem);
+      letter-spacing: 6px;
+      margin-bottom: 10px;
+    }
+
+    .cover h2 {
+      font-weight: normal;
+      letter-spacing: 2px;
+      color: #ccc;
+    }
+
+    .light-work {
+      margin-top: 35px;
+      font-size: 1rem;
+      letter-spacing: 3px;
+    }
+
+    .reader-controls {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(17, 17, 17, 0.98);
+      border-top: 1px solid #333;
+      padding: 10px;
+    }
+
+    .controls-inner {
+      width: min(900px, 94%);
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    #pageCounter {
+      min-width: 100px;
+      text-align: center;
+      color: #aaa;
+      font-size: 0.9rem;
+    }
+
+    .progress-wrap {
+      width: min(900px, 94%);
+      height: 4px;
+      background: #292929;
+      margin: 8px auto 0;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    #progressBar {
+      width: 0%;
+      height: 100%;
+      background: #fff;
+      transition: width 0.25s ease;
+    }
+
+    #status {
+      text-align: center;
+      padding: 50px 20px;
+      color: #aaa;
+    }
+
+    .error {
+      color: #ff8c8c;
+      text-align: center;
+      padding: 30px;
+    }
+
+    @media (max-width: 600px) {
+      #reader {
+        width: 96%;
+        margin-top: 15px;
+      }
+
+      .page {
+        padding: 25px 17px;
+      }
+
+      .page h1 {
+        font-size: 1.7rem;
+      }
+
+      .controls-inner button {
+        padding: 8px 11px;
+      }
+
+      #pageCounter {
+        min-width: 75px;
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>THE AWAKENED</h1>
+
+    <div class="top-buttons">
+      <button type="button" onclick="goHome()">LIGHT WORK</button>
+      <button type="button" onclick="goToStart()">BEGIN</button>
+      <button type="button" onclick="toggleReader()">READER</button>
+    </div>
+  </header>
+
+  <main id="reader">
+
+    <section class="page active cover">
+      <h1>THE AWAKENED</h1>
+      <h2>Book One — Before the Beginning</h2>
+
+      <button
+        type="button"
+        class="light-work"
+        onclick="nextPage()">
+        LIGHT WORK
+      </button>
+    </section>
+
+    <div id="status">
+      Loading the book...
+    </div>
+
+  </main>
+
+  <div class="reader-controls">
+    <div class="controls-inner">
+
+      <button
+        type="button"
+        id="previousButton"
+        onclick="previousPage()">
+        PREVIOUS
+      </button>
+
+      <div id="pageCounter">
+        1 / 1
+      </div>
+
+      <button
+        type="button"
+        id="nextButton"
+        onclick="nextPage()">
+        NEXT
+      </button>
+
+    </div>
+
+    <div class="progress-wrap">
+      <div id="progressBar"></div>
+    </div>
+  </div>
+
+  <script>
+    /*
+      THE AWAKENED
+      Book One — Before the Beginning
+
+      This reader automatically loads every chapter
+      found in the chapters folder from chapter-01.html
+      through chapter-99.html.
+    */
+
+    let pages = [];
+    let currentPage = 0;
+
+    async function loadChapters() {
+
+      const reader = document.getElementById("reader");
+      const status = document.getElementById("status");
+
+      const cover = document.querySelector(".cover");
+
+      pages = [cover];
+
+      /*
+        Load chapters 01–99.
+
+        Missing chapter files are ignored automatically.
+        This means you do NOT need to have every number.
+      */
+
+      for (let number = 1; number <= 99; number++) {
+
+        const chapterNumber = String(number).padStart(2, "0");
+        const path = `chapters/chapter-${chapterNumber}.html`;
+
+        try {
+
+          const response = await fetch(path, {
+            cache: "no-cache"
+          });
+
+          if (!response.ok) {
+            continue;
+          }
+
+          const html = await response.text();
+
+          if (!html.trim()) {
+            continue;
+          }
+
+          const template = document.createElement("template");
+          template.innerHTML = html;
+
+          /*
+            Each chapter file can contain:
+            <section>
+            <article>
+            <div>
+            or normal HTML.
+
+            We wrap the loaded chapter in a Reader page.
+          */
+
+          const page = document.createElement("section");
+          page.className = "page";
+
+          page.innerHTML = template.innerHTML;
+
+          reader.appendChild(page);
+          pages.push(page);
+
+        } catch (error) {
+
+          console.log(
+            `Chapter ${chapterNumber} not found.`
+          );
+
+        }
+      }
+
+      if (status) {
+        status.remove();
+      }
+
+      /*
+        If no chapter was found, display a helpful message.
+      */
+
+      if (pages.length === 1) {
+
+        const errorPage = document.createElement("section");
+
+        errorPage.className = "page";
+
+        errorPage.innerHTML = `
+          <div class="error">
+            <h2>THE AWAKENED</h2>
+            <p>
+              No chapter files were found.
+            </p>
+            <p>
+              Make sure your files are inside the
+              <strong>chapters</strong> folder and named
+              chapter-01.html, chapter-02.html, etc.
+            </p>
+          </div>
+        `;
+
+        reader.appendChild(errorPage);
+        pages.push(errorPage);
+      }
+
+      /*
+        Hide everything except the first page.
+      */
+
+      pages.forEach((page, index) => {
+
+        page.classList.toggle(
+          "active",
+          index === currentPage
+        );
+
+      });
+
+      updateReader();
+    }
+
+
+    function updateReader() {
+
+      if (!pages.length) {
+        return;
+      }
+
+      pages.forEach((page, index) => {
+
+        page.classList.toggle(
+          "active",
+          index === currentPage
+        );
+
+      });
+
+      const total = pages.length;
+
+      const counter =
+        document.getElementById("pageCounter");
+
+      const previous =
+        document.getElementById("previousButton");
+
+      const next =
+        document.getElementById("nextButton");
+
+      const progress =
+        document.getElementById("progressBar");
+
+      if (counter) {
+        counter.textContent =
+          `${currentPage + 1} / ${total}`;
+      }
+
+      if (previous) {
+        previous.disabled =
+          currentPage <= 0;
+      }
+
+      if (next) {
+        next.disabled =
+          currentPage >= total - 1;
+      }
+
+      if (progress) {
+
+        const percent =
+          total <= 1
+            ? 0
+            : (currentPage / (total - 1)) * 100;
+
+        progress.style.width =
+          `${percent}%`;
+      }
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+
+
+    function nextPage() {
+
+      if (currentPage < pages.length - 1) {
+
+        currentPage++;
+
+        updateReader();
+      }
+    }
+
+
+    function previousPage() {
+
+      if (currentPage > 0) {
+
+        currentPage--;
+
+        updateReader();
+      }
+    }
+
+
+    function goToStart() {
+
+      currentPage = 0;
+
+      updateReader();
+    }
+
+
+    function goHome() {
+
+      currentPage = 0;
+
+      updateReader();
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+
+
+    function toggleReader() {
+
+      const reader =
+        document.getElementById("reader");
+
+      if (!reader) {
+        return;
+      }
+
+      reader.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+
+
+    /*
+      Keyboard controls
+    */
+
+    document.addEventListener(
+      "keydown",
+      function(event) {
+
+        if (
+          event.key === "ArrowRight" ||
+          event.key === " "
+        ) {
+
+          event.preventDefault();
+
+          nextPage();
+
+        }
+
+        if (event.key === "ArrowLeft") {
+
+          event.preventDefault();
+
+          previousPage();
+
+        }
+
+      }
+    );
+
+
+    /*
+      Start Reader
+    */
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      loadChapters
+    );
+
+  </script>
+
+</body>
+</html>
