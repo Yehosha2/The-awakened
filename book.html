@@ -45,16 +45,12 @@
       min-height: 100vh;
     }
 
-    /* Hide every page by default */
-
     #reader .page {
       display: none !important;
       width: 100%;
       min-height: 100vh;
       box-sizing: border-box;
     }
-
-    /* Show ONLY the active page */
 
     #reader .page.active {
       display: block !important;
@@ -66,6 +62,7 @@
 
     #reader .page.cover {
       min-height: 100vh;
+
       display: none !important;
 
       flex-direction: column;
@@ -104,7 +101,9 @@
       );
 
       font-weight: normal;
+
       color: #ccc;
+
       letter-spacing: 2px;
     }
 
@@ -118,17 +117,20 @@
 
     #reader .chapter-page > * {
       max-width: 850px;
+
       margin-left: auto;
       margin-right: auto;
     }
 
     /* =========================================
-       LOADING STATUS
+       LOADING
        ========================================= */
 
     #status {
       text-align: center;
+
       padding: 40px 20px;
+
       color: #aaa;
     }
 
@@ -138,12 +140,15 @@
 
     .error {
       max-width: 700px;
+
       margin: 80px auto;
+
       padding: 30px;
 
       text-align: center;
 
       border: 1px solid #333;
+
       border-radius: 12px;
 
       background: #181818;
@@ -154,7 +159,7 @@
     }
 
     /* =========================================
-       READER CONTROLS
+       CONTROLS
        ========================================= */
 
     .reader-controls {
@@ -197,12 +202,15 @@
       padding: 10px 18px;
 
       border: 1px solid #555;
+
       border-radius: 8px;
 
       background: #181818;
+
       color: #eee;
 
       font-family: inherit;
+
       font-size: 14px;
 
       cursor: pointer;
@@ -215,11 +223,13 @@
 
     .controls-inner button:hover:not(:disabled) {
       background: #252525;
+
       border-color: #aaa;
     }
 
     .controls-inner button:disabled {
       opacity: 0.35;
+
       cursor: not-allowed;
     }
 
@@ -239,21 +249,24 @@
     }
 
     /* =========================================
-       PROGRESS BAR
+       PROGRESS
        ========================================= */
 
     .progress-wrap {
       width: 100%;
+
       height: 3px;
 
       margin-top: 10px;
 
       background: #292929;
+
       overflow: hidden;
     }
 
     #progressBar {
       width: 0%;
+
       height: 100%;
 
       background: #eee;
@@ -289,14 +302,18 @@
 
       .controls-inner button {
         min-width: 90px;
+
         padding: 9px 12px;
+
         font-size: 12px;
       }
 
       #pageCounter {
         min-width: 60px;
+
         font-size: 12px;
       }
+
     }
 
   </style>
@@ -309,7 +326,7 @@
   <main id="reader">
 
     <!-- =====================================
-         COVER — PAGE 1
+         COVER
          ===================================== -->
 
     <section class="page active cover">
@@ -321,7 +338,6 @@
       </h2>
 
     </section>
-
 
     <!-- Loading message -->
 
@@ -348,11 +364,9 @@
         PREVIOUS
       </button>
 
-
       <div id="pageCounter">
         1 / 1
       </div>
-
 
       <button
         type="button"
@@ -363,7 +377,6 @@
       </button>
 
     </div>
-
 
     <div class="progress-wrap">
 
@@ -384,21 +397,12 @@
       THE AWAKENED
       Book One — Before the Beginning
 
-      Reader structure:
+      The cover is page 1.
 
-      Page 1  = Cover
-      Page 2  = Chapter 1
-      Page 3  = Chapter 2
-      Page 4  = Chapter 3
-      etc.
+      Existing chapter files are loaded
+      automatically from the chapters folder.
 
-      Chapter files are loaded from:
-
-      chapters/chapter-01.html
-      chapters/chapter-02.html
-      chapters/chapter-03.html
-
-      through chapter-99.html.
+      Missing chapter numbers are simply skipped.
     */
 
 
@@ -407,9 +411,9 @@
     let currentPage = 0;
 
 
-    /*
-      LOAD CHAPTERS
-    */
+    /* =========================================
+       LOAD CHAPTERS
+       ========================================= */
 
     async function loadChapters() {
 
@@ -420,19 +424,15 @@
         document.getElementById("status");
 
 
-      /*
-        Find the existing cover.
-
-        The cover is ALWAYS page 1.
-      */
+      /* Find the cover */
 
       const cover =
-        document.querySelector("#reader .cover");
+        document.querySelector(
+          "#reader .cover"
+        );
 
 
-      /*
-        Start with ONLY the cover.
-      */
+      /* Start with the cover */
 
       pages = [];
 
@@ -442,7 +442,10 @@
 
 
       /*
-        Load chapters 01–99.
+        Check chapter files.
+
+        We can safely check through 99,
+        but nonexistent files are ignored.
       */
 
       for (
@@ -471,9 +474,8 @@
 
 
           /*
-            Missing chapter?
-
-            Simply move to the next number.
+            If the file doesn't exist,
+            simply continue.
           */
 
           if (!response.ok) {
@@ -491,12 +493,7 @@
 
 
           /*
-            Parse the chapter as a complete
-            HTML document.
-
-            This is important because your
-            chapter files contain their own
-            HTML structure.
+            Parse the chapter HTML.
           */
 
           const parser =
@@ -511,41 +508,70 @@
 
 
           /*
-            Get the BODY content.
+            Your chapter files use:
 
-            This prevents us from nesting an
-            entire HTML document inside the
-            Reader page.
+            <section class="page">
+
+            Find that section.
           */
 
-          const chapterBody =
-            chapterDocument.body;
-
-
           const chapterContent =
-  chapterDocument.querySelector("section.page");
+            chapterDocument.querySelector(
+              "section.page"
+            );
 
-if (
-  !chapterContent ||
-  !chapterContent.innerHTML.trim()
-) {
-  continue;
-}
 
-const page =
-  document.createElement("section");
+          /*
+            If the expected section
+            doesn't exist, skip it.
+          */
 
-page.className =
-  "page chapter-page";
+          if (
+            !chapterContent ||
+            !chapterContent.innerHTML.trim()
+          ) {
+            continue;
+          }
 
-page.innerHTML =
-  chapterContent.innerHTML;
 
-reader.appendChild(page);
+          /*
+            Create a new reader page.
+          */
 
-pages.push(page);
+          const page =
+            document.createElement(
+              "section"
+            );
+
+
+          page.className =
+            "page chapter-page";
+
+
+          /*
+            Copy the chapter content.
+          */
+
+          page.innerHTML =
+            chapterContent.innerHTML;
+
+
+          /*
+            Add it to the reader.
+          */
+
+          reader.appendChild(page);
+
+          pages.push(page);
+
+        }
 
         catch (error) {
+
+          /*
+            A failed chapter does NOT
+            stop the entire reader.
+          */
 
           console.log(
             `Could not load ${path}`,
@@ -557,9 +583,7 @@ pages.push(page);
       }
 
 
-      /*
-        Remove loading message.
-      */
+      /* Remove loading message */
 
       if (status) {
         status.remove();
@@ -567,14 +591,16 @@ pages.push(page);
 
 
       /*
-        If no chapters loaded,
-        show an error page.
+        If there are no chapters,
+        show a useful error.
       */
 
       if (pages.length === 1) {
 
         const errorPage =
-          document.createElement("section");
+          document.createElement(
+            "section"
+          );
 
 
         errorPage.className =
@@ -592,13 +618,18 @@ pages.push(page);
           </p>
 
           <p>
-            Make sure your files are inside
-            the <strong>chapters</strong>
-            folder and named:
+            Make sure your chapter files
+            are inside the
+            <strong>chapters</strong>
+            folder.
           </p>
 
           <p>
-            chapter-01.html
+            Example:
+            <br>
+            <strong>
+              chapters/chapter-01.html
+            </strong>
           </p>
 
         `;
@@ -611,21 +642,18 @@ pages.push(page);
       }
 
 
-      /*
-        Start on the cover.
-      */
+      /* Start on cover */
 
       currentPage = 0;
-
 
       updateReader();
 
     }
 
 
-    /*
-      UPDATE READER
-    */
+    /* =========================================
+       UPDATE READER
+       ========================================= */
 
     function updateReader() {
 
@@ -635,12 +663,12 @@ pages.push(page);
 
 
       /*
-        Hide every page except the
-        current page.
+        Hide every page except
+        the current page.
       */
 
       pages.forEach(
-        (page, index) => {
+        function(page, index) {
 
           page.classList.toggle(
             "active",
@@ -655,9 +683,7 @@ pages.push(page);
         pages.length;
 
 
-      /*
-        Page counter
-      */
+      /* Page counter */
 
       const counter =
         document.getElementById(
@@ -673,9 +699,7 @@ pages.push(page);
       }
 
 
-      /*
-        Previous button
-      */
+      /* Previous button */
 
       const previous =
         document.getElementById(
@@ -686,14 +710,12 @@ pages.push(page);
       if (previous) {
 
         previous.disabled =
-          currentPage <= 0;
+          currentPage === 0;
 
       }
 
 
-      /*
-        Next button
-      */
+      /* Next button */
 
       const next =
         document.getElementById(
@@ -704,14 +726,12 @@ pages.push(page);
       if (next) {
 
         next.disabled =
-          currentPage >= total - 1;
+          currentPage === total - 1;
 
       }
 
 
-      /*
-        Progress bar
-      */
+      /* Progress bar */
 
       const progress =
         document.getElementById(
@@ -736,9 +756,7 @@ pages.push(page);
       }
 
 
-      /*
-        Return to top of page.
-      */
+      /* Return to top */
 
       window.scrollTo({
         top: 0,
@@ -748,9 +766,9 @@ pages.push(page);
     }
 
 
-    /*
-      NEXT PAGE
-    */
+    /* =========================================
+       NEXT
+       ========================================= */
 
     function nextPage() {
 
@@ -768,9 +786,9 @@ pages.push(page);
     }
 
 
-    /*
-      PREVIOUS PAGE
-    */
+    /* =========================================
+       PREVIOUS
+       ========================================= */
 
     function previousPage() {
 
@@ -785,9 +803,29 @@ pages.push(page);
     }
 
 
-    /*
-      START READER
-    */
+    /* =========================================
+       KEYBOARD
+       ========================================= */
+
+    document.addEventListener(
+      "keydown",
+      function(event) {
+
+        if (event.key === "ArrowRight") {
+          nextPage();
+        }
+
+        if (event.key === "ArrowLeft") {
+          previousPage();
+        }
+
+      }
+    );
+
+
+    /* =========================================
+       START
+       ========================================= */
 
     loadChapters();
 
