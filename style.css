@@ -601,7 +601,14 @@ footer {
   background: var(--accent);
   color: var(--bg);
 
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 8px 25px rgba(216, 180, 106, 0.18);
+}
+
+.game-main-button:active {
+  transform: translateY(-1px);
 }
 
 /* =========================
