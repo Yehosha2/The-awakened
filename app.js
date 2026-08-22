@@ -10,8 +10,8 @@ const pages = document.querySelectorAll(".page");
 const totalPages = pages.length;
 
 // Navigation elements
-const nextButton = document.getElementById("nextBtn");
-const previousButton = document.getElementById("prevBtn");
+const nextButton = document.getElementById("nextButton");
+const previousButton = document.getElementById("previousButton");
 const pageCounter = document.getElementById("pageCounter");
 const progressBar = document.getElementById("progressBar");
 
