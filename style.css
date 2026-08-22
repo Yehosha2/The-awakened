@@ -41,6 +41,10 @@ body {
   display: block;
 }
 
+.chapter-page {
+  display: block;
+}
+
 /* The cover is hidden unless it is the active page */
 .page.cover {
   display: none;
