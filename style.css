@@ -284,3 +284,24 @@ footer {
 }
 /* THE AWAKENED PAGE CONTROL */
 
+/* THE AWAKENED READER PAGE CONTROL */
+
+#reader > .page {
+  display: none !important;
+}
+
+#reader > .page.active {
+  display: block !important;
+}
+
+#reader > .page.cover.active {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+#reader > .page.cover:not(.active) {
+  display: none !important;
+}
