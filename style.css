@@ -284,17 +284,3 @@ footer {
 }
 /* THE AWAKENED PAGE CONTROL */
 
-.page {
-  display: none;
-}
-
-.page.active {
-  display: block;
-}
-
-.page.cover.active {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
