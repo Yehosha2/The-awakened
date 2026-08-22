@@ -317,6 +317,18 @@ footer {
   display: none;
   min-height: 100vh;
   padding: 30px 18px 70px;
+  position: relative;
+  background:
+    radial-gradient(
+      circle at 50% 10%,
+      rgba(216, 180, 106, 0.07),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at 50% 100%,
+      rgba(216, 180, 106, 0.035),
+      transparent 40%
+    );
 }
 
 .game-screen.active {
