@@ -522,49 +522,28 @@
             chapterDocument.body;
 
 
-          if (
-            !chapterBody ||
-            !chapterBody.innerHTML.trim()
-          ) {
-            continue;
-          }
+          const chapterContent =
+  chapterDocument.querySelector("section.page");
 
+if (
+  !chapterContent ||
+  !chapterContent.innerHTML.trim()
+) {
+  continue;
+}
 
-          /*
-            Create the Reader page.
-          */
+const page =
+  document.createElement("section");
 
-          const page =
-            document.createElement("section");
+page.className =
+  "page chapter-page";
 
+page.innerHTML =
+  chapterContent.innerHTML;
 
-          page.className =
-            "page chapter-page";
+reader.appendChild(page);
 
-
-          /*
-            Put ONLY the chapter body
-            inside the Reader page.
-          */
-
-          page.innerHTML =
-            chapterBody.innerHTML;
-
-
-          /*
-            Add chapter page to Reader.
-          */
-
-          reader.appendChild(page);
-
-
-          /*
-            Store the page.
-          */
-
-          pages.push(page);
-
-        }
+pages.push(page);
 
         catch (error) {
 
