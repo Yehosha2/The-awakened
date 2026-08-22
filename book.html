@@ -3,833 +3,971 @@
 
 <head>
 
-  <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
-  <title>THE AWAKENED — Book One</title>
+<title>THE AWAKENED — Book One</title>
 
-  <link
-    rel="stylesheet"
-    href="style.css"
-  >
+<link rel="stylesheet" href="style.css">
 
-  <style>
+<style>
 
-    /* =========================================
-       THE AWAKENED READER
-       ========================================= */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
 
-    html,
-    body {
-      margin: 0;
-      padding: 0;
-      min-height: 100%;
-    }
+body {
+  background: #111;
+  color: #eee;
+  font-family: Georgia, "Times New Roman", serif;
+}
 
-    body {
-      background: #111;
-      color: #eee;
-      font-family: Georgia, "Times New Roman", serif;
-    }
+/* =========================================
+   READER
+   ========================================= */
 
-    /* =========================================
-       READER
-       ========================================= */
+#reader {
+  width: 100%;
+  min-height: 100vh;
+}
 
-    #reader {
-      width: 100%;
-      min-height: 100vh;
-    }
+#reader .page {
+  display: none;
+  width: 100%;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
 
-    #reader .page {
-      display: none !important;
-      width: 100%;
-      min-height: 100vh;
-      box-sizing: border-box;
-    }
+#reader .page.active {
+  display: block;
+}
 
-    #reader .page.active {
-      display: block !important;
-    }
+/* =========================================
+   COVER
+   ========================================= */
 
-    /* =========================================
-       COVER
-       ========================================= */
+#reader .cover {
+  min-height: 100vh;
 
-    #reader .page.cover {
-      min-height: 100vh;
+  display: none;
+  flex-direction: column;
 
-      display: none !important;
+  justify-content: center;
+  align-items: center;
 
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+  text-align: center;
 
-      text-align: center;
+  padding: 40px 25px;
 
-      padding: 40px 25px;
-      box-sizing: border-box;
-    }
+  box-sizing: border-box;
+}
 
-    #reader .page.cover.active {
-      display: flex !important;
-    }
+#reader .cover.active {
+  display: flex;
+}
 
-    .cover h1 {
-      margin: 0 0 15px;
+.cover h1 {
+  margin: 0 0 15px;
 
-      font-size: clamp(
-        2.5rem,
-        9vw,
-        5.5rem
-      );
+  font-size: clamp(
+    2.5rem,
+    9vw,
+    5.5rem
+  );
 
-      letter-spacing: 6px;
-    }
+  letter-spacing: 6px;
+}
 
-    .cover h2 {
-      margin: 0;
+.cover h2 {
+  margin: 0;
 
-      font-size: clamp(
-        1rem,
-        4vw,
-        1.5rem
-      );
+  font-size: clamp(
+    1rem,
+    4vw,
+    1.5rem
+  );
 
-      font-weight: normal;
+  font-weight: normal;
 
-      color: #ccc;
+  color: #ccc;
 
-      letter-spacing: 2px;
-    }
+  letter-spacing: 2px;
+}
 
-    /* =========================================
-       CHAPTER PAGES
-       ========================================= */
+/* =========================================
+   CHAPTER PAGE
+   ========================================= */
 
-    #reader .chapter-page {
-      padding: 50px 25px 120px;
-    }
+#reader .chapter-page {
 
-    #reader .chapter-page > * {
-      max-width: 850px;
+  display: none;
 
-      margin-left: auto;
-      margin-right: auto;
-    }
+  padding:
+    50px
+    25px
+    130px;
 
-    /* =========================================
-       LOADING
-       ========================================= */
+  box-sizing: border-box;
+}
 
-    #status {
-      text-align: center;
+#reader .chapter-page.active {
+  display: block;
+}
 
-      padding: 40px 20px;
+#reader .chapter-page > * {
+  max-width: 850px;
 
-      color: #aaa;
-    }
+  margin-left: auto;
+  margin-right: auto;
+}
 
-    /* =========================================
-       ERROR
-       ========================================= */
+/* =========================================
+   LOADING
+   ========================================= */
 
-    .error {
-      max-width: 700px;
+#status {
 
-      margin: 80px auto;
+  text-align: center;
 
-      padding: 30px;
+  padding: 40px 20px;
 
-      text-align: center;
+  color: #aaa;
+}
 
-      border: 1px solid #333;
+/* =========================================
+   ERROR
+   ========================================= */
 
-      border-radius: 12px;
+.error {
 
-      background: #181818;
-    }
+  max-width: 700px;
 
-    .error h2 {
-      margin-top: 0;
-    }
+  margin: 80px auto;
 
-    /* =========================================
-       CONTROLS
-       ========================================= */
+  padding: 30px;
 
-    .reader-controls {
-      position: fixed;
+  text-align: center;
 
-      bottom: 0;
-      left: 0;
-      right: 0;
+  border: 1px solid #333;
 
-      z-index: 1000;
+  border-radius: 12px;
 
-      background: rgba(
-        17,
-        17,
-        17,
-        0.98
-      );
+  background: #181818;
+}
 
-      border-top: 1px solid #333;
+.error h2 {
+  margin-top: 0;
+}
 
-      padding: 10px;
-    }
+/* =========================================
+   CONTROLS
+   ========================================= */
 
-    .controls-inner {
-      display: flex;
+.reader-controls {
 
-      align-items: center;
-      justify-content: center;
+  position: fixed;
 
-      gap: 15px;
+  bottom: 0;
+  left: 0;
+  right: 0;
 
-      max-width: 900px;
+  z-index: 1000;
 
-      margin: 0 auto;
-    }
+  background: rgba(
+    17,
+    17,
+    17,
+    0.98
+  );
 
-    .controls-inner button {
-      min-width: 110px;
+  border-top: 1px solid #333;
 
-      padding: 10px 18px;
+  padding: 10px;
+}
 
-      border: 1px solid #555;
+.controls-inner {
 
-      border-radius: 8px;
+  display: flex;
 
-      background: #181818;
+  align-items: center;
 
-      color: #eee;
+  justify-content: center;
 
-      font-family: inherit;
+  gap: 15px;
 
-      font-size: 14px;
+  max-width: 900px;
 
-      cursor: pointer;
+  margin: 0 auto;
+}
 
-      transition:
-        background 0.2s ease,
-        border-color 0.2s ease,
-        opacity 0.2s ease;
-    }
+.controls-inner button {
 
-    .controls-inner button:hover:not(:disabled) {
-      background: #252525;
+  min-width: 110px;
 
-      border-color: #aaa;
-    }
+  padding: 10px 18px;
 
-    .controls-inner button:disabled {
-      opacity: 0.35;
+  border: 1px solid #555;
 
-      cursor: not-allowed;
-    }
+  border-radius: 8px;
 
-    #pageCounter {
-      min-width: 80px;
+  background: #181818;
 
-      text-align: center;
+  color: #eee;
 
-      color: #ccc;
+  font-family: inherit;
 
-      font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+  font-size: 14px;
 
-      font-size: 14px;
-    }
+  cursor: pointer;
+}
 
-    /* =========================================
-       PROGRESS
-       ========================================= */
+.controls-inner button:hover:not(:disabled) {
 
-    .progress-wrap {
-      width: 100%;
+  background: #252525;
 
-      height: 3px;
+  border-color: #aaa;
+}
 
-      margin-top: 10px;
+.controls-inner button:disabled {
 
-      background: #292929;
+  opacity: 0.35;
 
-      overflow: hidden;
-    }
+  cursor: not-allowed;
+}
 
-    #progressBar {
-      width: 0%;
+#pageCounter {
 
-      height: 100%;
+  min-width: 80px;
 
-      background: #eee;
+  text-align: center;
 
-      transition:
-        width 0.25s ease;
-    }
+  color: #ccc;
 
-    /* =========================================
-       MOBILE
-       ========================================= */
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
 
-    @media (max-width: 600px) {
+  font-size: 14px;
+}
 
-      .cover h1 {
-        letter-spacing: 3px;
-      }
+/* =========================================
+   PROGRESS
+   ========================================= */
 
-      .cover h2 {
-        letter-spacing: 1px;
-      }
+.progress-wrap {
 
-      #reader .chapter-page {
-        padding:
-          35px
-          18px
-          120px;
-      }
+  width: 100%;
 
-      .controls-inner {
-        gap: 8px;
-      }
+  height: 3px;
 
-      .controls-inner button {
-        min-width: 90px;
+  margin-top: 10px;
 
-        padding: 9px 12px;
+  background: #292929;
 
-        font-size: 12px;
-      }
+  overflow: hidden;
+}
 
-      #pageCounter {
-        min-width: 60px;
+#progressBar {
 
-        font-size: 12px;
-      }
+  width: 0%;
 
-    }
+  height: 100%;
 
-  </style>
+  background: #eee;
+
+  transition: width 0.25s ease;
+}
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 600px) {
+
+  .cover h1 {
+    letter-spacing: 3px;
+  }
+
+  .cover h2 {
+    letter-spacing: 1px;
+  }
+
+  #reader .chapter-page {
+
+    padding:
+      35px
+      18px
+      130px;
+  }
+
+  .controls-inner {
+    gap: 8px;
+  }
+
+  .controls-inner button {
+
+    min-width: 90px;
+
+    padding:
+      9px
+      12px;
+
+    font-size: 12px;
+  }
+
+  #pageCounter {
+
+    min-width: 60px;
+
+    font-size: 12px;
+  }
+
+}
+
+</style>
 
 </head>
 
 
 <body>
 
-  <main id="reader">
+<main id="reader">
 
-    <!-- =====================================
-         COVER
-         ===================================== -->
+  <!-- =====================================
+       COVER
+       ===================================== -->
 
-    <section class="page active cover">
+  <section
+    class="page cover active"
+    id="cover"
+  >
 
-      <h1>THE AWAKENED</h1>
+    <h1>
+      THE AWAKENED
+    </h1>
 
-      <h2>
-        Book One — Before the Beginning
-      </h2>
+    <h2>
+      Book One — Before the Beginning
+    </h2>
 
-    </section>
+  </section>
 
-    <!-- Loading message -->
+  <!-- Loading -->
 
-    <div id="status">
-      Loading the book...
+  <div id="status">
+    Loading the book...
+  </div>
+
+</main>
+
+
+<!-- =======================================
+     CONTROLS
+     ======================================= -->
+
+<div class="reader-controls">
+
+  <div class="controls-inner">
+
+    <button
+      type="button"
+      id="previousButton"
+    >
+      PREVIOUS
+    </button>
+
+    <div id="pageCounter">
+      1 / 1
     </div>
 
-  </main>
-
-
-  <!-- =======================================
-       READER CONTROLS
-       ======================================= -->
-
-  <div class="reader-controls">
-
-    <div class="controls-inner">
-
-      <button
-        type="button"
-        id="previousButton"
-        onclick="previousPage()"
-      >
-        PREVIOUS
-      </button>
-
-      <div id="pageCounter">
-        1 / 1
-      </div>
-
-      <button
-        type="button"
-        id="nextButton"
-        onclick="nextPage()"
-      >
-        NEXT
-      </button>
-
-    </div>
-
-    <div class="progress-wrap">
-
-      <div id="progressBar"></div>
-
-    </div>
+    <button
+      type="button"
+      id="nextButton"
+    >
+      NEXT
+    </button>
 
   </div>
 
+  <div class="progress-wrap">
 
-  <!-- =======================================
-       READER JAVASCRIPT
-       ======================================= -->
+    <div id="progressBar"></div>
 
-  <script>
+  </div>
 
-    /*
-      THE AWAKENED
-      Book One — Before the Beginning
-
-      The cover is page 1.
-
-      Existing chapter files are loaded
-      automatically from the chapters folder.
-
-      Missing chapter numbers are simply skipped.
-    */
+</div>
 
 
-    let pages = [];
+<script>
 
-    let currentPage = 0;
+/* =========================================
+   THE AWAKENED READER
+   =========================================
+
+   Cover = Page 1
+
+   Chapters are loaded from:
+
+   chapters/chapter-01.html
+   chapters/chapter-02.html
+   chapters/chapter-03.html
+
+   etc.
+
+   Missing chapter numbers are ignored.
+   ========================================= */
 
 
-    /* =========================================
-       LOAD CHAPTERS
-       ========================================= */
+let pages = [];
 
-    async function loadChapters() {
-
-      const reader =
-        document.getElementById("reader");
-
-      const status =
-        document.getElementById("status");
+let currentPage = 0;
 
 
-      /* Find the cover */
+/* =========================================
+   LOAD CHAPTERS
+   ========================================= */
 
-      const cover =
-        document.querySelector(
-          "#reader .cover"
+async function loadChapters() {
+
+  const reader =
+    document.getElementById("reader");
+
+  const status =
+    document.getElementById("status");
+
+  const cover =
+    document.getElementById("cover");
+
+
+  /*
+    Start fresh.
+  */
+
+  pages = [];
+
+
+  /*
+    Add cover first.
+  */
+
+  if (cover) {
+
+    pages.push(cover);
+
+  }
+
+
+  /*
+    Load chapters 01 through 99.
+  */
+
+  for (
+    let number = 1;
+    number <= 99;
+    number++
+  ) {
+
+    const chapterNumber =
+      String(number).padStart(2, "0");
+
+
+    const path =
+      `chapters/chapter-${chapterNumber}.html`;
+
+
+    try {
+
+      const response =
+        await fetch(
+          path,
+          {
+            cache: "no-cache"
+          }
         );
 
 
-      /* Start with the cover */
+      /*
+        File doesn't exist.
+      */
 
-      pages = [];
+      if (!response.ok) {
 
-      if (cover) {
-        pages.push(cover);
+        console.log(
+          `Skipping ${path}`
+        );
+
+        continue;
+
+      }
+
+
+      const html =
+        await response.text();
+
+
+      if (!html.trim()) {
+
+        continue;
+
       }
 
 
       /*
-        Check chapter files.
-
-        We can safely check through 99,
-        but nonexistent files are ignored.
+        Parse the chapter.
       */
 
-      for (
-        let number = 1;
-        number <= 99;
-        number++
+      const parser =
+        new DOMParser();
+
+
+      const doc =
+        parser.parseFromString(
+          html,
+          "text/html"
+        );
+
+
+      /*
+        First try the expected
+        section.page structure.
+      */
+
+      let content =
+        doc.querySelector(
+          "section.page"
+        );
+
+
+      /*
+        If there isn't a section.page,
+        use the body instead.
+
+        This makes the reader compatible
+        with more chapter file structures.
+      */
+
+      if (!content) {
+
+        content = doc.body;
+
+      }
+
+
+      if (
+        !content ||
+        !content.innerHTML.trim()
       ) {
 
-        const chapterNumber =
-          String(number).padStart(2, "0");
+        console.log(
+          `Empty chapter: ${path}`
+        );
 
+        continue;
 
-        const path =
-          `./chapters/chapter-${chapterNumber}.html`;
-
-
-        try {
-
-          const response =
-            await fetch(
-              path,
-              {
-                cache: "no-cache"
-              }
-            );
-
-
-          /*
-            If the file doesn't exist,
-            simply continue.
-          */
-
-          if (!response.ok) {
-            continue;
-          }
-
-
-          const html =
-            await response.text();
-
-
-          if (!html.trim()) {
-            continue;
-          }
-
-
-          /*
-            Parse the chapter HTML.
-          */
-
-          const parser =
-            new DOMParser();
-
-
-          const chapterDocument =
-            parser.parseFromString(
-              html,
-              "text/html"
-            );
-
-
-          /*
-            Your chapter files use:
-
-            <section class="page">
-
-            Find that section.
-          */
-
-          const chapterContent =
-            chapterDocument.querySelector(
-              "section.page"
-            );
-
-
-          /*
-            If the expected section
-            doesn't exist, skip it.
-          */
-
-          if (
-            !chapterContent ||
-            !chapterContent.innerHTML.trim()
-          ) {
-            continue;
-          }
-
-
-          /*
-            Create a new reader page.
-          */
-
-          const page =
-            document.createElement(
-              "section"
-            );
-
-
-          page.className =
-            "page chapter-page";
-
-
-          /*
-            Copy the chapter content.
-          */
-
-          page.innerHTML =
-            chapterContent.innerHTML;
-
-
-          /*
-            Add it to the reader.
-          */
-
-          reader.appendChild(page);
-
-          pages.push(page);
-
-        }
-
-        catch (error) {
-
-          /*
-            A failed chapter does NOT
-            stop the entire reader.
-          */
-
-          console.log(
-            `Could not load ${path}`,
-            error
-          );
-
-        }
-
-      }
-
-
-      /* Remove loading message */
-
-      if (status) {
-        status.remove();
       }
 
 
       /*
-        If there are no chapters,
-        show a useful error.
+        Create reader page.
       */
 
-      if (pages.length === 1) {
-
-        const errorPage =
-          document.createElement(
-            "section"
-          );
+      const page =
+        document.createElement(
+          "section"
+        );
 
 
-        errorPage.className =
-          "page error";
+      page.className =
+        "page chapter-page";
 
 
-        errorPage.innerHTML = `
+      /*
+        Copy chapter content.
+      */
 
-          <h2>
-            THE AWAKENED
-          </h2>
-
-          <p>
-            No chapter files were found.
-          </p>
-
-          <p>
-            Make sure your chapter files
-            are inside the
-            <strong>chapters</strong>
-            folder.
-          </p>
-
-          <p>
-            Example:
-            <br>
-            <strong>
-              chapters/chapter-01.html
-            </strong>
-          </p>
-
-        `;
+      page.innerHTML =
+        content.innerHTML;
 
 
-        reader.appendChild(errorPage);
+      /*
+        Store chapter number.
+      */
 
-        pages.push(errorPage);
+      page.dataset.chapter =
+        number;
 
-      }
+
+      /*
+        Add page to reader.
+      */
+
+      reader.appendChild(page);
+
+      pages.push(page);
 
 
-      /* Start on cover */
-
-      currentPage = 0;
-
-      updateReader();
+      console.log(
+        `Loaded ${path}`
+      );
 
     }
 
+    catch (error) {
 
-    /* =========================================
-       UPDATE READER
-       ========================================= */
+      console.error(
+        `Error loading ${path}`,
+        error
+      );
 
-    function updateReader() {
+    }
 
-      if (!pages.length) {
-        return;
-      }
+  }
 
 
-      /*
-        Hide every page except
-        the current page.
-      */
+  /*
+    Remove loading message.
+  */
 
-      pages.forEach(
-        function(page, index) {
+  if (status) {
 
-          page.classList.toggle(
-            "active",
-            index === currentPage
-          );
+    status.remove();
 
-        }
+  }
+
+
+  /*
+    If no chapters loaded,
+    show diagnostic page.
+  */
+
+  if (pages.length === 1) {
+
+    const errorPage =
+      document.createElement(
+        "section"
       );
 
 
-      const total =
-        pages.length;
+    errorPage.className =
+      "page error";
 
 
-      /* Page counter */
+    errorPage.innerHTML = `
 
-      const counter =
-        document.getElementById(
-          "pageCounter"
-        );
+      <h2>
+        THE AWAKENED
+      </h2>
 
+      <p>
+        The cover loaded, but no chapters
+        could be loaded.
+      </p>
 
-      if (counter) {
+      <p>
+        Your files need to be located here:
+      </p>
 
-        counter.textContent =
-          `${currentPage + 1} / ${total}`;
+      <p>
+        <strong>
+          chapters/chapter-01.html
+        </strong>
+      </p>
 
-      }
+      <p>
+        Then:
+      </p>
 
+      <p>
+        <strong>
+          chapters/chapter-02.html
+        </strong>
+      </p>
 
-      /* Previous button */
+      <p>
+        <strong>
+          chapters/chapter-03.html
+        </strong>
+      </p>
 
-      const previous =
-        document.getElementById(
-          "previousButton"
-        );
+      <p>
+        and so on.
+      </p>
 
+      <p>
+        Open the browser console to see
+        which files were found.
+      </p>
 
-      if (previous) {
-
-        previous.disabled =
-          currentPage === 0;
-
-      }
-
-
-      /* Next button */
-
-      const next =
-        document.getElementById(
-          "nextButton"
-        );
-
-
-      if (next) {
-
-        next.disabled =
-          currentPage === total - 1;
-
-      }
-
-
-      /* Progress bar */
-
-      const progress =
-        document.getElementById(
-          "progressBar"
-        );
+    `;
 
 
-      if (progress) {
-
-        const percent =
-          total <= 1
-            ? 0
-            : (
-                currentPage /
-                (total - 1)
-              ) * 100;
-
-
-        progress.style.width =
-          `${percent}%`;
-
-      }
-
-
-      /* Return to top */
-
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-
-    }
-
-
-    /* =========================================
-       NEXT
-       ========================================= */
-
-    function nextPage() {
-
-      if (
-        currentPage <
-        pages.length - 1
-      ) {
-
-        currentPage++;
-
-        updateReader();
-
-      }
-
-    }
-
-
-    /* =========================================
-       PREVIOUS
-       ========================================= */
-
-    function previousPage() {
-
-      if (currentPage > 0) {
-
-        currentPage--;
-
-        updateReader();
-
-      }
-
-    }
-
-
-    /* =========================================
-       KEYBOARD
-       ========================================= */
-
-    document.addEventListener(
-      "keydown",
-      function(event) {
-
-        if (event.key === "ArrowRight") {
-          nextPage();
-        }
-
-        if (event.key === "ArrowLeft") {
-          previousPage();
-        }
-
-      }
+    reader.appendChild(
+      errorPage
     );
 
 
-    /* =========================================
-       START
-       ========================================= */
+    pages.push(
+      errorPage
+    );
 
-    loadChapters();
+  }
 
-  </script>
+
+  /*
+    Begin on cover.
+  */
+
+  currentPage = 0;
+
+  updateReader();
+
+}
+
+
+/* =========================================
+   UPDATE READER
+   ========================================= */
+
+function updateReader() {
+
+  if (!pages.length) {
+
+    return;
+
+  }
+
+
+  /*
+    Show only current page.
+  */
+
+  pages.forEach(
+    function(page, index) {
+
+      if (
+        index === currentPage
+      ) {
+
+        page.classList.add(
+          "active"
+        );
+
+      }
+      else {
+
+        page.classList.remove(
+          "active"
+        );
+
+      }
+
+    }
+  );
+
+
+  const total =
+    pages.length;
+
+
+  /*
+    Counter.
+  */
+
+  const counter =
+    document.getElementById(
+      "pageCounter"
+    );
+
+
+  if (counter) {
+
+    counter.textContent =
+      `${currentPage + 1} / ${total}`;
+
+  }
+
+
+  /*
+    Previous.
+  */
+
+  const previous =
+    document.getElementById(
+      "previousButton"
+    );
+
+
+  if (previous) {
+
+    previous.disabled =
+      currentPage === 0;
+
+  }
+
+
+  /*
+    Next.
+  */
+
+  const next =
+    document.getElementById(
+      "nextButton"
+    );
+
+
+  if (next) {
+
+    next.disabled =
+      currentPage >= total - 1;
+
+  }
+
+
+  /*
+    Progress.
+  */
+
+  const progress =
+    document.getElementById(
+      "progressBar"
+    );
+
+
+  if (progress) {
+
+    let percent = 0;
+
+
+    if (total > 1) {
+
+      percent =
+        (
+          currentPage /
+          (total - 1)
+        ) * 100;
+
+    }
+
+
+    progress.style.width =
+      `${percent}%`;
+
+  }
+
+
+  /*
+    Scroll to top.
+  */
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+}
+
+
+/* =========================================
+   NEXT
+   ========================================= */
+
+function nextPage() {
+
+  if (
+    currentPage <
+    pages.length - 1
+  ) {
+
+    currentPage++;
+
+    updateReader();
+
+  }
+
+}
+
+
+/* =========================================
+   PREVIOUS
+   ========================================= */
+
+function previousPage() {
+
+  if (
+    currentPage > 0
+  ) {
+
+    currentPage--;
+
+    updateReader();
+
+  }
+
+}
+
+
+/* =========================================
+   BUTTON EVENTS
+   ========================================= */
+
+document
+  .getElementById("nextButton")
+  .addEventListener(
+    "click",
+    nextPage
+  );
+
+
+document
+  .getElementById("previousButton")
+  .addEventListener(
+    "click",
+    previousPage
+  );
+
+
+/* =========================================
+   KEYBOARD
+   ========================================= */
+
+document.addEventListener(
+  "keydown",
+  function(event) {
+
+    if (
+      event.key === "ArrowRight"
+    ) {
+
+      nextPage();
+
+    }
+
+
+    if (
+      event.key === "ArrowLeft"
+    ) {
+
+      previousPage();
+
+    }
+
+  }
+);
+
+
+/* =========================================
+   START READER
+   ========================================= */
+
+loadChapters();
+
+</script>
 
 </body>
 
