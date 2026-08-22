@@ -5,7 +5,7 @@
 let currentPage = 0;
 
 // Get all book pages
-const pages = document.querySelectorAll(".book-page");
+const pages = document.querySelectorAll(".page");
 
 // Total pages
 const totalPages = pages.length;
