@@ -118,8 +118,3 @@ document.querySelectorAll("[data-page]").forEach(button => {
     }
   });
 });
-
-// Start reader
-document.addEventListener("DOMContentLoaded", function () {
-  showPage(0);
-});
