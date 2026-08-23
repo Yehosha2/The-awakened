@@ -53,10 +53,11 @@ const scenes = {
     choices: [
 
       {
-        text: "Touch the symbol.",
-        next: "touchTablet",
-        flag: "touchedTablet"
-      },
+  text: "Touch the symbol.",
+  next: "touchTablet",
+  flag: "touchedTablet",
+  awakening: 1
+}
 
       {
         text: "Step away from the tablet.",
