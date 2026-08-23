@@ -645,3 +645,161 @@ footer {
   }
 
 }
+
+/* =========================================
+   THE AWAKENED — TITLE SCREEN POLISH
+   ========================================= */
+
+#title-screen {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+#title-screen .game-content {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+#title-screen .game-symbol {
+  font-size: 72px;
+  line-height: 1;
+  margin-bottom: 25px;
+  display: inline-block;
+
+  filter:
+    drop-shadow(0 0 10px rgba(216, 180, 106, 0.5))
+    drop-shadow(0 0 30px rgba(216, 180, 106, 0.25));
+
+  animation: titleEyePulse 4s ease-in-out infinite;
+}
+
+#title-screen h1 {
+  margin: 0;
+
+  font-size: clamp(42px, 10vw, 76px);
+  letter-spacing: 0.1em;
+
+  text-shadow:
+    0 0 20px rgba(216, 180, 106, 0.12);
+}
+
+#title-screen h2 {
+  margin: 8px 0 20px;
+
+  color: var(--accent);
+
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: normal;
+
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+
+#title-screen .game-subtitle {
+  margin: 0 auto 40px;
+
+  max-width: 500px;
+
+  color: var(--muted);
+
+  font-size: 17px;
+  font-style: italic;
+}
+
+#title-screen .game-menu {
+  width: 100%;
+  max-width: 360px;
+
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+#title-screen .game-menu button {
+  width: 100%;
+
+  padding: 15px 20px;
+
+  background: rgba(21, 21, 25, 0.85);
+  color: var(--text);
+
+  border: 1px solid var(--line);
+  border-radius: 999px;
+
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: bold;
+
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+
+  cursor: pointer;
+
+  transition: 0.25s ease;
+}
+
+#title-screen .game-menu button:hover {
+  color: var(--accent);
+
+  border-color: var(--accent);
+
+  background: rgba(216, 180, 106, 0.08);
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 8px 25px rgba(216, 180, 106, 0.12);
+}
+
+#title-screen .game-menu button:active {
+  transform: translateY(0);
+}
+
+#title-screen .game-menu button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+@keyframes titleEyePulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 600px) {
+
+  #title-screen .game-content {
+    padding: 30px 15px;
+  }
+
+  #title-screen .game-symbol {
+    font-size: 58px;
+  }
+
+  #title-screen h1 {
+    font-size: 38px;
+  }
+
+  #title-screen h2 {
+    font-size: 15px;
+  }
+
+  #title-screen .game-subtitle {
+    font-size: 15px;
+  }
+
+}
