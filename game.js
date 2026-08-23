@@ -1502,6 +1502,47 @@ function returnToBook() {
     "book.html";
 }
 
+/* =========================================================
+   ENDING BUTTONS
+   ========================================================= */
+
+function setupEndingButtons() {
+
+  const playAgainButton =
+    document.getElementById("play-again-button");
+
+  const returnBookButton =
+    document.getElementById("return-book-button");
+
+
+  if (playAgainButton) {
+
+    playAgainButton.addEventListener(
+      "click",
+      function() {
+
+        startNewGame();
+
+      }
+    );
+
+  }
+
+
+  if (returnBookButton) {
+
+    returnBookButton.addEventListener(
+      "click",
+      function() {
+
+        returnToBook();
+
+      }
+    );
+
+  }
+
+}
 
 /* =========================================================
    INITIALIZATION
@@ -1512,6 +1553,8 @@ document.addEventListener(
   function() {
 
     updateContinueButton();
+
+    setupEndingButtons();
 
     showScreen("title-screen");
 
