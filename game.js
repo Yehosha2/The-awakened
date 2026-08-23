@@ -825,9 +825,6 @@ const scenes = {
 /* =========================================================
    SCREEN MANAGEMENT
    ========================================================= */
-/* =========================================================
-   SCREEN MANAGEMENT
-   ========================================================= */
 
 function showScreen(id) {
 
@@ -857,16 +854,23 @@ function showScreen(id) {
    TITLE SCREEN
    ========================================================= */
 
+
 function showTitleScreen() {
+
   showScreen("title-screen");
+
 }
 
 function showInstructions() {
+
   showScreen("instructions-screen");
+
 }
 
 function returnToTitle() {
+
   showTitleScreen();
+
 }
 
 /* =========================================================
@@ -897,7 +901,6 @@ function startNewGame() {
   renderScene();
 
 }
-
 
 /* =========================================================
    SCENE RENDERING
