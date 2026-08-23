@@ -825,23 +825,49 @@ const scenes = {
 /* =========================================================
    SCREEN MANAGEMENT
    ========================================================= */
+/* =========================================================
+   SCREEN MANAGEMENT
+   ========================================================= */
 
 function showScreen(id) {
 
-  document
-    .querySelectorAll(".game-screen")
-    .forEach(screen => {
-      screen.classList.remove("active");
-    });
+  const screens = document.querySelectorAll(".game-screen");
 
-  const screen = document.getElementById(id);
+  screens.forEach(function(screen) {
+    screen.classList.remove("active");
+  });
 
-  if (screen) {
-    screen.classList.add("active");
+  const target = document.getElementById(id);
+
+  if (!target) {
+    console.error("Screen not found:", id);
+    return;
   }
 
+  target.classList.add("active");
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
 }
 
+
+/* =========================================================
+   TITLE SCREEN
+   ========================================================= */
+
+function showTitleScreen() {
+  showScreen("title-screen");
+}
+
+function showInstructions() {
+  showScreen("instructions-screen");
+}
+
+function returnToTitle() {
+  showTitleScreen();
+}
 
 /* =========================================================
    TITLE SCREEN
