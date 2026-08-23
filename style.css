@@ -1335,3 +1335,280 @@ footer {
   display: flex !important;
 
 }
+
+/* =========================================================
+   THE AWAKENED — GAMEPLAY POLISH
+   ========================================================= */
+
+#game-screen {
+  position: relative;
+}
+
+#game-screen .game-container {
+  position: relative;
+  z-index: 2;
+}
+
+/* GAME HEADER */
+
+#game-screen .game-header {
+  padding: 35px 10px 28px;
+}
+
+#game-screen .game-title {
+  color: var(--accent);
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+#game-screen .game-progress {
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+}
+
+/* STORY PANEL */
+
+#game-screen .story-panel {
+  position: relative;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(21, 21, 25, 0.98),
+      rgba(11, 11, 13, 0.98)
+    );
+
+  border: 1px solid var(--line);
+  border-radius: 22px;
+
+  padding: 38px 32px;
+
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.45),
+    0 0 35px rgba(216, 180, 106, 0.035);
+
+  overflow: hidden;
+}
+
+#game-screen .story-panel::after {
+  content: "👁️";
+
+  position: absolute;
+  top: 20px;
+  right: 24px;
+
+  font-size: 18px;
+
+  opacity: 0.08;
+
+  pointer-events: none;
+}
+
+/* LOCATION */
+
+#game-screen .location {
+  color: var(--accent);
+
+  font-family: Arial, sans-serif;
+
+  font-size: 11px;
+
+  letter-spacing: 0.25em;
+
+  text-transform: uppercase;
+
+  margin-bottom: 12px;
+}
+
+/* SCENE TITLE */
+
+#game-screen #scene-title {
+  margin: 0 0 30px;
+
+  font-size:
+    clamp(
+      32px,
+      7vw,
+      54px
+    );
+
+  font-weight: normal;
+
+  letter-spacing: 0.08em;
+
+  line-height: 1.15;
+
+  text-shadow:
+    0 0 18px rgba(216, 180, 106, 0.08);
+}
+
+/* STORY TEXT */
+
+#game-screen #story-text p {
+  margin: 0 0 24px;
+
+  color: var(--text);
+
+  font-size: 18px;
+
+  line-height: 2;
+}
+
+#game-screen #story-text p:last-child {
+  margin-bottom: 0;
+}
+
+/* CHOICES */
+
+#game-screen #choices {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 14px;
+
+  margin-top: 28px;
+}
+
+#game-screen .choice-button {
+  width: 100%;
+
+  padding: 18px 21px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(21, 21, 25, 0.96),
+      rgba(11, 11, 13, 0.96)
+    );
+
+  color: var(--text);
+
+  border: 1px solid var(--line);
+
+  border-radius: 15px;
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  font-size: 17px;
+
+  line-height: 1.5;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    color 0.25s ease,
+    border-color 0.25s ease,
+    background 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+#game-screen .choice-button:hover {
+  color: var(--accent);
+
+  border-color: var(--accent);
+
+  background:
+    rgba(216, 180, 106, 0.06);
+
+  transform: translateX(5px);
+
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.25);
+}
+
+#game-screen .choice-button:active {
+  transform: translateX(2px);
+}
+
+/* GAME FOOTER */
+
+#game-screen .game-footer {
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  gap: 10px;
+
+  flex-wrap: wrap;
+
+  margin-top: 28px;
+}
+
+#game-screen .game-footer button {
+  background: transparent;
+
+  color: var(--muted);
+
+  border: 1px solid var(--line);
+
+  border-radius: 999px;
+
+  padding: 9px 17px;
+
+  font-family: Arial, sans-serif;
+
+  font-size: 11px;
+
+  letter-spacing: 0.12em;
+
+  text-transform: uppercase;
+
+  cursor: pointer;
+
+  transition: 0.25s ease;
+}
+
+#game-screen .game-footer button:hover {
+  color: var(--accent);
+
+  border-color: var(--accent);
+
+  transform: translateY(-2px);
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+  #game-screen {
+    padding: 15px 12px 45px;
+  }
+
+  #game-screen .story-panel {
+    padding: 28px 20px;
+
+    border-radius: 17px;
+  }
+
+  #game-screen #scene-title {
+    font-size: 34px;
+
+    margin-bottom: 25px;
+  }
+
+  #game-screen #story-text p {
+    font-size: 16px;
+
+    line-height: 1.9;
+  }
+
+  #game-screen .choice-button {
+    font-size: 16px;
+
+    padding: 16px;
+  }
+
+}
