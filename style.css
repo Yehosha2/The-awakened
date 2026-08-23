@@ -1316,3 +1316,56 @@ footer {
   }
 
 }
+
+/* =========================================================
+   THE AWAKENED — CINEMATIC TRANSITIONS
+   ========================================================= */
+
+#game-screen .story-panel,
+#game-screen #choices {
+  animation: awakenedSceneIn 0.55s ease both;
+}
+
+@keyframes awakenedSceneIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#game-screen .choice-button {
+  animation: awakenedChoiceIn 0.45s ease both;
+}
+
+#game-screen .choice-button:nth-child(1) {
+  animation-delay: 0.08s;
+}
+
+#game-screen .choice-button:nth-child(2) {
+  animation-delay: 0.16s;
+}
+
+#game-screen .choice-button:nth-child(3) {
+  animation-delay: 0.24s;
+}
+
+#game-screen .choice-button:nth-child(4) {
+  animation-delay: 0.32s;
+}
+
+@keyframes awakenedChoiceIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
