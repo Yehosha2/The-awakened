@@ -1369,3 +1369,54 @@ footer {
     transform: translateX(0);
   }
 }
+
+ /* =========================================================
+    THE AWAKENED — PROGRESSION INDICATOR
+    ========================================================= */
+
+#game-screen .game-progress {
+  position: relative;
+
+  display: inline-block;
+
+  margin-top: 4px;
+
+  padding: 6px 14px;
+
+  border: 1px solid rgba(216, 180, 106, 0.18);
+
+  border-radius: 999px;
+
+  background: rgba(216, 180, 106, 0.035);
+
+  box-shadow:
+    0 0 18px rgba(216, 180, 106, 0.035);
+}
+
+#game-screen .game-progress::before {
+  content: "◆";
+
+  margin-right: 8px;
+
+  color: var(--accent);
+
+  font-size: 7px;
+
+  vertical-align: middle;
+
+  opacity: 0.75;
+}
+
+#game-screen #chapter-label {
+  color: var(--muted);
+
+  font-family: Arial, sans-serif;
+
+  font-size: 10px;
+
+  font-weight: bold;
+
+  letter-spacing: 0.25em;
+
+  text-transform: uppercase;
+}
