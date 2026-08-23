@@ -337,46 +337,292 @@ footer {
    ========================================================= */
 
 /* =========================================================
-   GAME SCREENS
+   THE AWAKENED — TITLE SCREEN POLISH
    ========================================================= */
 
-.game-screen {
-  display: none;
-
-  width: 100%;
-
-  min-height: 100vh;
-
-  padding: 30px 18px 70px;
-
+#title-screen {
   position: relative;
-
   overflow: hidden;
+  text-align: center;
 
   background:
     radial-gradient(
-      circle at 50% 15%,
-      rgba(216, 180, 106, 0.08),
-      transparent 32%
+      circle at 50% 42%,
+      rgba(216, 180, 106, 0.10),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 50% 100%,
+      rgba(216, 180, 106, 0.05),
+      transparent 45%
     );
 }
 
-.game-screen.active {
-  display: flex;
+#title-screen::before {
+  content: "";
 
-  justify-content: center;
+  position: absolute;
 
-  align-items: center;
+  width: 520px;
+  height: 520px;
+
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  border: 1px solid rgba(216, 180, 106, 0.07);
+
+  border-radius: 50%;
+
+  box-shadow:
+    0 0 80px rgba(216, 180, 106, 0.06),
+    inset 0 0 80px rgba(216, 180, 106, 0.025);
+
+  pointer-events: none;
 }
 
-.game-content {
+#title-screen .game-content {
+  position: relative;
+  z-index: 2;
+
+  width: 100%;
+  max-width: 700px;
+
+  padding: 50px 20px;
+}
+
+/* =========================================================
+   TITLE EYE
+   ========================================================= */
+
+#title-screen .game-symbol {
+  font-size: 82px;
+
+  line-height: 1;
+
+  margin-bottom: 28px;
+
+  display: inline-block;
+
+  filter:
+    drop-shadow(0 0 8px rgba(216, 180, 106, 0.55))
+    drop-shadow(0 0 28px rgba(216, 180, 106, 0.30))
+    drop-shadow(0 0 60px rgba(216, 180, 106, 0.12));
+
+  animation:
+    awakenedEye 4s ease-in-out infinite;
+}
+
+@keyframes awakenedEye {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+
+  50% {
+    transform: scale(1.09);
+    opacity: 1;
+  }
+
+}
+
+/* =========================================================
+   TITLE
+   ========================================================= */
+
+#title-screen h1 {
+  margin: 0;
+
+  color: var(--text);
+
+  font-size:
+    clamp(
+      42px,
+      10vw,
+      78px
+    );
+
+  font-weight: normal;
+
+  letter-spacing: 0.14em;
+
+  text-shadow:
+    0 0 15px rgba(216, 180, 106, 0.12),
+    0 0 40px rgba(216, 180, 106, 0.06);
+}
+
+/* =========================================================
+   THE GAME
+   ========================================================= */
+
+#title-screen h2 {
+  margin: 10px 0 20px;
+
+  color: var(--accent);
+
+  font-family: Arial, sans-serif;
+
+  font-size: 17px;
+
+  font-weight: normal;
+
+  letter-spacing: 0.4em;
+
+  text-transform: uppercase;
+}
+
+/* =========================================================
+   SUBTITLE
+   ========================================================= */
+
+#title-screen .game-subtitle {
+  max-width: 520px;
+
+  margin: 0 auto 45px;
+
+  color: var(--muted);
+
+  font-size: 17px;
+
+  font-style: italic;
+
+  letter-spacing: 0.04em;
+}
+
+/* =========================================================
+   MENU
+   ========================================================= */
+
+#title-screen .game-menu {
   width: 100%;
 
-  max-width: 760px;
+  max-width: 360px;
 
   margin: 0 auto;
 
-  text-align: center;
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 14px;
+}
+
+#title-screen .game-menu button {
+  width: 100%;
+
+  padding: 16px 24px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(21, 21, 25, 0.96),
+      rgba(11, 11, 13, 0.96)
+    );
+
+  color: var(--text);
+
+  border: 1px solid var(--line);
+
+  border-radius: 999px;
+
+  font-family: Arial, sans-serif;
+
+  font-size: 13px;
+
+  font-weight: bold;
+
+  letter-spacing: 0.2em;
+
+  text-transform: uppercase;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.20);
+
+  transition:
+    color 0.25s ease,
+    border-color 0.25s ease,
+    background 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+#title-screen .game-menu button:hover {
+  color: var(--accent);
+
+  border-color: var(--accent);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(216, 180, 106, 0.09),
+      rgba(216, 180, 106, 0.025)
+    );
+
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.35),
+    0 0 20px rgba(216, 180, 106, 0.08);
+}
+
+#title-screen .game-menu button:active {
+  transform: translateY(-1px);
+}
+
+#title-screen #continue-button:disabled {
+  opacity: 0.32;
+
+  cursor: not-allowed;
+
+  transform: none;
+
+  box-shadow: none;
+}
+
+/* =========================================================
+   TITLE MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  #title-screen::before {
+    width: 360px;
+    height: 360px;
+  }
+
+  #title-screen .game-content {
+    padding: 35px 18px;
+  }
+
+  #title-screen .game-symbol {
+    font-size: 62px;
+    margin-bottom: 22px;
+  }
+
+  #title-screen h1 {
+    font-size: 38px;
+    letter-spacing: 0.08em;
+  }
+
+  #title-screen h2 {
+    font-size: 14px;
+    letter-spacing: 0.25em;
+  }
+
+  #title-screen .game-subtitle {
+    font-size: 15px;
+    margin-bottom: 35px;
+  }
+
+  #title-screen .game-menu {
+    max-width: 330px;
+  }
+
 }
 
 /* =========================================================
