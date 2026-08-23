@@ -1,14 +1,25 @@
 /* =========================================================
    THE AWAKENED — THE GAME
+   Complete Game Engine
    ========================================================= */
 
 const SAVE_KEY = "theAwakenedGameSave";
+
+
+/* =========================================================
+   GAME STATE
+   ========================================================= */
 
 let gameState = {
   scene: "awakening",
   inventory: [],
   choices: [],
-  flags: {}
+  flags: {},
+
+  // Player progression
+  knowledge: 0,
+  awakening: 0,
+  trust: 0
 };
 
 
@@ -18,12 +29,14 @@ let gameState = {
 
 const scenes = {
 
+  /* =======================================================
+     AWAKENING
+     ======================================================= */
+
   awakening: {
 
     chapter: "PROLOGUE",
-
     location: "THE EXCAVATION",
-
     title: "THE TABLET",
 
     text: `
@@ -53,27 +66,33 @@ const scenes = {
     choices: [
 
       {
-  text: "Touch the symbol.",
-  next: "touchTablet",
-  flag: "touchedTablet",
-  awakening: 1
-}
+        text: "Touch the symbol.",
+        next: "touchTablet",
+        flag: "touchedTablet",
+        awakening: 1
+      },
 
-  {
-  text: "Step away from the tablet.",
-  next: "stepAway",
-  flag: "rejectedTablet",
-  awakening: 0,
-  knowledge: 1
-}
+      {
+        text: "Step away from the tablet.",
+        next: "stepAway",
+        flag: "rejectedTablet",
+        awakening: 0,
+        knowledge: 1
+      }
 
+    ]
+
+  },
+
+
+  /* =======================================================
+     TOUCH TABLET
+     ======================================================= */
 
   touchTablet: {
 
     chapter: "CHAPTER I",
-
     location: "THE EXCAVATION",
-
     title: "THE VOICE",
 
     text: `
@@ -107,13 +126,16 @@ const scenes = {
       {
         text: "Ask: Who are you?",
         next: "askVoice",
-        flag: "askedVoice"
+        flag: "askedVoice",
+        knowledge: 1,
+        trust: 1
       },
 
       {
         text: "Search the chamber.",
         next: "searchChamber",
-        flag: "searchedChamber"
+        flag: "searchedChamber",
+        knowledge: 2
       }
 
     ]
@@ -121,12 +143,14 @@ const scenes = {
   },
 
 
+  /* =======================================================
+     STEP AWAY
+     ======================================================= */
+
   stepAway: {
 
     chapter: "CHAPTER I",
-
     location: "THE EXCAVATION",
-
     title: "THE WATCHER",
 
     text: `
@@ -159,13 +183,15 @@ const scenes = {
       {
         text: "Follow the figure.",
         next: "followWatcher",
-        flag: "followedWatcher"
+        flag: "followedWatcher",
+        awakening: 1
       },
 
       {
         text: "Run toward the entrance.",
         next: "runEntrance",
-        flag: "ranEntrance"
+        flag: "ranEntrance",
+        knowledge: 1
       }
 
     ]
@@ -173,12 +199,14 @@ const scenes = {
   },
 
 
+  /* =======================================================
+     ASK VOICE
+     ======================================================= */
+
   askVoice: {
 
     chapter: "CHAPTER II",
-
     location: "THE CHAMBER",
-
     title: "THE KEEPER",
 
     text: `
@@ -212,13 +240,17 @@ const scenes = {
       {
         text: "Take the mark.",
         next: "takeMark",
-        flag: "acceptedMark"
+        flag: "acceptedMark",
+        awakening: 2,
+        trust: 1
       },
 
       {
         text: "Refuse it.",
         next: "refuseMark",
-        flag: "refusedMark"
+        flag: "refusedMark",
+        knowledge: 1,
+        trust: -1
       }
 
     ]
@@ -226,12 +258,14 @@ const scenes = {
   },
 
 
+  /* =======================================================
+     SEARCH CHAMBER
+     ======================================================= */
+
   searchChamber: {
 
     chapter: "CHAPTER II",
-
     location: "THE CHAMBER",
-
     title: "THE HIDDEN LANGUAGE",
 
     text: `
@@ -258,13 +292,16 @@ const scenes = {
       {
         text: "Read the inscription aloud.",
         next: "readInscription",
-        flag: "readInscription"
+        flag: "readInscription",
+        knowledge: 2,
+        awakening: 1
       },
 
       {
         text: "Photograph the inscription.",
         next: "photographInscription",
-        flag: "photographedInscription"
+        flag: "photographedInscription",
+        knowledge: 1
       }
 
     ]
@@ -272,12 +309,14 @@ const scenes = {
   },
 
 
+  /* =======================================================
+     FOLLOW WATCHER
+     ======================================================= */
+
   followWatcher: {
 
     chapter: "CHAPTER II",
-
     location: "THE TUNNEL",
-
     title: "THE EYES",
 
     text: `
@@ -307,13 +346,15 @@ const scenes = {
       {
         text: "Look directly into the moving eye.",
         next: "lookEye",
-        flag: "lookedEye"
+        flag: "lookedEye",
+        awakening: 2
       },
 
       {
         text: "Turn around.",
         next: "turnAround",
-        flag: "turnedAround"
+        flag: "turnedAround",
+        knowledge: 1
       }
 
     ]
@@ -321,12 +362,14 @@ const scenes = {
   },
 
 
+  /* =======================================================
+     RUN ENTRANCE
+     ======================================================= */
+
   runEntrance: {
 
     chapter: "CHAPTER II",
-
     location: "THE EXCAVATION",
-
     title: "THE DOOR",
 
     text: `
@@ -350,13 +393,15 @@ const scenes = {
       {
         text: "Open the door.",
         next: "openDoor",
-        flag: "openedDoor"
+        flag: "openedDoor",
+        awakening: 2
       },
 
       {
         text: "Search for another way out.",
         next: "searchExit",
-        flag: "searchedExit"
+        flag: "searchedExit",
+        knowledge: 1
       }
 
     ]
@@ -364,12 +409,14 @@ const scenes = {
   },
 
 
+  /* =======================================================
+     TAKE MARK
+     ======================================================= */
+
   takeMark: {
 
     chapter: "CHAPTER III",
-
     location: "THE CHAMBER",
-
     title: "THE AWAKENING",
 
     text: `
@@ -420,12 +467,14 @@ const scenes = {
   },
 
 
+  /* =======================================================
+     REFUSE MARK
+     ======================================================= */
+
   refuseMark: {
 
     chapter: "CHAPTER III",
-
     location: "THE CHAMBER",
-
     title: "THE CHOICE",
 
     text: `
@@ -447,12 +496,14 @@ const scenes = {
 
       {
         text: "Leave the chamber.",
-        next: "endingEscape"
+        next: "endingEscape",
+        knowledge: 1
       },
 
       {
         text: "Stay and discover what awakened.",
-        next: "endingDarkness"
+        next: "endingDarkness",
+        awakening: 2
       }
 
     ]
@@ -460,12 +511,14 @@ const scenes = {
   },
 
 
+  /* =======================================================
+     READ INSCRIPTION
+     ======================================================= */
+
   readInscription: {
 
     chapter: "CHAPTER III",
-
     location: "THE CHAMBER",
-
     title: "THE MEMORY",
 
     text: `
@@ -502,12 +555,14 @@ const scenes = {
   },
 
 
+  /* =======================================================
+     PHOTOGRAPH INSCRIPTION
+     ======================================================= */
+
   photographInscription: {
 
     chapter: "CHAPTER III",
-
     location: "THE CHAMBER",
-
     title: "THE IMAGE",
 
     text: `
@@ -527,12 +582,14 @@ const scenes = {
 
       {
         text: "Turn around.",
-        next: "turnAround"
+        next: "turnAround",
+        awakening: 1
       },
 
       {
         text: "Look closer at the photograph.",
-        next: "endingPhotograph"
+        next: "endingPhotograph",
+        knowledge: 2
       }
 
     ]
@@ -540,12 +597,14 @@ const scenes = {
   },
 
 
+  /* =======================================================
+     LOOK EYE
+     ======================================================= */
+
   lookEye: {
 
     chapter: "CHAPTER III",
-
     location: "THE TUNNEL",
-
     title: "THE EYE",
 
     text: `
@@ -593,12 +652,14 @@ const scenes = {
   },
 
 
+  /* =======================================================
+     TURN AROUND
+     ======================================================= */
+
   turnAround: {
 
     chapter: "CHAPTER III",
-
     location: "THE TUNNEL",
-
     title: "THE PRESENCE",
 
     text: `
@@ -627,12 +688,14 @@ const scenes = {
   },
 
 
+  /* =======================================================
+     OPEN DOOR
+     ======================================================= */
+
   openDoor: {
 
     chapter: "CHAPTER III",
-
     location: "THE STONE DOOR",
-
     title: "BEFORE THE BEGINNING",
 
     text: `
@@ -665,12 +728,14 @@ const scenes = {
   },
 
 
+  /* =======================================================
+     SEARCH EXIT
+     ======================================================= */
+
   searchExit: {
 
     chapter: "CHAPTER III",
-
     location: "THE CHAMBER",
-
     title: "NO MAN'S LAND",
 
     text: `
@@ -707,12 +772,14 @@ const scenes = {
   },
 
 
+  /* =======================================================
+     ENDING — ESCAPE
+     ======================================================= */
+
   endingEscape: {
 
     chapter: "EPILOGUE",
-
     location: "THE SURFACE",
-
     title: "THE ESCAPE",
 
     text: `
@@ -744,12 +811,14 @@ const scenes = {
   },
 
 
+  /* =======================================================
+     ENDING — DARKNESS
+     ======================================================= */
+
   endingDarkness: {
 
     chapter: "EPILOGUE",
-
     location: "THE CHAMBER",
-
     title: "THE DARKNESS",
 
     text: `
@@ -783,12 +852,14 @@ const scenes = {
   },
 
 
+  /* =======================================================
+     ENDING — PHOTOGRAPH
+     ======================================================= */
+
   endingPhotograph: {
 
     chapter: "EPILOGUE",
-
     location: "THE CHAMBER",
-
     title: "THE FACE",
 
     text: `
@@ -827,13 +898,15 @@ const scenes = {
 
 function showScreen(id) {
 
-  const screens = document.querySelectorAll(".game-screen");
+  const screens =
+    document.querySelectorAll(".game-screen");
 
   screens.forEach(function(screen) {
     screen.classList.remove("active");
   });
 
-  const target = document.getElementById(id);
+  const target =
+    document.getElementById(id);
 
   if (!target) {
     console.error("Screen not found:", id);
@@ -853,36 +926,15 @@ function showScreen(id) {
    TITLE SCREEN
    ========================================================= */
 
-
-function showTitleScreen() {
-
-  showScreen("title-screen");
-
-}
-
-function showInstructions() {
-
-  showScreen("instructions-screen");
-
-}
-
-function returnToTitle() {
-
-  showTitleScreen();
-
-}
-
-/* =========================================================
-   TITLE SCREEN
-   ========================================================= */
-
 function showTitleScreen() {
   showScreen("title-screen");
 }
 
+
 function showInstructions() {
   showScreen("instructions-screen");
 }
+
 
 function startNewGame() {
 
@@ -890,7 +942,11 @@ function startNewGame() {
     scene: "awakening",
     inventory: [],
     choices: [],
-    flags: {}
+    flags: {},
+
+    knowledge: 0,
+    awakening: 0,
+    trust: 0
   };
 
   saveGame(false);
@@ -898,8 +954,17 @@ function startNewGame() {
   showScreen("game-screen");
 
   renderScene();
+}
+
+
+function returnToTitle() {
+
+  updateContinueButton();
+
+  showTitleScreen();
 
 }
+
 
 /* =========================================================
    SCENE RENDERING
@@ -907,38 +972,70 @@ function startNewGame() {
 
 function renderScene() {
 
-  const scene = scenes[gameState.scene];
+  const scene =
+    scenes[gameState.scene];
 
   if (!scene) {
+
     console.error(
       "Scene not found:",
       gameState.scene
     );
+
     return;
   }
 
 
-  document.getElementById("chapter-label")
-    .textContent = scene.chapter || "";
+  const chapterLabel =
+    document.getElementById("chapter-label");
 
+  const location =
+    document.getElementById("location");
 
-  document.getElementById("location")
-    .textContent = scene.location || "";
+  const sceneTitle =
+    document.getElementById("scene-title");
 
-
-  document.getElementById("scene-title")
-    .textContent = scene.title || "";
-
-
-  document.getElementById("story-text")
-    .innerHTML = formatStory(scene.text);
-
+  const storyText =
+    document.getElementById("story-text");
 
   const choicesContainer =
     document.getElementById("choices");
 
-  choicesContainer.innerHTML = "";
 
+  if (chapterLabel) {
+    chapterLabel.textContent =
+      scene.chapter || "";
+  }
+
+
+  if (location) {
+    location.textContent =
+      scene.location || "";
+  }
+
+
+  if (sceneTitle) {
+    sceneTitle.textContent =
+      scene.title || "";
+  }
+
+
+  if (storyText) {
+    storyText.innerHTML =
+      formatStory(scene.text || "");
+  }
+
+
+  if (choicesContainer) {
+
+    choicesContainer.innerHTML = "";
+
+  }
+
+
+  /* =========================
+     ENDING
+     ========================= */
 
   if (scene.ending) {
 
@@ -949,26 +1046,52 @@ function renderScene() {
   }
 
 
-  scene.choices.forEach(choice => {
+  /* =========================
+     CHOICES
+     ========================= */
+
+  if (!scene.choices) {
+    console.error(
+      "No choices found for scene:",
+      gameState.scene
+    );
+    return;
+  }
+
+
+  scene.choices.forEach(function(choice) {
 
     const button =
       document.createElement("button");
 
-    button.className = "choice-button";
+    button.className =
+      "choice-button";
 
-    button.textContent = choice.text;
+    button.textContent =
+      choice.text;
 
-    button.onclick = () => {
-      makeChoice(choice);
-    };
+    button.type = "button";
+
+    button.addEventListener(
+      "click",
+      function() {
+        makeChoice(choice);
+      }
+    );
 
     choicesContainer.appendChild(button);
 
   });
 
 
+  /* =========================
+     ITEM
+     ========================= */
+
   if (scene.item) {
+
     addItem(scene.item);
+
   }
 
 }
@@ -983,55 +1106,122 @@ function formatStory(text) {
   return text
     .trim()
     .split(/\n\s*\n/)
-    .map(paragraph => `<p>${paragraph.trim()}</p>`)
+    .map(function(paragraph) {
+
+      return `<p>${paragraph.trim()}</p>`;
+
+    })
     .join("");
 
 }
 
 
 /* =========================================================
-   CHOICES
+   PLAYER CHOICES
    ========================================================= */
 
 function makeChoice(choice) {
 
-  if (choice.flag) {
-    gameState.flags[choice.flag] = true;
+  if (!choice) {
+    return;
   }
 
-gameState.choices.push(choice.text);
 
-/* =========================
-   PLAYER PROGRESSION
-   ========================= */
+  /* =========================
+     FLAGS
+     ========================= */
 
-if (choice.knowledge) {
-  gameState.knowledge += choice.knowledge;
+  if (choice.flag) {
+
+    gameState.flags[choice.flag] = true;
+
+  }
+
+
+  /* =========================
+     CHOICE HISTORY
+     ========================= */
+
+  gameState.choices.push(
+    choice.text
+  );
+
+
+  /* =========================
+     KNOWLEDGE
+     ========================= */
+
+  if (choice.knowledge) {
+
+    gameState.knowledge =
+      (gameState.knowledge || 0)
+      + choice.knowledge;
+
+  }
+
+
+  /* =========================
+     AWAKENING
+     ========================= */
+
+  if (choice.awakening) {
+
+    gameState.awakening =
+      (gameState.awakening || 0)
+      + choice.awakening;
+
+  }
+
+
+  /* =========================
+     TRUST
+     ========================= */
+
+  if (choice.trust) {
+
+    gameState.trust =
+      (gameState.trust || 0)
+      + choice.trust;
+
+  }
+
+
+  /* =========================
+     NEXT SCENE
+     ========================= */
+
+  if (!choice.next) {
+
+    console.error(
+      "Choice has no next scene:",
+      choice
+    );
+
+    return;
+  }
+
+
+  gameState.scene =
+    choice.next;
+
+
+  saveGame(false);
+
+  renderScene();
+
 }
 
-if (choice.awakening) {
-  gameState.awakening += choice.awakening;
-}
 
-if (choice.trust) {
-  gameState.trust += choice.trust;
-}
-
-/* =========================
-   NEXT SCENE
-   ========================= */
-
-gameState.scene = choice.next;
-
-saveGame(false);
-
-renderScene();
-   
 /* =========================================================
    INVENTORY
    ========================================================= */
 
 function addItem(item) {
+
+  if (!item) {
+    return;
+  }
+
 
   if (!gameState.inventory.includes(item)) {
 
@@ -1047,9 +1237,19 @@ function addItem(item) {
 function showInventory() {
 
   const list =
-    document.getElementById("inventory-list");
+    document.getElementById(
+      "inventory-list"
+    );
 
-  if (gameState.inventory.length === 0) {
+  if (!list) {
+    return;
+  }
+
+
+  if (
+    !gameState.inventory ||
+    gameState.inventory.length === 0
+  ) {
 
     list.innerHTML =
       "<p>Nothing discovered yet.</p>";
@@ -1058,10 +1258,15 @@ function showInventory() {
 
     list.innerHTML =
       gameState.inventory
-        .map(item => `<p>👁️ ${item}</p>`)
+        .map(function(item) {
+
+          return `<p>👁️ ${item}</p>`;
+
+        })
         .join("");
 
   }
+
 
   showScreen("inventory-screen");
 
@@ -1081,14 +1286,37 @@ function closeInventory() {
 
 function showEnding(scene) {
 
-  document.getElementById("ending-title")
-    .textContent =
-      scene.endingTitle || scene.title;
+  const endingTitle =
+    document.getElementById(
+      "ending-title"
+    );
+
+  const endingText =
+    document.getElementById(
+      "ending-text"
+    );
 
 
-  document.getElementById("ending-text")
-    .innerHTML =
-      formatStory(scene.endingText || scene.text);
+  if (endingTitle) {
+
+    endingTitle.textContent =
+      scene.endingTitle ||
+      scene.title ||
+      "THE AWAKENING";
+
+  }
+
+
+  if (endingText) {
+
+    endingText.innerHTML =
+      formatStory(
+        scene.endingText ||
+        scene.text ||
+        ""
+      );
+
+  }
 
 
   showScreen("ending-screen");
@@ -1109,11 +1337,13 @@ function saveGame(showMessage = true) {
       JSON.stringify(gameState)
     );
 
+
     if (showMessage) {
 
       alert("Game saved.");
 
     }
+
 
     updateContinueButton();
 
@@ -1129,18 +1359,69 @@ function saveGame(showMessage = true) {
 }
 
 
+/* =========================================================
+   LOAD SYSTEM
+   ========================================================= */
+
 function loadGame() {
 
   try {
 
     const saved =
-      localStorage.getItem(SAVE_KEY);
+      localStorage.getItem(
+        SAVE_KEY
+      );
+
 
     if (!saved) {
+
       return false;
+
     }
 
-    gameState = JSON.parse(saved);
+
+    const loaded =
+      JSON.parse(saved);
+
+
+    /* =========================
+       SAFETY DEFAULTS
+       ========================= */
+
+    gameState = {
+
+      scene:
+        loaded.scene ||
+        "awakening",
+
+      inventory:
+        Array.isArray(
+          loaded.inventory
+        )
+          ? loaded.inventory
+          : [],
+
+      choices:
+        Array.isArray(
+          loaded.choices
+        )
+          ? loaded.choices
+          : [],
+
+      flags:
+        loaded.flags || {},
+
+      knowledge:
+        loaded.knowledge || 0,
+
+      awakening:
+        loaded.awakening || 0,
+
+      trust:
+        loaded.trust || 0
+
+    };
+
 
     return true;
 
@@ -1158,12 +1439,20 @@ function loadGame() {
 }
 
 
+/* =========================================================
+   CONTINUE GAME
+   ========================================================= */
+
 function continueGame() {
 
   if (!loadGame()) {
+
     startNewGame();
+
     return;
+
   }
+
 
   showScreen("game-screen");
 
@@ -1179,23 +1468,24 @@ function continueGame() {
 function updateContinueButton() {
 
   const button =
-    document.getElementById("continue-button");
+    document.getElementById(
+      "continue-button"
+    );
 
-  if (!button) return;
+
+  if (!button) {
+    return;
+  }
+
 
   const saved =
-    localStorage.getItem(SAVE_KEY);
-
-  button.disabled = !saved;
-
-}
+    localStorage.getItem(
+      SAVE_KEY
+    );
 
 
-function returnToTitle() {
-
-  updateContinueButton();
-
-  showTitleScreen();
+  button.disabled =
+    !saved;
 
 }
 
@@ -1206,7 +1496,8 @@ function returnToTitle() {
 
 function returnToBook() {
 
-  window.location.href = "book.html";
+  window.location.href =
+    "book.html";
 
 }
 
@@ -1217,9 +1508,16 @@ function returnToBook() {
 
 document.addEventListener(
   "DOMContentLoaded",
-  () => {
+  function() {
 
     updateContinueButton();
+
+    /*
+     * Make sure the title screen
+     * is visible when the game loads.
+     */
+
+    showScreen("title-screen");
 
   }
 );
