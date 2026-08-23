@@ -970,29 +970,38 @@ footer {
    CHOICES
    ========================================================= */
 
-.choices {
+/* =========================================================
+   THE AWAKENED — POLISHED CHOICES
+   ========================================================= */
+
+#game-screen #choices {
   display: flex;
-
   flex-direction: column;
-
-  gap: 14px;
-
-  margin-top: 30px;
+  gap: 16px;
+  width: 100%;
+  margin-top: 32px;
 }
 
-.choices button {
+/* Individual choice */
+
+#game-screen .choice-button {
+  position: relative;
+
   width: 100%;
 
+  padding: 19px 24px 19px 26px;
+
   background:
-    rgba(21, 21, 25, 0.95);
+    linear-gradient(
+      145deg,
+      rgba(24, 24, 29, 0.98),
+      rgba(12, 12, 15, 0.98)
+    );
 
   color: var(--text);
 
   border: 1px solid var(--line);
-
-  border-radius: 14px;
-
-  padding: 17px 20px;
+  border-radius: 16px;
 
   font-family:
     Georgia,
@@ -1000,27 +1009,149 @@ footer {
     serif;
 
   font-size: 17px;
+  line-height: 1.5;
 
   text-align: left;
 
   cursor: pointer;
 
-  transition: 0.25s ease;
+  overflow: hidden;
+
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.22);
+
+  transition:
+    color 0.25s ease,
+    border-color 0.25s ease,
+    background 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
-.choices button:hover {
+/* Gold accent line */
+
+#game-screen .choice-button::before {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  top: 0;
+
+  width: 3px;
+  height: 100%;
+
+  background: var(--accent);
+
+  opacity: 0.15;
+
+  transition:
+    opacity 0.25s ease,
+    width 0.25s ease;
+}
+
+/* Subtle eye marker */
+
+#game-screen .choice-button::after {
+  content: "👁️";
+
+  position: absolute;
+
+  right: 18px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  font-size: 13px;
+
+  opacity: 0.08;
+
+  pointer-events: none;
+
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+
+/* Hover */
+
+#game-screen .choice-button:hover {
   color: var(--accent);
 
-  border-color: var(--accent);
+  border-color: rgba(216, 180, 106, 0.65);
 
   background:
-    rgba(216, 180, 106, 0.06);
+    linear-gradient(
+      145deg,
+      rgba(216, 180, 106, 0.09),
+      rgba(216, 180, 106, 0.025)
+    );
 
-  transform: translateX(5px);
+  transform: translateX(6px);
+
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.32),
+    0 0 20px rgba(216, 180, 106, 0.06);
 }
 
-.choices button:active {
-  transform: translateX(2px);
+#game-screen .choice-button:hover::before {
+  width: 5px;
+  opacity: 0.85;
+}
+
+#game-screen .choice-button:hover::after {
+  opacity: 0.35;
+
+  transform:
+    translateY(-50%)
+    scale(1.08);
+}
+
+/* Press */
+
+#game-screen .choice-button:active {
+  transform: translateX(3px) scale(0.995);
+
+  box-shadow:
+    0 5px 15px rgba(0, 0, 0, 0.25);
+}
+
+/* Keyboard accessibility */
+
+#game-screen .choice-button:focus-visible {
+  outline: 2px solid var(--accent);
+
+  outline-offset: 3px;
+}
+
+/* =========================================================
+   MOBILE CHOICES
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  #game-screen #choices {
+    gap: 12px;
+    margin-top: 26px;
+  }
+
+  #game-screen .choice-button {
+    padding: 17px 20px;
+
+    font-size: 16px;
+
+    border-radius: 14px;
+  }
+
+  #game-screen .choice-button::after {
+    right: 14px;
+    font-size: 11px;
+  }
+
+  #game-screen .choice-button:hover {
+    transform: translateX(3px);
+  }
+
 }
 
 /* =========================================================
