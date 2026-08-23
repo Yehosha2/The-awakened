@@ -1420,3 +1420,129 @@ footer {
 
   text-transform: uppercase;
 }
+
+/* =========================================================
+   THE AWAKENED — ENDING SCREEN POLISH
+   ========================================================= */
+
+#ending-screen {
+  position: relative;
+
+  min-height: 100vh;
+
+  text-align: center;
+
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(216, 180, 106, 0.08),
+      transparent 40%
+    );
+}
+
+#ending-screen .game-content {
+  width: 100%;
+  max-width: 750px;
+
+  padding: 60px 20px;
+}
+
+#ending-screen .ending-label {
+  margin-bottom: 18px;
+
+  color: var(--muted);
+
+  font-family: Arial, sans-serif;
+
+  font-size: 11px;
+
+  font-weight: bold;
+
+  letter-spacing: 0.35em;
+
+  text-transform: uppercase;
+}
+
+#ending-screen #ending-title {
+  color: var(--accent);
+
+  margin: 0 0 25px;
+
+  font-size:
+    clamp(
+      36px,
+      8vw,
+      64px
+    );
+
+  letter-spacing: 0.08em;
+
+  font-weight: normal;
+
+  text-shadow:
+    0 0 25px rgba(216, 180, 106, 0.12);
+}
+
+#ending-screen #ending-text {
+  max-width: 680px;
+
+  margin: 0 auto 35px;
+
+  font-size: 18px;
+
+  line-height: 2;
+
+  color: var(--text);
+}
+
+#ending-screen #ending-text p {
+  margin: 0 0 24px;
+}
+
+#ending-screen .ending-actions {
+  display: flex;
+
+  justify-content: center;
+
+  flex-wrap: wrap;
+
+  gap: 12px;
+
+  margin-top: 30px;
+}
+
+#ending-screen .ending-actions button {
+  margin: 0;
+
+  min-width: 170px;
+}
+
+@media (max-width: 600px) {
+
+  #ending-screen .game-content {
+    padding: 45px 18px;
+  }
+
+  #ending-screen #ending-title {
+    font-size: 36px;
+  }
+
+  #ending-screen #ending-text {
+    font-size: 16px;
+
+    line-height: 1.9;
+  }
+
+  #ending-screen .ending-actions {
+    flex-direction: column;
+
+    align-items: center;
+  }
+
+  #ending-screen .ending-actions button {
+    width: 100%;
+
+    max-width: 300px;
+  }
+
+}
