@@ -1,1 +1,1552 @@
+/* =========================================================
+   THE AWAKENED — THE GAME
+   COMPLETE GAME ENGINE
+   ========================================================= */
 
+"use strict";
+
+const SAVE_KEY = "theAwakenedGameSave";
+
+
+/* =========================================================
+   GAME STATE
+   ========================================================= */
+
+let gameState = {
+  scene: "chapterOne",
+  inventory: [],
+  choices: [],
+  flags: {},
+  knowledge: 0,
+  awakening: 0,
+  trust: 0
+};
+
+
+/* =========================================================
+   SCENES
+   ========================================================= */
+
+const scenes = {
+
+  /* =======================================================
+     CHAPTER ONE — THE DISCOVERY
+     ======================================================= */
+
+  chapterOne: {
+
+    chapter: "CHAPTER ONE — THE DISCOVERY",
+    location: "THE EXCAVATION",
+    title: "THE TABLET",
+
+    text: `
+      Maya Reed had spent eleven years searching for things
+      that no longer existed.
+
+      Cities buried beneath sand.
+
+      Names worn from stone.
+
+      Languages no one spoke anymore.
+
+      She had learned that archaeology rarely rewarded patience.
+
+      Most days consisted of dust, broken pottery, fragments
+      of walls, and objects that told you almost nothing.
+
+      But sometimes—
+
+      very rarely—
+
+      the earth gave something back.
+
+      That morning, Maya was kneeling at the edge of an
+      excavation trench when her brush touched something hard.
+
+      She stopped.
+
+      “Don’t move,” David said behind her.
+
+      Maya smiled.
+
+      “I wasn’t planning to.”
+
+      David crouched beside her.
+
+      “Another piece of pottery?”
+
+      “No.”
+
+      She brushed away another layer of soil.
+
+      A curved surface appeared.
+
+      Brown.
+
+      Dry.
+
+      Ancient.
+
+      David leaned closer.
+
+      “Clay?”
+
+      Maya nodded.
+
+      “Looks like it.”
+
+      She continued working.
+
+      Slowly, the object emerged.
+
+      It was smaller than her palm.
+
+      A tablet.
+
+      But something about it was wrong.
+
+      Maya stared at the surface.
+
+      The markings were not ordinary cuneiform.
+
+      At least, not entirely.
+
+      She recognized the wedge impressions.
+
+      But between them were other signs.
+
+      Angular.
+
+      Deliberate.
+
+      Almost familiar.
+
+      David noticed her expression.
+
+      “What?”
+
+      Maya didn’t answer.
+
+      She carefully lifted the tablet from the earth.
+
+      For several seconds she simply held it.
+
+      Then she turned it over.
+
+      There was writing on the back.
+
+      David’s voice became quieter.
+
+      “Maya?”
+
+      She looked at him.
+
+      “This shouldn’t be here.”
+
+      “Why?”
+
+      Maya looked down at the tablet.
+
+      “In three different places.”
+
+      David stared at her.
+
+      “What does that mean?”
+
+      “It means I’ve seen these symbols before.”
+
+      “Where?”
+
+      Maya hesitated.
+
+      “On photographs of fragments from three separate collections.”
+
+      David frowned.
+
+      “And you’re sure?”
+
+      “No.”
+
+      She looked again at the tablet.
+
+      “That’s the problem.”
+
+      That evening, Maya placed the tablet beneath the
+      examination light.
+
+      She photographed every mark.
+
+      Then she opened an old research file she had carried
+      with her for years.
+
+      Three photographs appeared on her screen.
+
+      Different excavations.
+
+      Different locations.
+
+      Different centuries according to the archaeological records.
+
+      Yet the same strange symbols appeared in each.
+
+      Maya stared at the screen.
+
+      There was only one person she could think of who might
+      understand what she was looking at.
+
+      Professor Elias Ben-Ami.
+
+      A historian of ancient languages and civilizations,
+      Elias had spent decades studying texts that most scholars
+      considered marginal, corrupted, or impossible to interpret.
+
+      Maya had met him once.
+
+      Years earlier.
+
+      He had told her something she had never forgotten.
+
+      “When an ancient text doesn’t make sense, don’t assume
+      the ancient people were wrong.”
+
+      She opened her contacts.
+
+      Her finger hovered over his name.
+
+      Then she called.
+
+      The phone rang once.
+
+      Twice.
+
+      Three times.
+
+      A man’s voice answered.
+
+      “Professor Ben-Ami.”
+
+      “Professor, it’s Maya Reed.”
+
+      Silence.
+
+      Then—
+
+      “Maya.”
+
+      His voice changed.
+
+      “You don’t call unless you’ve found something.”
+
+      Maya looked at the tablet beneath the light.
+
+      “I think I have.”
+
+      Another silence.
+
+      “What did you find?”
+
+      Maya glanced at the symbols.
+
+      “I don’t know.”
+
+      Elias breathed slowly.
+
+      “Then send me a photograph.”
+
+      “I already did.”
+
+      He paused.
+
+      “I’ll be there tomorrow.”
+
+      Maya looked toward the darkened excavation beyond
+      the window.
+
+      “Professor…”
+
+      “Yes?”
+
+      “There is something else.”
+
+      “What?”
+
+      Maya lowered her voice.
+
+      “The symbols aren’t the oldest thing on the tablet.”
+
+      Elias said nothing.
+
+      Maya looked at the back of the clay.
+
+      “There is another inscription beneath them.”
+
+      “What does it say?”
+
+      Maya stared at the ancient marks.
+
+      “I haven’t translated it.”
+
+      “Then how do you know it’s an inscription?”
+
+      “Because…”
+
+      She swallowed.
+
+      “I recognize the name.”
+
+      Elias’s voice became almost a whisper.
+
+      “What name?”
+
+      Maya looked at the tablet.
+
+      “Yehoshua.”
+    `,
+
+    item: "The Tablet",
+
+    choices: [
+
+      {
+        text: "Continue to Chapter Two.",
+        next: "chapterTwo",
+        flag: "completedChapterOne",
+        knowledge: 2
+      }
+
+    ]
+
+  },
+
+
+  /* =======================================================
+     CHAPTER TWO
+     ======================================================= */
+
+  chapterTwo: {
+
+    chapter: "CHAPTER TWO",
+    location: "THE EXCAVATION",
+    title: "THE PROFESSOR",
+
+    text: `
+      The following morning, Professor Elias Ben-Ami arrived
+      at the excavation.
+
+      Maya was waiting for him.
+
+      He said nothing at first.
+
+      His eyes went directly to the tablet.
+
+      “Where did you find it?”
+
+      Maya showed him the excavation trench.
+
+      Elias studied the ground.
+
+      Then he looked back at Maya.
+
+      “You said the symbols appeared in three collections.”
+
+      “Yes.”
+
+      “And this inscription?”
+
+      “I haven't translated it.”
+
+      Elias carefully examined the tablet.
+
+      His expression changed.
+
+      “You were right.”
+
+      Maya stepped closer.
+
+      “About what?”
+
+      Elias looked at her.
+
+      “This isn't ordinary writing.”
+
+      He turned the tablet toward the light.
+
+      Beneath the visible symbols was another layer.
+
+      Almost invisible.
+
+      Maya recognized the pattern.
+
+      “There are two texts.”
+
+      Elias nodded.
+
+      “No.”
+
+      He paused.
+
+      “There are three.”
+    `,
+
+    item: "Elias's Notes",
+
+    choices: [
+
+      {
+        text: "Ask Elias what he sees.",
+        next: "keeper",
+        flag: "questionedElias",
+        knowledge: 2,
+        trust: 1
+      },
+
+      {
+        text: "Examine the hidden inscription.",
+        next: "hiddenLanguage",
+        flag: "examinedInscription",
+        knowledge: 2,
+        awakening: 1
+      }
+
+    ]
+
+  },
+
+
+  /* =======================================================
+     CHAPTER TWO — THE HIDDEN LANGUAGE
+     ======================================================= */
+
+  hiddenLanguage: {
+
+    chapter: "CHAPTER TWO",
+    location: "THE EXAMINATION ROOM",
+    title: "THE HIDDEN LANGUAGE",
+
+    text: `
+      Maya and Elias examined the tablet beneath the strongest
+      examination light.
+
+      The visible symbols were only the beginning.
+
+      Beneath them was another language.
+
+      Ancient.
+
+      Deliberate.
+
+      Hidden.
+
+      Elias traced one of the markings without touching it.
+
+      “I've seen something like this before.”
+
+      Maya looked at him.
+
+      “Where?”
+
+      “In a fragment that was never published.”
+
+      “Why?”
+
+      Elias looked toward the tablet.
+
+      “Because everyone who studied it reached the same
+      conclusion.”
+
+      “And what conclusion was that?”
+
+      Elias lowered his voice.
+
+      “That it shouldn't exist.”
+    `,
+
+    choices: [
+
+      {
+        text: "Ask about the fragment.",
+        next: "keeper",
+        knowledge: 2,
+        trust: 1
+      },
+
+      {
+        text: "Keep studying the symbols.",
+        next: "awakening",
+        knowledge: 1,
+        awakening: 1
+      }
+
+    ]
+
+  },
+
+
+  /* =======================================================
+     CHAPTER TWO — THE KEEPER
+     ======================================================= */
+
+  keeper: {
+
+    chapter: "CHAPTER TWO",
+    location: "THE EXAMINATION ROOM",
+    title: "THE KEEPER",
+
+    text: `
+      Elias finally told Maya what he had been afraid to say.
+
+      “There are references to a Keeper.”
+
+      Maya frowned.
+
+      “A person?”
+
+      “Perhaps.”
+
+      “What was the Keeper supposed to keep?”
+
+      Elias looked directly at her.
+
+      “Wisdom.”
+
+      Maya looked down at the tablet.
+
+      A second symbol appeared beneath the eye.
+
+      Neither of them had touched it.
+
+      Elias stepped backward.
+
+      “Maya…”
+
+      The room became completely silent.
+
+      Then a whisper moved through the darkness.
+
+      “You have returned.”
+    `,
+
+    item: "The Keeper's Mark",
+
+    choices: [
+
+      {
+        text: "Touch the mark.",
+        next: "awakening",
+        flag: "acceptedMark",
+        awakening: 2,
+        trust: 1
+      },
+
+      {
+        text: "Refuse to touch it.",
+        next: "choice",
+        flag: "refusedMark",
+        knowledge: 1,
+        trust: -1
+      }
+
+    ]
+
+  },
+
+
+  /* =======================================================
+     CHAPTER THREE
+     ======================================================= */
+
+  awakening: {
+
+    chapter: "CHAPTER THREE",
+    location: "THE CHAMBER",
+    title: "THE AWAKENING",
+
+    text: `
+      Maya touches the mark.
+
+      Light fills the chamber.
+
+      Images flash through her mind.
+
+      Ancient cities.
+
+      Flooded lands.
+
+      A voice speaking before the first words were written.
+
+      Then she sees them.
+
+      The Watchers.
+
+      They are looking directly at her.
+
+      One whispers:
+
+      “The Witness has awakened.”
+    `,
+
+    ending: true,
+
+    endingTitle: "THE WITNESS",
+
+    endingText: `
+      Maya opens her eyes.
+
+      The chamber is gone.
+
+      She is standing somewhere else.
+
+      Somewhere that should not exist.
+
+      And for the first time,
+      she understands the truth:
+
+      She was never searching for the past.
+
+      The past was searching for her.
+
+      The journey has ended.
+
+      For now.
+    `
+
+  },
+
+
+  /* =======================================================
+     CHAPTER THREE — THE CHOICE
+     ======================================================= */
+
+  choice: {
+
+    chapter: "CHAPTER THREE",
+    location: "THE CHAMBER",
+    title: "THE CHOICE",
+
+    text: `
+      Maya refuses the mark.
+
+      The light disappears.
+
+      The voice becomes silent.
+
+      For a moment,
+      everything seems normal.
+
+      Then the tablet cracks.
+
+      Something beneath the chamber begins to wake.
+    `,
+
+    choices: [
+
+      {
+        text: "Leave the chamber.",
+        next: "endingEscape",
+        knowledge: 1
+      },
+
+      {
+        text: "Stay and discover what awakened.",
+        next: "endingDarkness",
+        awakening: 2
+      }
+
+    ]
+
+  },
+
+
+  /* =======================================================
+     EPILOGUE — ESCAPE
+     ======================================================= */
+
+  endingEscape: {
+
+    chapter: "EPILOGUE",
+    location: "THE SURFACE",
+    title: "THE ESCAPE",
+
+    text: `
+      Maya reaches the surface.
+
+      The excavation is quiet.
+
+      She looks back.
+
+      The entrance has disappeared.
+    `,
+
+    ending: true,
+
+    endingTitle: "THE ESCAPE",
+
+    endingText: `
+      Maya survived.
+
+      But she knows the truth.
+
+      Some doors are not meant to be opened.
+
+      And some doors,
+      once opened,
+      never close.
+    `
+
+  },
+
+
+  /* =======================================================
+     EPILOGUE — DARKNESS
+     ======================================================= */
+
+  endingDarkness: {
+
+    chapter: "EPILOGUE",
+    location: "THE CHAMBER",
+    title: "THE DARKNESS",
+
+    text: `
+      Maya stays.
+
+      The chamber grows darker.
+
+      Something moves beneath the stone.
+
+      She raises her lantern.
+
+      Two eyes open in the darkness.
+
+      Then a third.
+
+      Then hundreds.
+    `,
+
+    ending: true,
+
+    endingTitle: "THE WATCHERS",
+
+    endingText: `
+      Maya finally understands.
+
+      The Watchers were never guarding the chamber.
+
+      They were waiting inside it.
+    `
+
+  }
+
+};
+
+
+/* =========================================================
+   SCREEN MANAGEMENT
+   ========================================================= */
+
+function showScreen(id) {
+
+  document
+    .querySelectorAll(".game-screen")
+    .forEach(function(screen) {
+      screen.classList.remove("active");
+    });
+
+  const target =
+    document.getElementById(id);
+
+  if (!target) {
+    console.error("Screen not found:", id);
+    return;
+  }
+
+  target.classList.add("active");
+
+  window.scrollTo(0, 0);
+}
+
+
+/* =========================================================
+   TITLE / MENU
+   ========================================================= */
+
+function showTitleScreen() {
+  showScreen("title-screen");
+}
+
+
+function showInstructions() {
+  showScreen("instructions-screen");
+}
+
+
+function startNewGame() {
+
+  gameState = {
+    scene: "chapterOne",
+    inventory: [],
+    choices: [],
+    flags: {},
+    knowledge: 0,
+    awakening: 0,
+    trust: 0
+  };
+
+  saveGame(false);
+
+  showScreen("game-screen");
+
+  renderScene();
+}
+
+
+function returnToTitle() {
+
+  updateContinueButton();
+
+  showScreen("title-screen");
+}
+
+
+/* =========================================================
+   SCENE RENDERING
+   ========================================================= */
+
+function renderScene() {
+
+  const scene =
+    scenes[gameState.scene];
+
+  if (!scene) {
+
+    console.error(
+      "Scene not found:",
+      gameState.scene
+    );
+
+    gameState.scene = "chapterOne";
+
+    saveGame(false);
+
+    renderScene();
+
+    return;
+  }
+
+
+  const chapterLabel =
+    document.getElementById("chapter-label");
+
+  const location =
+    document.getElementById("location");
+
+  const sceneTitle =
+    document.getElementById("scene-title");
+
+  const storyText =
+    document.getElementById("story-text");
+
+  const choicesContainer =
+    document.getElementById("choices");
+
+
+  if (chapterLabel) {
+    chapterLabel.textContent =
+      scene.chapter || "";
+  }
+
+
+  if (location) {
+    location.textContent =
+      scene.location || "";
+  }
+
+
+  if (sceneTitle) {
+    sceneTitle.textContent =
+      scene.title || "";
+  }
+
+
+  if (storyText) {
+    storyText.innerHTML =
+      formatStory(scene.text || "");
+  }
+
+
+  if (choicesContainer) {
+    choicesContainer.innerHTML = "";
+  }
+
+
+  if (scene.item) {
+    addItem(scene.item);
+  }
+
+
+  if (scene.ending) {
+
+    showEnding(scene);
+
+    return;
+  }
+
+
+  if (!Array.isArray(scene.choices)) {
+
+    console.error(
+      "No choices found for:",
+      gameState.scene
+    );
+
+    return;
+  }
+
+
+  scene.choices.forEach(function(choice) {
+
+    const button =
+      document.createElement("button");
+
+    button.type = "button";
+
+    button.className =
+      "choice-button";
+
+    button.textContent =
+      choice.text;
+
+    button.addEventListener(
+      "click",
+      function() {
+        makeChoice(choice);
+      }
+    );
+
+    choicesContainer.appendChild(button);
+
+  });
+}
+
+
+/* =========================================================
+   STORY FORMATTING
+   ========================================================= */
+
+function formatStory(text) {
+
+  return String(text)
+    .trim()
+    .split(/\n\s*\n/)
+    .map(function(paragraph) {
+
+      return "<p>" +
+        paragraph.trim() +
+        "</p>";
+
+    })
+    .join("");
+}
+
+
+/* =========================================================
+   CHOICE / PROGRESSION SYSTEM
+   ========================================================= */
+
+function makeChoice(choice) {
+
+  if (!choice) {
+    return;
+  }
+
+
+  if (choice.flag) {
+    gameState.flags[choice.flag] = true;
+  }
+
+
+  gameState.choices.push(
+    choice.text
+  );
+
+
+  if (typeof choice.knowledge === "number") {
+
+    gameState.knowledge +=
+      choice.knowledge;
+
+  }
+
+
+  if (typeof choice.awakening === "number") {
+
+    gameState.awakening +=
+      choice.awakening;
+
+  }
+
+
+  if (typeof choice.trust === "number") {
+
+    gameState.trust +=
+      choice.trust;
+
+  }
+
+
+  if (!choice.next) {
+
+    console.error(
+      "Choice has no next scene:",
+      choice
+    );
+
+    return;
+  }
+
+
+  if (!scenes[choice.next]) {
+
+    console.error(
+      "Next scene does not exist:",
+      choice.next
+    );
+
+    return;
+  }
+
+
+  gameState.scene =
+    choice.next;
+
+
+  saveGame(false);
+
+  renderScene();
+}
+
+
+/* =========================================================
+   INVENTORY
+   ========================================================= */
+
+function addItem(item) {
+
+  if (!item) {
+    return;
+  }
+
+
+  if (!Array.isArray(gameState.inventory)) {
+    gameState.inventory = [];
+  }
+
+
+  if (!gameState.inventory.includes(item)) {
+
+    gameState.inventory.push(item);
+
+    saveGame(false);
+
+  }
+}
+
+
+function showInventory() {
+
+  const list =
+    document.getElementById(
+      "inventory-list"
+    );
+
+  if (!list) {
+    return;
+  }
+
+
+  if (
+    !gameState.inventory ||
+    gameState.inventory.length === 0
+  ) {
+
+    list.innerHTML =
+      "<p>Nothing discovered yet.</p>";
+
+  } else {
+
+    list.innerHTML =
+      gameState.inventory
+        .map(function(item) {
+
+          return "<p>👁️ " +
+            item +
+            "</p>";
+
+        })
+        .join("");
+
+  }
+
+
+  showScreen("inventory-screen");
+}
+
+
+function closeInventory() {
+
+  showScreen("game-screen");
+}
+
+
+/* =========================================================
+   ENDINGS
+   ========================================================= */
+
+function showEnding(scene) {
+
+  const endingTitle =
+    document.getElementById(
+      "ending-title"
+    );
+
+  const endingText =
+    document.getElementById(
+      "ending-text"
+    );
+
+
+  const knowledge =
+    gameState.knowledge || 0;
+
+  const awakening =
+    gameState.awakening || 0;
+
+  const trust =
+    gameState.trust || 0;
+
+
+  let finalTitle =
+    scene.endingTitle ||
+    scene.title ||
+    "THE AWAKENING";
+
+
+  let finalText =
+    scene.endingText ||
+    scene.text ||
+    "";
+
+
+  /*
+   * TRUE WITNESS
+   */
+
+  if (
+    knowledge >= 4 &&
+    awakening >= 3
+  ) {
+
+    finalTitle =
+      "THE WITNESS";
+
+    finalText = `
+      Maya opens her eyes.
+
+      The chamber is gone.
+
+      The symbols are no longer mysterious.
+
+      She understands what they were showing her.
+
+      The Watchers.
+
+      The Keeper.
+
+      The ancient language.
+
+      They were all connected.
+
+      She was never searching for the past.
+
+      The past was searching for her.
+
+      Somewhere beyond the darkness,
+      something opens its eyes.
+
+      Maya finally understands.
+
+      She is the Witness.
+    `;
+
+  }
+
+
+  /*
+   * AWAKENING
+   */
+
+  else if (
+    awakening >= 3
+  ) {
+
+    finalTitle =
+      "THE AWAKENING";
+
+    finalText = `
+      Light fills the chamber.
+
+      Maya sees images of ancient cities,
+      forgotten languages,
+      and watchers hidden beyond time.
+
+      Something inside her has awakened.
+
+      She does not understand everything yet.
+
+      But she knows one thing.
+
+      The journey has only begun.
+    `;
+
+  }
+
+
+  /*
+   * SEEKER
+   */
+
+  else if (
+    knowledge >= 3
+  ) {
+
+    finalTitle =
+      "THE SEEKER";
+
+    finalText = `
+      Maya escapes the chamber.
+
+      She carries the knowledge
+      of what she discovered.
+
+      The symbols.
+
+      The inscription.
+
+      The Keeper.
+
+      There are still questions.
+
+      But now she knows where to look.
+
+      The truth was never lost.
+
+      It was hidden.
+    `;
+
+  }
+
+
+  /*
+   * KEEPER'S CHOICE
+   */
+
+  else if (
+    trust >= 2
+  ) {
+
+    finalTitle =
+      "THE KEEPER'S CHOICE";
+
+    finalText = `
+      Maya feels the presence
+      watching from the darkness.
+
+      But it does not attack.
+
+      Instead, the voice speaks again.
+
+      “You chose to listen.”
+
+      Maya realizes the Keeper
+      has been waiting.
+
+      The path ahead remains hidden.
+
+      But the door is open.
+    `;
+
+  }
+
+
+  if (endingTitle) {
+
+    endingTitle.textContent =
+      finalTitle;
+
+  }
+
+
+  if (endingText) {
+
+    endingText.innerHTML =
+      formatStory(finalText);
+
+  }
+
+
+  showScreen("ending-screen");
+}
+
+
+/* =========================================================
+   SAVE SYSTEM
+   ========================================================= */
+
+function saveGame(showMessage = true) {
+
+  try {
+
+    localStorage.setItem(
+      SAVE_KEY,
+      JSON.stringify(gameState)
+    );
+
+    updateContinueButton();
+
+
+    if (showMessage) {
+
+      alert("Game saved.");
+
+    }
+
+  } catch (error) {
+
+    console.error(
+      "Unable to save game:",
+      error
+    );
+
+  }
+}
+
+
+/* =========================================================
+   LOAD SYSTEM
+   ========================================================= */
+
+function loadGame() {
+
+  try {
+
+    const saved =
+      localStorage.getItem(
+        SAVE_KEY
+      );
+
+    if (!saved) {
+      return false;
+    }
+
+
+    const loaded =
+      JSON.parse(saved);
+
+
+    gameState = {
+
+      scene:
+        loaded.scene ||
+        "chapterOne",
+
+      inventory:
+        Array.isArray(
+          loaded.inventory
+        )
+          ? loaded.inventory
+          : [],
+
+      choices:
+        Array.isArray(
+          loaded.choices
+        )
+          ? loaded.choices
+          : [],
+
+      flags:
+        loaded.flags &&
+        typeof loaded.flags === "object"
+          ? loaded.flags
+          : {},
+
+      knowledge:
+        Number(loaded.knowledge) || 0,
+
+      awakening:
+        Number(loaded.awakening) || 0,
+
+      trust:
+        Number(loaded.trust) || 0
+
+    };
+
+
+    if (!scenes[gameState.scene]) {
+
+      gameState.scene =
+        "chapterOne";
+
+    }
+
+
+    return true;
+
+  } catch (error) {
+
+    console.error(
+      "Unable to load game:",
+      error
+    );
+
+    return false;
+
+  }
+
+}
+
+
+/* =========================================================
+   CONTINUE
+   ========================================================= */
+
+function continueGame() {
+
+  if (!loadGame()) {
+
+    startNewGame();
+
+    return;
+  }
+
+
+  showScreen("game-screen");
+
+  renderScene();
+}
+
+
+/* =========================================================
+   CONTINUE BUTTON
+   ========================================================= */
+
+function updateContinueButton() {
+
+  const button =
+    document.getElementById(
+      "continue-button"
+    );
+
+  if (!button) {
+    return;
+  }
+
+
+  let saved = null;
+
+  try {
+
+    saved =
+      localStorage.getItem(
+        SAVE_KEY
+      );
+
+  } catch (error) {
+
+    console.error(
+      "Unable to check save:",
+      error
+    );
+
+  }
+
+
+  button.disabled =
+    !saved;
+
+}
+
+
+/* =========================================================
+   RETURN TO BOOK
+   ========================================================= */
+
+function returnToBook() {
+
+  window.location.href =
+    "book.html";
+
+}
+
+
+/* =========================================================
+   ENDING BUTTONS
+   ========================================================= */
+
+function setupEndingButtons() {
+
+  const playAgainButton =
+    document.getElementById(
+      "play-again-button"
+    );
+
+  const returnBookButton =
+    document.getElementById(
+      "return-book-button"
+    );
+
+
+  if (playAgainButton) {
+
+    playAgainButton.addEventListener(
+      "click",
+      function() {
+
+        startNewGame();
+
+      }
+    );
+
+  }
+
+
+  if (returnBookButton) {
+
+    returnBookButton.addEventListener(
+      "click",
+      function() {
+
+        returnToBook();
+
+      }
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   INITIALIZATION
+   ========================================================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function() {
+
+    updateContinueButton();
+
+    setupEndingButtons();
+
+    showScreen("title-screen");
+
+  }
+);
