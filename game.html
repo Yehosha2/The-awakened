@@ -23,6 +23,57 @@
 
   <main id="game">
 
+<section
+  id="title-screen"
+  class="game-screen active"
+>
+
+  <div class="game-content">
+
+    <div class="game-symbol">
+      👁️
+    </div>
+
+    <h1>
+      THE AWAKENED
+    </h1>
+
+    <h2>
+      THE GAME
+    </h2>
+
+    <p class="game-subtitle">
+      Before the beginning, there was a witness.
+    </p>
+
+    <div class="game-menu">
+
+      <button onclick="startNewGame()">
+        NEW GAME
+      </button>
+
+      <button
+        id="continue-button"
+        onclick="continueGame()"
+        disabled
+      >
+        CONTINUE
+      </button>
+
+      <button onclick="showInstructions()">
+        HOW TO PLAY
+      </button>
+
+      <button onclick="returnToBook()">
+        RETURN TO BOOK
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
     <!-- =========================================
          INSTRUCTIONS
          ========================================= -->
