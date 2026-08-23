@@ -895,30 +895,188 @@ const scenes = {
 /* =========================================================
    SCREEN MANAGEMENT
    ========================================================= */
+function showEnding(scene) {
 
-function showScreen(id) {
+  const endingTitle =
+    document.getElementById("ending-title");
 
-  const screens =
-    document.querySelectorAll(".game-screen");
+  const endingText =
+    document.getElementById("ending-text");
 
-  screens.forEach(function(screen) {
-    screen.classList.remove("active");
-  });
+  const knowledge = gameState.knowledge || 0;
+  const awakening = gameState.awakening || 0;
+  const trust = gameState.trust || 0;
 
-  const target =
-    document.getElementById(id);
+  let finalTitle;
+  let finalText;
 
-  if (!target) {
-    console.error("Screen not found:", id);
-    return;
+
+  /* =====================================================
+     TRUE WITNESS
+     High knowledge + high awakening
+     ===================================================== */
+
+  if (knowledge >= 4 && awakening >= 3) {
+
+    finalTitle = "THE WITNESS";
+
+    finalText = `
+      Maya opens her eyes.
+
+      The chamber is gone.
+
+      The symbols are no longer mysterious.
+
+      She understands what they were showing her.
+
+      The Watchers.
+
+      The Keeper.
+
+      The ancient language.
+
+      They were all connected.
+
+      She was never searching for the past.
+
+      The past was searching for her.
+
+      Somewhere beyond the darkness,
+      something opens its eyes.
+
+      And Maya finally understands:
+
+      She is the Witness.
+    `;
+
   }
 
-  target.classList.add("active");
 
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
+  /* =====================================================
+     THE AWAKENING
+     High awakening
+     ===================================================== */
+
+  else if (awakening >= 3) {
+
+    finalTitle = "THE AWAKENING";
+
+    finalText = `
+      Light fills the chamber.
+
+      Maya sees images of ancient cities,
+      forgotten languages,
+      and watchers hidden beyond time.
+
+      Something inside her has awakened.
+
+      She does not understand everything yet.
+
+      But she knows one thing.
+
+      The journey has only begun.
+    `;
+
+  }
+
+
+  /* =====================================================
+     THE SEEKER
+     High knowledge
+     ===================================================== */
+
+  else if (knowledge >= 3) {
+
+    finalTitle = "THE SEEKER";
+
+    finalText = `
+      Maya escapes the chamber.
+
+      She carries the knowledge
+      of what she discovered.
+
+      The symbols.
+
+      The inscription.
+
+      The Keeper.
+
+      There are still questions.
+
+      But now she knows where to look.
+
+      The truth was never lost.
+
+      It was hidden.
+    `;
+
+  }
+
+
+  /* =====================================================
+     THE TRUSTED
+     Strong trust
+     ===================================================== */
+
+  else if (trust >= 2) {
+
+    finalTitle = "THE KEEPER'S CHOICE";
+
+    finalText = `
+      Maya feels the presence
+      watching from the darkness.
+
+      But it does not attack.
+
+      Instead, the voice speaks again.
+
+      "You chose to listen."
+
+      Maya realizes the Keeper
+      has been waiting for someone
+      who would trust the truth.
+
+      The path ahead remains hidden.
+
+      But the door is open.
+    `;
+
+  }
+
+
+  /* =====================================================
+     DEFAULT ENDING
+     ===================================================== */
+
+  else {
+
+    finalTitle =
+      scene.endingTitle || scene.title || "THE AWAKENING";
+
+    finalText =
+      scene.endingText || scene.text || "";
+
+  }
+
+
+  if (endingTitle) {
+
+    endingTitle.textContent =
+      finalTitle;
+
+  }
+
+
+  if (endingText) {
+
+    endingText.innerHTML =
+      formatStory(finalText);
+
+  }
+
+
+  showScreen("ending-screen");
+
 }
 
 
