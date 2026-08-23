@@ -59,15 +59,13 @@ const scenes = {
   awakening: 1
 }
 
-      {
-        text: "Step away from the tablet.",
-        next: "stepAway",
-        flag: "rejectedTablet"
-      }
-
-    ]
-
-  },
+  {
+  text: "Step away from the tablet.",
+  next: "stepAway",
+  flag: "rejectedTablet",
+  awakening: 0,
+  knowledge: 1
+}
 
 
   touchTablet: {
