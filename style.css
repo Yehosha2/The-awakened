@@ -1323,3 +1323,15 @@ footer {
   }
 
 }
+
+.game-screen {
+
+  display: none !important;
+
+}
+
+.game-screen.active {
+
+  display: flex !important;
+
+}
