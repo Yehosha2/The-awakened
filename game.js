@@ -1000,17 +1000,34 @@ function makeChoice(choice) {
     gameState.flags[choice.flag] = true;
   }
 
-  gameState.choices.push(choice.text);
+gameState.choices.push(choice.text);
 
-  gameState.scene = choice.next;
+/* =========================
+   PLAYER PROGRESSION
+   ========================= */
 
-  saveGame(false);
-
-  renderScene();
-
+if (choice.knowledge) {
+  gameState.knowledge += choice.knowledge;
 }
 
+if (choice.awakening) {
+  gameState.awakening += choice.awakening;
+}
 
+if (choice.trust) {
+  gameState.trust += choice.trust;
+}
+
+/* =========================
+   NEXT SCENE
+   ========================= */
+
+gameState.scene = choice.next;
+
+saveGame(false);
+
+renderScene();
+   
 /* =========================================================
    INVENTORY
    ========================================================= */
