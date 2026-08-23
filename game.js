@@ -1437,51 +1437,6 @@ function closeInventory() {
 
 }
 
-
-/* =========================================================
-   ENDINGS
-   ========================================================= */
-
-function showEnding(scene) {
-
-  const endingTitle =
-    document.getElementById(
-      "ending-title"
-    );
-
-  const endingText =
-    document.getElementById(
-      "ending-text"
-    );
-
-
-  if (endingTitle) {
-
-    endingTitle.textContent =
-      scene.endingTitle ||
-      scene.title ||
-      "THE AWAKENING";
-
-  }
-
-
-  if (endingText) {
-
-    endingText.innerHTML =
-      formatStory(
-        scene.endingText ||
-        scene.text ||
-        ""
-      );
-
-  }
-
-
-  showScreen("ending-screen");
-
-}
-
-
 /* =========================================================
    SAVE SYSTEM
    ========================================================= */
