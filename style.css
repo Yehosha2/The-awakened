@@ -1,1 +1,1318 @@
+:root {
+  --bg: #0b0b0d;
+  --card: #151519;
+  --text: #f5f2eb;
+  --muted: #aaa5a0;
+  --accent: #d8b46a;
+  --line: #2a292d;
+}
 
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+
+  background:
+    radial-gradient(
+      circle at top,
+      #19171b 0,
+      #0b0b0d 55%
+    );
+
+  color: var(--text);
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  line-height: 1.8;
+}
+
+button {
+  font: inherit;
+}
+
+
+/* =========================================================
+   READER
+   ========================================================= */
+
+.page {
+  display: none;
+  width: 100%;
+}
+
+.page.active {
+  display: block;
+}
+
+.chapter-page {
+  display: block;
+}
+
+.page.cover {
+  display: none;
+}
+
+.page.cover.active {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+
+/* =========================================================
+   READER CONTAINER
+   ========================================================= */
+
+.wrap {
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 25px 18px 70px;
+}
+
+
+/* =========================================================
+   READER HEADER
+   ========================================================= */
+
+header {
+  text-align: center;
+  padding: 50px 10px 35px;
+}
+
+.eye {
+  font-size: 38px;
+  margin-bottom: 10px;
+
+  filter:
+    drop-shadow(0 0 8px rgba(216, 180, 106, 0.35));
+}
+
+h1 {
+  font-size: clamp(36px, 9vw, 68px);
+  letter-spacing: 0.08em;
+  margin: 5px 0 10px;
+}
+
+h2 {
+  color: var(--accent);
+  font-size: 27px;
+  font-weight: normal;
+  margin-top: 0;
+}
+
+h3 {
+  color: var(--accent);
+  margin-top: 30px;
+}
+
+.tag {
+  font-family: Arial, sans-serif;
+  letter-spacing: 0.18em;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+
+/* =========================================================
+   READER NAVIGATION
+   ========================================================= */
+
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+
+  text-align: center;
+
+  padding: 12px 5px;
+
+  background: rgba(11, 11, 13, 0.94);
+
+  backdrop-filter: blur(10px);
+
+  border-bottom: 1px solid var(--line);
+}
+
+nav button {
+  background: transparent;
+  color: var(--text);
+
+  border: 1px solid var(--line);
+  border-radius: 999px;
+
+  padding: 9px 14px;
+  margin: 4px;
+
+  cursor: pointer;
+
+  transition: 0.25s;
+}
+
+nav button:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   READER STORY
+   ========================================================= */
+
+.story-section {
+  background: rgba(21, 21, 25, 0.9);
+
+  border: 1px solid var(--line);
+  border-radius: 18px;
+
+  padding: 30px;
+  margin: 25px 0;
+
+  box-shadow:
+    0 15px 40px rgba(0, 0, 0, 0.25);
+}
+
+.story-section:target {
+  border-color: var(--accent);
+}
+
+.story-section p {
+  font-size: 17px;
+}
+
+.story-section li {
+  margin: 8px 0;
+}
+
+
+/* =========================================================
+   QUOTES
+   ========================================================= */
+
+.quote {
+  border-left: 3px solid var(--accent);
+
+  padding: 5px 0 5px 20px;
+
+  margin: 25px 0;
+
+  color: #eee9df;
+
+  font-style: italic;
+
+  font-size: 20px;
+}
+
+
+/* =========================================================
+   READER NEXT BUTTON
+   ========================================================= */
+
+.next-button-container {
+  text-align: center;
+  margin: 35px 0;
+}
+
+.next-button {
+  background: transparent;
+
+  color: var(--accent);
+
+  border: 2px solid var(--accent);
+
+  border-radius: 50px;
+
+  padding: 14px 34px;
+
+  font-size: 18px;
+
+  font-weight: bold;
+
+  letter-spacing: 0.18em;
+
+  cursor: pointer;
+
+  transition: 0.25s;
+}
+
+.next-button:hover {
+  background: var(--accent);
+  color: var(--bg);
+  transform: scale(1.05);
+}
+
+.joke {
+  text-align: center;
+
+  min-height: 30px;
+
+  font-family: Arial, sans-serif;
+
+  font-weight: bold;
+
+  color: var(--accent);
+}
+
+
+/* =========================================================
+   LOVE
+   ========================================================= */
+
+.love-message {
+  text-align: center;
+
+  font-size: 22px;
+
+  line-height: 2;
+
+  margin: 30px 0;
+}
+
+
+/* =========================================================
+   CENTER
+   ========================================================= */
+
+.center {
+  text-align: center;
+  letter-spacing: 0.12em;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+footer {
+  text-align: center;
+
+  color: var(--muted);
+
+  padding-top: 35px;
+
+  font-family: Arial, sans-serif;
+}
+
+.heart {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+
+/* =========================================================
+   READER PAGE CONTROL
+   ========================================================= */
+
+#reader > .page {
+  display: none !important;
+}
+
+#reader > .page.active {
+  display: block !important;
+}
+
+#reader > .page.cover.active {
+  display: flex !important;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  align-items: center;
+
+  text-align: center;
+}
+
+#reader > .page.cover:not(.active) {
+  display: none !important;
+}
+
+
+/* =========================================================
+   THE AWAKENED — GAME
+   ========================================================= */
+
+.game-screen {
+  display: none !important;
+
+  width: 100%;
+  min-height: 100vh;
+
+  padding: 30px 18px 60px;
+
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.game-screen.active {
+  display: flex !important;
+}
+
+
+/* =========================================================
+   TITLE SCREEN
+   ========================================================= */
+
+#title-screen {
+  position: relative;
+
+  overflow: hidden;
+
+  text-align: center;
+
+  align-items: center;
+
+  background:
+    radial-gradient(
+      circle at 50% 42%,
+      rgba(216, 180, 106, 0.10),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 50% 100%,
+      rgba(216, 180, 106, 0.05),
+      transparent 45%
+    );
+}
+
+#title-screen::before {
+  content: "";
+
+  position: absolute;
+
+  width: 520px;
+  height: 520px;
+
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  border: 1px solid rgba(216, 180, 106, 0.07);
+
+  border-radius: 50%;
+
+  box-shadow:
+    0 0 80px rgba(216, 180, 106, 0.06),
+    inset 0 0 80px rgba(216, 180, 106, 0.025);
+
+  pointer-events: none;
+}
+
+#title-screen .game-content {
+  position: relative;
+
+  z-index: 2;
+
+  width: 100%;
+  max-width: 700px;
+
+  padding: 50px 20px;
+}
+
+
+/* =========================================================
+   TITLE EYE
+   ========================================================= */
+
+#title-screen .game-symbol {
+  font-size: 82px;
+
+  line-height: 1;
+
+  margin-bottom: 28px;
+
+  display: inline-block;
+
+  filter:
+    drop-shadow(0 0 8px rgba(216, 180, 106, 0.55))
+    drop-shadow(0 0 28px rgba(216, 180, 106, 0.30))
+    drop-shadow(0 0 60px rgba(216, 180, 106, 0.12));
+
+  animation:
+    awakenedEye 4s ease-in-out infinite;
+}
+
+@keyframes awakenedEye {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+
+  50% {
+    transform: scale(1.09);
+    opacity: 1;
+  }
+}
+
+
+/* =========================================================
+   TITLE TEXT
+   ========================================================= */
+
+#title-screen h1 {
+  margin: 0;
+
+  color: var(--text);
+
+  font-size:
+    clamp(
+      42px,
+      10vw,
+      78px
+    );
+
+  font-weight: normal;
+
+  letter-spacing: 0.14em;
+
+  text-shadow:
+    0 0 15px rgba(216, 180, 106, 0.12),
+    0 0 40px rgba(216, 180, 106, 0.06);
+}
+
+#title-screen h2 {
+  margin: 10px 0 20px;
+
+  color: var(--accent);
+
+  font-family: Arial, sans-serif;
+
+  font-size: 17px;
+
+  font-weight: normal;
+
+  letter-spacing: 0.4em;
+
+  text-transform: uppercase;
+}
+
+#title-screen .game-subtitle {
+  max-width: 520px;
+
+  margin: 0 auto 45px;
+
+  color: var(--muted);
+
+  font-size: 17px;
+
+  font-style: italic;
+
+  letter-spacing: 0.04em;
+}
+
+
+/* =========================================================
+   TITLE MENU
+   ========================================================= */
+
+#title-screen .game-menu {
+  width: 100%;
+  max-width: 360px;
+
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 14px;
+}
+
+#title-screen .game-menu button {
+  width: 100%;
+
+  padding: 16px 24px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(21, 21, 25, 0.96),
+      rgba(11, 11, 13, 0.96)
+    );
+
+  color: var(--text);
+
+  border: 1px solid var(--line);
+
+  border-radius: 999px;
+
+  font-family: Arial, sans-serif;
+
+  font-size: 13px;
+
+  font-weight: bold;
+
+  letter-spacing: 0.2em;
+
+  text-transform: uppercase;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.20);
+
+  transition:
+    color 0.25s ease,
+    border-color 0.25s ease,
+    background 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+#title-screen .game-menu button:hover {
+  color: var(--accent);
+
+  border-color: var(--accent);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(216, 180, 106, 0.09),
+      rgba(216, 180, 106, 0.025)
+    );
+
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.35),
+    0 0 20px rgba(216, 180, 106, 0.08);
+}
+
+#title-screen .game-menu button:active {
+  transform: translateY(-1px);
+}
+
+#continue-button:disabled {
+  opacity: 0.32;
+
+  cursor: not-allowed;
+
+  transform: none;
+
+  box-shadow: none;
+}
+
+
+/* =========================================================
+   GAME CONTAINER
+   ========================================================= */
+
+.game-container {
+  width: 100%;
+
+  max-width: 850px;
+
+  margin: 0 auto;
+}
+
+
+/* =========================================================
+   GAME HEADER
+   ========================================================= */
+
+.game-header {
+  text-align: center;
+
+  padding: 35px 10px 28px;
+}
+
+.game-title {
+  color: var(--accent);
+
+  font-family: Arial, sans-serif;
+
+  font-size: 12px;
+
+  font-weight: bold;
+
+  letter-spacing: 0.35em;
+
+  text-transform: uppercase;
+
+  margin-bottom: 12px;
+}
+
+.game-progress {
+  color: var(--muted);
+
+  font-family: Arial, sans-serif;
+
+  font-size: 11px;
+
+  letter-spacing: 0.25em;
+
+  text-transform: uppercase;
+}
+
+#chapter-label {
+  color: var(--accent);
+}
+
+
+/* =========================================================
+   STORY PANEL
+   ========================================================= */
+
+.story-panel {
+  position: relative;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(21, 21, 25, 0.98),
+      rgba(11, 11, 13, 0.98)
+    );
+
+  border: 1px solid var(--line);
+
+  border-radius: 22px;
+
+  padding: 38px 32px;
+
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.45),
+    0 0 35px rgba(216, 180, 106, 0.035);
+
+  overflow: hidden;
+}
+
+.story-panel::before {
+  content: "👁️";
+
+  position: absolute;
+
+  top: 18px;
+  right: 22px;
+
+  font-size: 20px;
+
+  opacity: 0.08;
+
+  pointer-events: none;
+}
+
+#location {
+  color: var(--accent);
+
+  font-family: Arial, sans-serif;
+
+  font-size: 11px;
+
+  letter-spacing: 0.25em;
+
+  text-transform: uppercase;
+
+  margin-bottom: 12px;
+}
+
+#scene-title {
+  margin: 0 0 30px;
+
+  font-size:
+    clamp(
+      32px,
+      7vw,
+      54px
+    );
+
+  font-weight: normal;
+
+  letter-spacing: 0.08em;
+
+  line-height: 1.15;
+
+  text-shadow:
+    0 0 18px rgba(216, 180, 106, 0.08);
+}
+
+#story-text p {
+  margin: 0 0 24px;
+
+  color: var(--text);
+
+  font-size: 18px;
+
+  line-height: 2;
+}
+
+#story-text p:last-child {
+  margin-bottom: 0;
+}
+
+
+/* =========================================================
+   CHOICES
+   ========================================================= */
+
+#choices {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 14px;
+
+  width: 100%;
+
+  margin-top: 28px;
+}
+
+.choice-button {
+  position: relative;
+
+  width: 100%;
+
+  padding: 19px 24px 19px 26px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(24, 24, 29, 0.98),
+      rgba(12, 12, 15, 0.98)
+    );
+
+  color: var(--text);
+
+  border: 1px solid var(--line);
+
+  border-radius: 16px;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 17px;
+
+  line-height: 1.5;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.22);
+
+  transition:
+    color 0.25s ease,
+    border-color 0.25s ease,
+    background 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.choice-button::before {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  top: 0;
+
+  width: 3px;
+  height: 100%;
+
+  background: var(--accent);
+
+  opacity: 0.15;
+
+  transition:
+    opacity 0.25s ease,
+    width 0.25s ease;
+}
+
+.choice-button::after {
+  content: "👁️";
+
+  position: absolute;
+
+  right: 18px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  font-size: 13px;
+
+  opacity: 0.08;
+
+  pointer-events: none;
+
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+
+.choice-button:hover {
+  color: var(--accent);
+
+  border-color: rgba(216, 180, 106, 0.65);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(216, 180, 106, 0.09),
+      rgba(216, 180, 106, 0.025)
+    );
+
+  transform: translateX(6px);
+
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.32),
+    0 0 20px rgba(216, 180, 106, 0.06);
+}
+
+.choice-button:hover::before {
+  width: 5px;
+  opacity: 0.85;
+}
+
+.choice-button:hover::after {
+  opacity: 0.35;
+
+  transform:
+    translateY(-50%)
+    scale(1.08);
+}
+
+.choice-button:active {
+  transform:
+    translateX(3px)
+    scale(0.995);
+}
+
+.choice-button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+
+/* =========================================================
+   GAME FOOTER
+   ========================================================= */
+
+.game-footer {
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  gap: 10px;
+
+  flex-wrap: wrap;
+
+  margin-top: 28px;
+}
+
+.game-footer button {
+  background: transparent;
+
+  color: var(--muted);
+
+  border: 1px solid var(--line);
+
+  border-radius: 999px;
+
+  padding: 9px 17px;
+
+  font-family: Arial, sans-serif;
+
+  font-size: 11px;
+
+  letter-spacing: 0.12em;
+
+  text-transform: uppercase;
+
+  cursor: pointer;
+
+  transition: 0.25s ease;
+}
+
+.game-footer button:hover {
+  color: var(--accent);
+
+  border-color: var(--accent);
+
+  background:
+    rgba(216, 180, 106, 0.05);
+
+  transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   INSTRUCTIONS
+   ========================================================= */
+
+#instructions-screen .game-content {
+  width: 100%;
+  max-width: 700px;
+
+  padding: 40px 20px;
+
+  text-align: center;
+}
+
+#instructions-screen h1 {
+  margin-bottom: 30px;
+}
+
+#instructions-screen p {
+  max-width: 650px;
+
+  margin: 18px auto;
+
+  font-size: 17px;
+}
+
+#instructions-screen .game-symbol {
+  font-size: 65px;
+}
+
+#instructions-screen .warning {
+  color: var(--accent);
+
+  font-style: italic;
+
+  margin-top: 35px;
+}
+
+#instructions-screen .awakening-text {
+  color: var(--accent);
+
+  font-family: Arial, sans-serif;
+
+  font-weight: bold;
+
+  letter-spacing: 0.18em;
+
+  margin-top: 35px;
+}
+
+
+/* =========================================================
+   SECONDARY BUTTONS
+   ========================================================= */
+
+#instructions-screen button,
+#inventory-screen button,
+#ending-screen button {
+  margin: 8px;
+
+  background: transparent;
+
+  color: var(--accent);
+
+  border: 1px solid var(--accent);
+
+  border-radius: 999px;
+
+  padding: 11px 22px;
+
+  font-family: Arial, sans-serif;
+
+  font-size: 12px;
+
+  font-weight: bold;
+
+  letter-spacing: 0.15em;
+
+  text-transform: uppercase;
+
+  cursor: pointer;
+
+  transition: 0.25s ease;
+}
+
+#instructions-screen button:hover,
+#inventory-screen button:hover,
+#ending-screen button:hover {
+  background: var(--accent);
+
+  color: var(--bg);
+
+  transform: translateY(-2px);
+}
+
+#instructions-screen button:focus-visible,
+#inventory-screen button:focus-visible,
+#ending-screen button:focus-visible,
+.game-footer button:focus-visible,
+.game-menu button:focus-visible {
+  outline: 2px solid var(--accent);
+
+  outline-offset: 3px;
+}
+
+
+/* =========================================================
+   INVENTORY
+   ========================================================= */
+
+#inventory-screen .game-content {
+  width: 100%;
+  max-width: 700px;
+
+  text-align: center;
+}
+
+#inventory-list {
+  max-width: 700px;
+
+  margin: 25px auto;
+
+  padding: 18px;
+
+  background:
+    rgba(21, 21, 25, 0.85);
+
+  border: 1px solid var(--line);
+
+  border-radius: 16px;
+}
+
+#inventory-list p {
+  border-bottom: 1px solid var(--line);
+
+  padding: 12px;
+
+  margin: 0;
+
+  color: var(--text);
+}
+
+#inventory-list p:last-child {
+  border-bottom: none;
+}
+
+
+/* =========================================================
+   ENDING
+   ========================================================= */
+
+#ending-screen {
+  align-items: center;
+
+  text-align: center;
+}
+
+#ending-screen .game-content {
+  width: 100%;
+  max-width: 750px;
+
+  padding: 40px 20px;
+}
+
+#ending-screen .game-symbol {
+  font-size: 75px;
+}
+
+#ending-title {
+  color: var(--accent);
+
+  font-size:
+    clamp(
+      34px,
+      8vw,
+      62px
+    );
+
+  font-weight: normal;
+
+  letter-spacing: 0.08em;
+
+  line-height: 1.2;
+}
+
+#ending-text {
+  max-width: 700px;
+
+  margin: 25px auto;
+
+  font-size: 18px;
+
+  line-height: 2;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .wrap {
+    padding: 15px 12px 50px;
+  }
+
+  header {
+    padding-top: 35px;
+  }
+
+  h1 {
+    font-size: 38px;
+
+    letter-spacing: 0.04em;
+  }
+
+  .story-section {
+    padding: 22px 18px;
+  }
+
+  .story-section p {
+    font-size: 16px;
+  }
+
+  nav button {
+    font-size: 12px;
+
+    padding: 8px 11px;
+  }
+
+  .quote {
+    font-size: 18px;
+  }
+
+
+  /* GAME */
+
+  .game-screen {
+    padding: 18px 12px 45px;
+  }
+
+
+  /* TITLE */
+
+  #title-screen::before {
+    width: 360px;
+    height: 360px;
+  }
+
+  #title-screen .game-content {
+    padding: 35px 18px;
+  }
+
+  #title-screen .game-symbol {
+    font-size: 62px;
+
+    margin-bottom: 22px;
+  }
+
+  #title-screen h1 {
+    font-size: 38px;
+
+    letter-spacing: 0.08em;
+  }
+
+  #title-screen h2 {
+    font-size: 14px;
+
+    letter-spacing: 0.25em;
+  }
+
+  #title-screen .game-subtitle {
+    font-size: 15px;
+
+    margin-bottom: 35px;
+  }
+
+  #title-screen .game-menu {
+    max-width: 330px;
+  }
+
+
+  /* GAMEPLAY */
+
+  .game-title {
+    font-size: 11px;
+  }
+
+  .story-panel {
+    padding: 28px 20px;
+
+    border-radius: 17px;
+  }
+
+  #scene-title {
+    font-size: 34px;
+
+    margin-bottom: 25px;
+  }
+
+  #story-text p {
+    font-size: 16px;
+
+    line-height: 1.9;
+  }
+
+  .choice-button {
+    padding: 17px 20px;
+
+    font-size: 16px;
+
+    border-radius: 14px;
+  }
+
+  .choice-button::after {
+    right: 14px;
+
+    font-size: 11px;
+  }
+
+  .choice-button:hover {
+    transform: translateX(3px);
+  }
+
+
+  /* FOOTER */
+
+  .game-footer {
+    gap: 8px;
+  }
+
+  .game-footer button {
+    padding: 8px 12px;
+
+    font-size: 10px;
+  }
+
+
+  /* INSTRUCTIONS */
+
+  #instructions-screen .game-content {
+    padding: 30px 15px;
+  }
+
+  #instructions-screen p {
+    font-size: 16px;
+  }
+
+
+  /* ENDING */
+
+  #ending-screen .game-content {
+    padding: 30px 15px;
+  }
+
+  #ending-text {
+    font-size: 16px;
+
+    line-height: 1.9;
+  }
+
+}
