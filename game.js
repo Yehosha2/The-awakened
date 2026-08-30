@@ -182,8 +182,8 @@ const scenes = {
     ]
   },
 
-
   doorOpen: {
+
     title: "THE PASSAGE",
 
     text:
@@ -191,30 +191,62 @@ const scenes = {
       "The ancient door opens into darkness.",
 
     choices: [
+
       {
         text: "ENTER THE PASSAGE",
         action: "enterPassage"
       }
+
     ]
+
+  },
+
+
+  chapter2Complete: {
+
+    title: "THE THREE PHOTOGRAPHS",
+
+    text:
+      "Maya studies the three photographs again. " +
+      "Baghdad. Israel. Europe. " +
+      "Different discoveries. The same symbols. " +
+      "The pattern is no longer a coincidence.",
+
+    choices: [
+
+      {
+        text: "STUDY THE PHOTOGRAPHS",
+        action: "chapter2Reveal"
+      },
+
+      {
+        text: "CONTINUE",
+        next: "passage"
+      }
+
+    ]
+
   },
 
 
   passage: {
+
     title: "THE DARKNESS",
 
     text:
       "Maya enters the passage. Behind her, the door closes.",
 
     choices: [
+
       {
         text: "CONTINUE",
         action: "continueStory"
       }
+
     ]
+
   }
-
-};
-
+  
 
 /* =========================================================
    START GAME
@@ -379,6 +411,17 @@ function runAction(action) {
 
 }
 
+    case "chapter2Reveal":
+
+      addClue(
+        "Three ancient discoveries share the same symbols."
+      );
+
+      gameState.flags.threePhotographs = true;
+
+      gameState.scene = "passage";
+
+      break;
 
 /* =========================================================
    OPEN BOOK
@@ -516,6 +559,156 @@ function submitPuzzle() {
 
 }
 
+/* =========================================================
+   CHAPTER 2 — THREE PHOTOGRAPHS PUZZLE
+   ========================================================= */
+
+function openChapter2Puzzle() {
+
+  const screen =
+    document.getElementById("chapter2PuzzleScreen");
+
+  const first =
+    document.getElementById("photoAnswer1");
+
+  const second =
+    document.getElementById("photoAnswer2");
+
+  const third =
+    document.getElementById("photoAnswer3");
+
+  const message =
+    document.getElementById("chapter2Message");
+
+
+  if (!screen || !first || !second || !third) {
+
+    alert(
+      "Chapter 2 puzzle could not be loaded."
+    );
+
+    return;
+
+  }
+
+
+  screen.classList.add("active");
+
+  first.value = "";
+  second.value = "";
+  third.value = "";
+
+  if (message) {
+    message.textContent = "";
+  }
+
+
+  setTimeout(function() {
+
+    first.focus();
+
+  }, 100);
+
+}
+
+
+/* =========================================================
+   SUBMIT CHAPTER 2 PUZZLE
+   ========================================================= */
+
+function submitChapter2Puzzle() {
+
+  const first =
+    document
+      .getElementById("photoAnswer1")
+      .value
+      .trim()
+      .toLowerCase();
+
+  const second =
+    document
+      .getElementById("photoAnswer2")
+      .value
+      .trim()
+      .toLowerCase();
+
+  const third =
+    document
+      .getElementById("photoAnswer3")
+      .value
+      .trim()
+      .toLowerCase();
+
+  const message =
+    document.getElementById(
+      "chapter2Message"
+    );
+
+
+  /*
+    Chapter 2 answers.
+
+    The player discovers these
+    by reading Chapter Two.
+  */
+
+  const correctFirst =
+    first === "baghdad";
+
+  const correctSecond =
+    second === "israel";
+
+  const correctThird =
+    third === "europe";
+
+
+  if (
+    correctFirst &&
+    correctSecond &&
+    correctThird
+  ) {
+
+    gameState.flags.chapter2Solved = true;
+
+    addClue(
+      "Chapter 2 solved — the three photographs were identified."
+    );
+
+
+    if (message) {
+
+      message.textContent =
+        "✓ CORRECT — THREE PLACES. ONE SYMBOL.";
+
+    }
+
+
+    setTimeout(function() {
+
+      closePanels();
+
+      gameState.scene = "chapter2Complete";
+
+      renderScene();
+
+      saveGame();
+
+    }, 1200);
+
+  }
+
+  else {
+
+    if (message) {
+
+      message.textContent =
+        "The order is wrong. Return to Chapter Two.";
+
+    }
+
+  }
+
+}
 
 /* =========================================================
    ADD CLUE
