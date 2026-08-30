@@ -228,24 +228,30 @@ const scenes = {
 
   },
 
+passage: {
 
-  passage: {
+  title: "THE DARKNESS",
 
-    title: "THE DARKNESS",
+  text:
+    "Maya enters the passage. Behind her, the door closes. " +
+    "The darkness stretches ahead. On the stone wall, " +
+    "three faint symbols begin to appear.",
 
-    text:
-      "Maya enters the passage. Behind her, the door closes.",
+  choices: [
 
-    choices: [
+    {
+      text: "EXAMINE THE SYMBOLS",
+      action: "openChapter2"
+    },
 
-      {
-        text: "CONTINUE",
-        action: "continueStory"
-      }
+    {
+      text: "CONTINUE INTO THE DARKNESS",
+      action: "continueStory"
+    }
 
-    ]
+  ]
 
-  }
+},
   
 
 /* =========================================================
@@ -406,6 +412,22 @@ function runAction(action) {
       );
 
       break;
+
+        case "openChapter2":
+
+  if (gameState.flags.chapter2Solved) {
+
+    gameState.scene = "chapter2Complete";
+
+  }
+
+  else {
+
+    openChapter2Puzzle();
+
+  }
+
+  break;
 
   }
 
