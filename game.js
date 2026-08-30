@@ -576,7 +576,7 @@ function runAction(action) {
       break;
 
 
-    case "chapter2Reveal":
+    case :
 
       addClue(
         "Three ancient discoveries share the same symbols."
@@ -1282,5 +1282,3 @@ function closePanels() {
 
       }
     );
-
-}
