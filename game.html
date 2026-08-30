@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
   <meta charset="UTF-8">
 
   <meta
@@ -10,215 +9,119 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>THE AWAKENED — The Game</title>
-
-  <link
-    rel="stylesheet"
-    href="style.css"
+  <meta
+    name="theme-color"
+    content="#050505"
   >
 
+  <title>THE AWAKENED — THE GAME</title>
+
+  <link rel="stylesheet" href="game.css">
 </head>
 
 <body>
 
-  <main id="game">
+  <main id="app">
 
-<section
-  id="title-screen"
-  class="game-screen active"
->
-
-  <div class="game-content">
-
-    <div class="game-symbol">
-      👁️
-    </div>
-
-    <h1>
-      THE AWAKENED
-    </h1>
-
-    <h2>
-      THE GAME
-    </h2>
-
-    <p class="game-subtitle">
-      Before the beginning, there was a witness.
-    </p>
-
-    <div class="game-menu">
-
-      <button onclick="startNewGame()">
-        NEW GAME
-      </button>
-
-      <button
-        id="continue-button"
-        onclick="continueGame()"
-        disabled
-      >
-        CONTINUE
-      </button>
-
-      <button onclick="showInstructions()">
-        HOW TO PLAY
-      </button>
-
-      <button onclick="returnToBook()">
-        RETURN TO BOOK
-      </button>
-
-    </div>
-
-  </div>
-
-</section>
-
-    <!-- =========================================
-         INSTRUCTIONS
-         ========================================= -->
-
-  <section
-  id="instructions-screen"
-  class="game-screen"
->
-
-  <div class="game-content">
-
-    <div class="game-symbol">👁️</div>
-
-    <h1>HOW TO PLAY</h1>
-
-    <p>
-      Explore the world of <strong>THE AWAKENED</strong>.
-    </p>
-
-    <p>
-      Follow Maya's journey, discover hidden clues,
-      and uncover the truth buried beneath the story.
-    </p>
-
-    <p>
-      Your choices shape what Maya discovers,
-      who she trusts, and what awakens.
-    </p>
-
-    <p>
-      Pay attention. Some paths remain hidden
-      until the right choice is made.
-    </p>
-
-    <p class="warning">
-      Not everything that watches you
-      is waiting to be found.
-    </p>
-
-    <p class="awakening-text">
-      OPEN YOUR EYES. 👁️
-    </p>
-
-    <button onclick="showTitleScreen()">
-      BACK
-    </button>
-
-  </div>
-
-</section>
-
-
-    <!-- =========================================
-         GAME SCREEN
-         ========================================= -->
+    <!-- TITLE SCREEN -->
 
     <section
-      id="game-screen"
-      class="game-screen"
+      id="titleScreen"
+      class="screen active"
     >
 
-      <div class="game-container">
+      <div class="eye">👁️</div>
 
-        <header class="game-header">
+      <h1>THE AWAKENED</h1>
 
-          <div class="game-title">
-            THE AWAKENED
-          </div>
+      <p class="subtitle">
+        THE GAME
+      </p>
 
-          <div class="game-progress">
-            <span id="chapter-label">
-              PROLOGUE
-            </span>
-          </div>
+      <button onclick="startGame()">
+        ▶ PLAY
+      </button>
 
-        </header>
+      <button onclick="openBook()">
+        📖 READ THE BOOK
+      </button>
 
+      <button onclick="loadGame()">
+        LOAD GAME
+      </button>
 
-        <section class="story-panel">
-
-          <div
-            id="location"
-            class="location"
-          >
-            UNKNOWN
-          </div>
-
-          <h1 id="scene-title">
-            THE BEGINNING
-          </h1>
-
-          <div
-            id="story-text"
-            class="story-text"
-          ></div>
-
-        </section>
-
-
-        <section
-          id="choices"
-          class="choices"
-        ></section>
-
-
-        <footer class="game-footer">
-
-          <button onclick="saveGame()">
-            SAVE
-          </button>
-
-          <button onclick="showInventory()">
-            INVENTORY
-          </button>
-
-          <button onclick="returnToTitle()">
-            MENU
-          </button>
-
-        </footer>
-
-      </div>
+      <p class="motto">
+        LIGHT WORK • ALWAYS
+      </p>
 
     </section>
 
 
-    <!-- =========================================
-         INVENTORY
-         ========================================= -->
+    <!-- GAME SCREEN -->
 
     <section
-      id="inventory-screen"
-      class="game-screen"
+      id="gameScreen"
+      class="screen"
     >
 
-      <div class="game-content">
+      <header>
 
-        <h1>INVENTORY</h1>
+        <div>
+          <span>THE AWAKENED</span>
 
-        <div id="inventory-list">
-          Nothing discovered yet.
+          <small id="episode">
+            EPISODE I
+          </small>
         </div>
 
-        <button onclick="closeInventory()">
-          RETURN
+        <button
+          class="saveButton"
+          onclick="saveGame()"
+        >
+          SAVE
+        </button>
+
+      </header>
+
+
+      <div class="story">
+
+        <div class="location">
+          THE CHAMBER
+        </div>
+
+        <h2 id="sceneTitle">
+          THE TABLET
+        </h2>
+
+        <p id="storyText"></p>
+
+        <div
+          id="clueNotice"
+          class="clue hidden"
+        ></div>
+
+      </div>
+
+
+      <div
+        id="choices"
+        class="choices"
+      ></div>
+
+
+      <div class="bottomBar">
+
+        <button onclick="openInventory()">
+          🎒 INVENTORY
+        </button>
+
+        <button onclick="openClues()">
+          🧩 CLUES
+        </button>
+
+        <button onclick="openBook()">
+          📖 BOOK
         </button>
 
       </div>
@@ -226,60 +129,65 @@
     </section>
 
 
-    <!-- =========================================
-         ENDING
-         ========================================= -->
-<section
-  id="ending-screen"
-  class="game-screen"
->
+    <!-- INVENTORY -->
 
-  <div class="game-content">
+    <section
+      id="inventoryScreen"
+      class="overlay"
+    >
 
-    <div class="game-symbol">
-      👁️
-    </div>
+      <div class="panel">
 
-    <div class="ending-label">
-      ENDING REACHED
-    </div>
+        <button
+          class="close"
+          onclick="closePanels()"
+        >
+          ×
+        </button>
 
-    <h1 id="ending-title">
-      THE AWAKENING
-    </h1>
+        <h2>INVENTORY</h2>
 
-    <p id="ending-text"></p>
+        <div id="inventory"></div>
 
-    <div class="ending-actions">
+      </div>
 
-<button
-  id="play-again-button"
-  type="button"
->
-<button
-  type="button"
-  onclick="startNewGame()"
->
-  PLAY AGAIN
-</button>
+    </section>
 
-<button
-  type="button"
-  onclick="returnToBook()"
->
-  RETURN TO BOOK
-</button>
-  
 
-    </div>
+    <!-- CLUES -->
 
-  </div>
+    <section
+      id="clueScreen"
+      class="overlay"
+    >
 
-</section>
-    
+      <div class="panel">
+
+        <button
+          class="close"
+          onclick="closePanels()"
+        >
+          ×
+        </button>
+
+        <h2>BOOK CLUES</h2>
+
+        <p class="warning">
+          The book contains the answers.
+          The game will not reveal them.
+        </p>
+
+        <div id="clues"></div>
+
+      </div>
+
+    </section>
+
   </main>
+
 
   <script src="game.js"></script>
 
 </body>
+
 </html>
