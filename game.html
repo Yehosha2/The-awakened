@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
   <meta charset="UTF-8">
 
   <meta
@@ -17,234 +18,304 @@
   <title>THE AWAKENED — THE GAME</title>
 
   <link rel="stylesheet" href="game.css">
+
 </head>
+
 
 <body>
 
-  <main id="app">
-
-    <!-- TITLE SCREEN -->
-
-    <section
-      id="titleScreen"
-      class="screen active"
-    >
-
-      <div class="eye">👁️</div>
-
-      <h1>THE AWAKENED</h1>
-
-      <p class="subtitle">
-        THE GAME
-      </p>
-
-      <button onclick="startGame()">
-        ▶ PLAY
-      </button>
-
-      <button onclick="openBook()">
-        📖 READ THE BOOK
-      </button>
-
-      <button onclick="loadGame()">
-        LOAD GAME
-      </button>
-
-      <p class="motto">
-        LIGHT WORK • ALWAYS
-      </p>
-
-    </section>
+<main id="app">
 
 
-    <!-- GAME SCREEN -->
+  <!-- =====================================================
+       TITLE SCREEN
+       ===================================================== -->
 
-    <section
-      id="gameScreen"
-      class="screen"
-    >
+  <section
+    id="titleScreen"
+    class="screen active"
+  >
 
-      <header>
+    <div class="eye">
+      👁️
+    </div>
 
-        <div>
-          <span>THE AWAKENED</span>
+    <h1>
+      THE AWAKENED
+    </h1>
 
-          <small id="episode">
-            EPISODE I
-          </small>
-        </div>
-
-        <button
-          class="saveButton"
-          onclick="saveGame()"
-        >
-          SAVE
-        </button>
-
-      </header>
+    <p class="subtitle">
+      THE GAME
+    </p>
 
 
-      <div class="story">
+    <button onclick="startGame()">
+      ▶ PLAY
+    </button>
 
-        <div class="location">
-          THE CHAMBER
-        </div>
 
-        <h2 id="sceneTitle">
-          THE TABLET
-        </h2>
+    <button onclick="openBook()">
+      📖 READ THE BOOK
+    </button>
 
-        <p id="storyText"></p>
 
-        <div
-          id="clueNotice"
-          class="clue hidden"
-        ></div>
+    <button onclick="loadGame()">
+      LOAD GAME
+    </button>
+
+
+    <p class="motto">
+      LIGHT WORK • ALWAYS
+    </p>
+
+  </section>
+
+
+
+  <!-- =====================================================
+       GAME SCREEN
+       ===================================================== -->
+
+  <section
+    id="gameScreen"
+    class="screen"
+  >
+
+
+    <header>
+
+      <div>
+
+        <span>
+          THE AWAKENED
+        </span>
+
+        <small id="episode">
+          EPISODE I
+        </small>
 
       </div>
+
+
+      <button
+        class="saveButton"
+        onclick="saveGame()"
+      >
+        SAVE
+      </button>
+
+    </header>
+
+
+
+    <div class="story">
+
+      <div class="location">
+        THE CHAMBER
+      </div>
+
+
+      <h2 id="sceneTitle">
+        THE TABLET
+      </h2>
+
+
+      <p id="storyText"></p>
 
 
       <div
-        id="choices"
-        class="choices"
+        id="clueNotice"
+        class="clue hidden"
       ></div>
 
-
-      <div class="bottomBar">
-
-        <button onclick="openInventory()">
-          🎒 INVENTORY
-        </button>
-
-        <button onclick="openClues()">
-          🧩 CLUES
-        </button>
-
-        <button onclick="openBook()">
-          📖 BOOK
-        </button>
-
-      </div>
-
-    </section>
+    </div>
 
 
-    <!-- INVENTORY -->
 
-    <section
-      id="inventoryScreen"
-      class="overlay"
-    >
-
-      <div class="panel">
-
-        <button
-          class="close"
-          onclick="closePanels()"
-        >
-          ×
-        </button>
-
-        <h2>INVENTORY</h2>
-
-        <div id="inventory"></div>
-
-      </div>
-
-    </section>
+    <div
+      id="choices"
+      class="choices"
+    ></div>
 
 
-    <!-- CLUES -->
 
-    <section
-      id="clueScreen"
-      class="overlay"
-    >
+    <div class="bottomBar">
 
-      <div class="panel">
-
-        <button
-          class="close"
-          onclick="closePanels()"
-        >
-          ×
-        </button>
-
-        <h2>BOOK CLUES</h2>
-
-        <p class="warning">
-          The book contains the answers.
-          The game will not reveal them.
-        </p>
-
-        <div id="clues"></div>
-
-      </div>
-
-    </section>
-
-<!-- BOOK CLUE PUZZLE -->
-
-<section
-  id="puzzleScreen"
-  class="overlay"
->
-
-  <div class="panel">
-
-    <button
-      class="close"
-      onclick="closePanels()"
-    >
-      ×
-    </button>
-
-    <h2>THE TABLET</h2>
-
-    <p>
-      The inscription contains a name.
-    </p>
-
-    <p>
-      You have encountered this name
-      somewhere in the book.
-    </p>
-
-    <p>
-      <strong>
-        Return to Chapter One.
-      </strong>
-    </p>
-
-    <p>
-      What was the name?
-    </p>
-
-    <input
-      id="puzzleAnswer"
-      type="text"
-      autocomplete="off"
-      placeholder="ENTER THE NAME"
-    >
-
-    <button
-      onclick="submitPuzzle()"
-    >
-      UNLOCK
-    </button>
-
-    <p
-      id="puzzleMessage"
-    ></p>
-
-  </div>
-
-</section>
-    
-  </main>
+      <button onclick="openInventory()">
+        🎒 INVENTORY
+      </button>
 
 
-  <script src="game.js"></script>
+      <button onclick="openClues()">
+        🧩 CLUES
+      </button>
+
+
+      <button onclick="openBook()">
+        📖 BOOK
+      </button>
+
+    </div>
+
+
+  </section>
+
+
+
+  <!-- =====================================================
+       INVENTORY
+       ===================================================== -->
+
+  <section
+    id="inventoryScreen"
+    class="overlay"
+  >
+
+    <div class="panel">
+
+
+      <button
+        class="close"
+        onclick="closePanels()"
+      >
+        ×
+      </button>
+
+
+      <h2>
+        INVENTORY
+      </h2>
+
+
+      <div id="inventory"></div>
+
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =====================================================
+       BOOK CLUES
+       ===================================================== -->
+
+  <section
+    id="clueScreen"
+    class="overlay"
+  >
+
+    <div class="panel">
+
+
+      <button
+        class="close"
+        onclick="closePanels()"
+      >
+        ×
+      </button>
+
+
+      <h2>
+        BOOK CLUES
+      </h2>
+
+
+      <p class="warning">
+
+        The book contains the answers.
+
+        The game will not reveal them.
+
+      </p>
+
+
+      <div id="clues"></div>
+
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =====================================================
+       CHAPTER 1 PUZZLE
+       ===================================================== -->
+
+  <section
+    id="puzzleScreen"
+    class="overlay"
+  >
+
+    <div class="panel">
+
+
+      <button
+        class="close"
+        onclick="closePanels()"
+      >
+        ×
+      </button>
+
+
+      <h2>
+        THE TABLET
+      </h2>
+
+
+      <p>
+        The inscription contains a name.
+      </p>
+
+
+      <p>
+        You have encountered this name
+        somewhere in the book.
+      </p>
+
+
+      <p>
+        <strong>
+          Return to Chapter One.
+        </strong>
+      </p>
+
+
+      <p>
+        What was the name?
+      </p>
+
+
+      <input
+        id="puzzleAnswer"
+        type="text"
+        autocomplete="off"
+        placeholder="ENTER THE NAME"
+      >
+
+
+      <button
+        onclick="submitPuzzle()"
+      >
+        UNLOCK
+      </button>
+
+
+      <p
+        id="puzzleMessage"
+      ></p>
+
+
+    </div>
+
+  </section>
+
+
+</main>
+
+
+<script src="game.js"></script>
 
 </body>
 
