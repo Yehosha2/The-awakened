@@ -395,6 +395,14 @@ body {
 
   </div>
 
+<button
+  type="button"
+  id="returnGameButton"
+  onclick="returnToGame()"
+>
+  RETURN TO GAME
+</button>
+      
   <div class="progress-wrap">
 
     <div id="progressBar"></div>
@@ -402,8 +410,7 @@ body {
   </div>
 
 </div>
-
-
+      
 <script>
 
 /* =========================================
@@ -967,6 +974,28 @@ document.addEventListener(
 
 loadChapters();
 
+/* =========================================
+   START READER
+   ========================================= */
+
+loadChapters();
+
+
+/* =========================================
+   RETURN TO GAME
+   ========================================= */
+
+function returnToGame() {
+
+  window.location.href = "game.html";
+
+}
+
+</script>
+
+</body>
+</html>
+      
 </script>
 
 </body>
