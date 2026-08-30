@@ -27,7 +27,12 @@ let gameState = {
 
 const scenes = {
 
+  /* =======================================================
+     CHAPTER 1
+     ======================================================= */
+
   awakening: {
+
     title: "THE TABLET",
 
     text:
@@ -36,6 +41,7 @@ const scenes = {
       "At the center of the room stood a tablet covered in symbols.",
 
     choices: [
+
       {
         text: "EXAMINE THE TABLET",
         next: "tablet"
@@ -50,11 +56,14 @@ const scenes = {
         text: "LEAVE THE CHAMBER",
         next: "leave"
       }
+
     ]
+
   },
 
 
   tablet: {
+
     title: "THE INSCRIPTION",
 
     text:
@@ -62,6 +71,7 @@ const scenes = {
       "She had seen something like it before.",
 
     choices: [
+
       {
         text: "READ THE INSCRIPTION",
         next: "inscription"
@@ -76,11 +86,14 @@ const scenes = {
         text: "STEP AWAY",
         next: "awakening"
       }
+
     ]
+
   },
 
 
   inscription: {
+
     title: "THE MEMORY",
 
     text:
@@ -88,6 +101,7 @@ const scenes = {
       "Maya knows the answer is somewhere in what she has already learned.",
 
     choices: [
+
       {
         text: "SEARCH THE BOOK",
         action: "searchBook"
@@ -97,11 +111,14 @@ const scenes = {
         text: "RETURN TO THE TABLET",
         next: "tablet"
       }
+
     ]
+
   },
 
 
   search: {
+
     title: "THE CHAMBER",
 
     text:
@@ -109,6 +126,7 @@ const scenes = {
       "a small metallic object.",
 
     choices: [
+
       {
         text: "TAKE THE OBJECT",
         action: "takeArtifact"
@@ -118,11 +136,14 @@ const scenes = {
         text: "RETURN TO THE TABLET",
         next: "awakening"
       }
+
     ]
+
   },
 
 
   artifact: {
+
     title: "THE ARTIFACT",
 
     text:
@@ -130,6 +151,7 @@ const scenes = {
       "A strange symbol is engraved on its surface.",
 
     choices: [
+
       {
         text: "EXAMINE THE SYMBOL",
         action: "artifactClue"
@@ -139,11 +161,14 @@ const scenes = {
         text: "RETURN TO THE CHAMBER",
         next: "awakening"
       }
+
     ]
+
   },
 
 
   touchTablet: {
+
     title: "THE AWAKENING",
 
     text:
@@ -151,15 +176,19 @@ const scenes = {
       "A vibration moves through the chamber.",
 
     choices: [
+
       {
         text: "CONTINUE",
         action: "awaken"
       }
+
     ]
+
   },
 
 
   awakened: {
+
     title: "THE EYE OPENS",
 
     text:
@@ -167,15 +196,19 @@ const scenes = {
       "Somewhere below the chamber, something has awakened.",
 
     choices: [
+
       {
         text: "SEARCH FOR THE SOURCE",
         action: "searchSource"
       }
+
     ]
+
   },
 
 
   lockedDoor: {
+
     title: "THE LOCKED DOOR",
 
     text:
@@ -183,6 +216,7 @@ const scenes = {
       "There is no handle. Only a symbol in the center.",
 
     choices: [
+
       {
         text: "USE THE BOOK CLUE",
         action: "useBookClue"
@@ -192,11 +226,14 @@ const scenes = {
         text: "STEP AWAY",
         next: "awakened"
       }
+
     ]
+
   },
 
 
   doorOpen: {
+
     title: "THE PASSAGE",
 
     text:
@@ -204,15 +241,19 @@ const scenes = {
       "The ancient door opens into darkness.",
 
     choices: [
+
       {
         text: "ENTER THE PASSAGE",
         action: "enterPassage"
       }
+
     ]
+
   },
 
 
   passage: {
+
     title: "THE DARKNESS",
 
     text:
@@ -221,6 +262,7 @@ const scenes = {
       "three faint symbols begin to appear.",
 
     choices: [
+
       {
         text: "EXAMINE THE SYMBOLS",
         action: "openChapter2"
@@ -230,11 +272,18 @@ const scenes = {
         text: "CONTINUE INTO THE DARKNESS",
         action: "continueStory"
       }
+
     ]
+
   },
 
 
+  /* =======================================================
+     CHAPTER 2
+     ======================================================= */
+
   chapter2Complete: {
+
     title: "THE THREE PHOTOGRAPHS",
 
     text:
@@ -244,6 +293,7 @@ const scenes = {
       "The pattern is no longer a coincidence.",
 
     choices: [
+
       {
         text: "STUDY THE PHOTOGRAPHS",
         action: "chapter2Reveal"
@@ -253,11 +303,14 @@ const scenes = {
         text: "CONTINUE",
         next: "passage"
       }
+
     ]
+
   },
 
 
   chapter2Reveal: {
+
     title: "THE PATTERN",
 
     text:
@@ -266,15 +319,23 @@ const scenes = {
       "Maya realizes the tablet is connected to something much older.",
 
     choices: [
+
       {
         text: "CONTINUE",
         action: "continueStory"
       }
+
     ]
+
   },
 
 
+  /* =======================================================
+     EXIT
+     ======================================================= */
+
   leave: {
+
     title: "THE EXIT",
 
     text:
@@ -282,11 +343,14 @@ const scenes = {
       "Something tells her she will have to return.",
 
     choices: [
+
       {
         text: "RETURN",
         next: "awakening"
       }
+
     ]
+
   }
 
 };
@@ -299,11 +363,17 @@ const scenes = {
 function startGame() {
 
   gameState = {
+
     scene: "awakening",
+
     inventory: [],
+
     clues: [],
+
     flags: {},
+
     bookRead: false
+
   };
 
   saveGame();
@@ -311,6 +381,7 @@ function startGame() {
   showScreen("gameScreen");
 
   renderScene();
+
 }
 
 
@@ -320,7 +391,9 @@ function startGame() {
 
 function renderScene() {
 
-  const scene = scenes[gameState.scene];
+  const scene =
+    scenes[gameState.scene];
+
 
   if (!scene) {
 
@@ -330,83 +403,124 @@ function renderScene() {
     );
 
     return;
+
   }
 
 
   const title =
-    document.getElementById("sceneTitle");
+    document.getElementById(
+      "sceneTitle"
+    );
 
   const text =
-    document.getElementById("storyText");
+    document.getElementById(
+      "storyText"
+    );
 
   const choices =
-    document.getElementById("choices");
+    document.getElementById(
+      "choices"
+    );
 
 
-  if (!title || !text || !choices) {
+  if (
+    !title ||
+    !text ||
+    !choices
+  ) {
 
     console.error(
       "Game interface elements are missing."
     );
 
     return;
+
   }
 
 
   title.textContent =
     scene.title;
 
+
   text.textContent =
     scene.text;
+
 
   choices.innerHTML =
     "";
 
 
-  scene.choices.forEach(function(choice) {
+  scene.choices.forEach(
+    function(choice) {
 
-    const button =
-      document.createElement("button");
-
-    button.type =
-      "button";
-
-    button.textContent =
-      choice.text;
+      const button =
+        document.createElement(
+          "button"
+        );
 
 
-    button.addEventListener(
-      "click",
-      function() {
+      button.type =
+        "button";
 
-        if (choice.next) {
 
-          gameState.scene =
-            choice.next;
+      button.textContent =
+        choice.text;
+
+
+      button.addEventListener(
+        "click",
+        function() {
+
+          /*
+             Move to the next scene
+             if one was provided.
+          */
+
+          if (choice.next) {
+
+            gameState.scene =
+              choice.next;
+
+          }
+
+
+          /*
+             Run special action
+             if one was provided.
+          */
+
+          if (choice.action) {
+
+            runAction(
+              choice.action
+            );
+
+          }
+
+
+          /*
+             Re-render the game.
+          */
+
+          renderScene();
+
+
+          /*
+             Save progress.
+          */
+
+          saveGame();
+
         }
+      );
 
 
-        if (choice.action) {
+      choices.appendChild(
+        button
+      );
 
-          runAction(
-            choice.action
-          );
-        }
-
-
-        renderScene();
-
-        saveGame();
-
-      }
-    );
-
-
-    choices.appendChild(
-      button
-    );
-
-  });
+    }
+  );
 
 }
 
@@ -419,6 +533,10 @@ function runAction(action) {
 
   switch (action) {
 
+
+    /* =====================================================
+       ARTIFACT
+       ===================================================== */
 
     case "takeArtifact":
 
@@ -449,12 +567,20 @@ function runAction(action) {
       break;
 
 
+    /* =====================================================
+       BOOK
+       ===================================================== */
+
     case "searchBook":
 
       openBookForClue();
 
       break;
 
+
+    /* =====================================================
+       AWAKENING
+       ===================================================== */
 
     case "awaken":
 
@@ -472,12 +598,20 @@ function runAction(action) {
       break;
 
 
+    /* =====================================================
+       CHAPTER 1 PUZZLE
+       ===================================================== */
+
     case "useBookClue":
 
       checkBookClue();
 
       break;
 
+
+    /* =====================================================
+       PASSAGE
+       ===================================================== */
 
     case "enterPassage":
 
@@ -495,6 +629,10 @@ function runAction(action) {
 
       break;
 
+
+    /* =====================================================
+       CHAPTER 2
+       ===================================================== */
 
     case "openChapter2":
 
@@ -524,16 +662,17 @@ function runAction(action) {
       gameState.flags.threePhotographs =
         true;
 
-      gameState.scene =
-        "chapter2Reveal";
-
       break;
 
+
+    /* =====================================================
+       UNKNOWN ACTION
+       ===================================================== */
 
     default:
 
       console.warn(
-        "Unknown action:",
+        "Unknown game action:",
         action
       );
 
@@ -545,7 +684,7 @@ function runAction(action) {
 
 
 /* =========================================================
-   BOOK
+   BOOK SYSTEM
    ========================================================= */
 
 function openBook() {
@@ -609,6 +748,7 @@ function checkBookClue() {
     "active"
   );
 
+
   answerInput.value =
     "";
 
@@ -663,6 +803,11 @@ function submitPuzzle() {
       .toLowerCase();
 
 
+  /*
+     Chapter 1 answer:
+     YEHoSHUA
+  */
+
   if (
     answer === "yehoshua"
   ) {
@@ -689,10 +834,13 @@ function submitPuzzle() {
 
         closePanels();
 
+
         gameState.scene =
           "doorOpen";
 
+
         renderScene();
+
 
         saveGame();
 
@@ -714,6 +862,7 @@ function submitPuzzle() {
 
     answerInput.value =
       "";
+
 
     answerInput.focus();
 
@@ -826,7 +975,6 @@ function submitChapter2Puzzle() {
       "photoAnswer3"
     );
 
-
   const message =
     document.getElementById(
       "chapter2Message"
@@ -892,10 +1040,13 @@ function submitChapter2Puzzle() {
 
         closePanels();
 
+
         gameState.scene =
           "chapter2Complete";
 
+
         renderScene();
+
 
         saveGame();
 
@@ -1016,11 +1167,14 @@ function openInventory() {
             "div"
           );
 
+
         div.className =
           "item";
 
+
         div.textContent =
           "🎒 " + item;
+
 
         container.appendChild(
           div
@@ -1091,11 +1245,14 @@ function openClues() {
             "div"
           );
 
+
         div.className =
           "clueItem";
 
+
         div.textContent =
           "🧩 " + clue;
+
 
         container.appendChild(
           div
@@ -1184,6 +1341,32 @@ function loadGame() {
       );
 
 
+    /*
+       Make sure older saves still
+       contain the expected properties.
+    */
+
+    if (!Array.isArray(gameState.inventory)) {
+
+      gameState.inventory = [];
+
+    }
+
+
+    if (!Array.isArray(gameState.clues)) {
+
+      gameState.clues = [];
+
+    }
+
+
+    if (!gameState.flags) {
+
+      gameState.flags = {};
+
+    }
+
+
     if (
       !gameState.scene ||
       !scenes[gameState.scene]
@@ -1208,8 +1391,10 @@ function loadGame() {
   catch (error) {
 
     console.error(
+      "Load error:",
       error
     );
+
 
     alert(
       "The saved game could not be loaded."
@@ -1282,43 +1467,70 @@ function closePanels() {
 
 
 /* =========================================================
-   GLOBAL BUTTON FALLBACK
-   =========================================================
-
-   These make buttons work whether your
-   game.html uses onclick="..." or
-   JavaScript event listeners.
+   KEYBOARD SUPPORT
    ========================================================= */
 
-window.startGame =
-  startGame;
+document.addEventListener(
+  "keydown",
+  function(event) {
 
-window.loadGame =
-  loadGame;
+    /*
+       Escape closes open panels.
+    */
 
-window.openBook =
-  openBook;
+    if (
+      event.key === "Escape"
+    ) {
 
-window.openInventory =
-  openInventory;
+      closePanels();
 
-window.openClues =
-  openClues;
-
-window.submitPuzzle =
-  submitPuzzle;
-
-window.submitChapter2Puzzle =
-  submitChapter2Puzzle;
-
-window.closePanels =
-  closePanels;
+    }
 
 
-/* =========================================================
-   GAME READY
-   ========================================================= */
+    /*
+       Enter submits Chapter 1 puzzle
+       when the puzzle is open.
+    */
 
-console.log(
-  "THE AWAKENED GAME ENGINE LOADED SUCCESSFULLY."
+    if (
+      event.key === "Enter"
+    ) {
+
+      const puzzle =
+        document.getElementById(
+          "puzzleScreen"
+        );
+
+      const chapter2 =
+        document.getElementById(
+          "chapter2PuzzleScreen"
+        );
+
+
+      if (
+        puzzle &&
+        puzzle.classList.contains(
+          "active"
+        )
+      ) {
+
+        submitPuzzle();
+
+      }
+
+
+      else if (
+        chapter2 &&
+        chapter2.classList.contains(
+          "active"
+        )
+      ) {
+
+        submitChapter2Puzzle();
+
+      }
+
+    }
+
+  }
 );
