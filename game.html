@@ -311,7 +311,75 @@
 
   </section>
 
+  <!-- =====================================================
+     CHAPTER 2 PUZZLE
+     ===================================================== -->
 
+<section
+  id="chapter2PuzzleScreen"
+  class="overlay"
+>
+
+  <div class="panel">
+
+    <button
+      class="close"
+      onclick="closePanels()"
+    >
+      ×
+    </button>
+
+    <h2>
+      THE THREE PHOTOGRAPHS
+    </h2>
+
+    <p>
+      Three discoveries. Three places. One symbol.
+    </p>
+
+    <p>
+      Return to Chapter Two and remember
+      the order in which Elias showed Maya
+      the photographs.
+    </p>
+
+    <input
+      id="photoAnswer1"
+      type="text"
+      autocomplete="off"
+      placeholder="FIRST LOCATION"
+    >
+
+    <input
+      id="photoAnswer2"
+      type="text"
+      autocomplete="off"
+      placeholder="SECOND LOCATION"
+    >
+
+    <input
+      id="photoAnswer3"
+      type="text"
+      autocomplete="off"
+      placeholder="THIRD LOCATION"
+    >
+
+    <button
+      onclick="submitChapter2Puzzle()"
+    >
+      UNLOCK
+    </button>
+
+    <p
+      id="chapter2Message"
+    ></p>
+
+  </div>
+
+</section>
+
+
+  
 </main>
 
 
