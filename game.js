@@ -2,10 +2,15 @@
 
 /* =========================================================
    THE AWAKENED — THE GAME
-   BOOK → CLUE → GAME ENGINE
+   BOOK → CLUE → PUZZLE → STORY
    ========================================================= */
 
 const SAVE_KEY = "theAwakenedGameSave";
+
+
+/* =========================================================
+   GAME STATE
+   ========================================================= */
 
 let gameState = {
   scene: "awakening",
@@ -23,6 +28,7 @@ let gameState = {
 const scenes = {
 
   awakening: {
+
     title: "THE TABLET",
 
     text:
@@ -31,23 +37,29 @@ const scenes = {
       "At the center of the room stood a tablet covered in symbols.",
 
     choices: [
+
       {
         text: "EXAMINE THE TABLET",
         next: "tablet"
       },
+
       {
         text: "SEARCH THE CHAMBER",
         next: "search"
       },
+
       {
         text: "LEAVE THE CHAMBER",
         next: "leave"
       }
+
     ]
+
   },
 
 
   tablet: {
+
     title: "THE INSCRIPTION",
 
     text:
@@ -55,23 +67,29 @@ const scenes = {
       "She had seen something like it before.",
 
     choices: [
+
       {
         text: "READ THE INSCRIPTION",
         next: "inscription"
       },
+
       {
         text: "TOUCH THE TABLET",
         next: "touchTablet"
       },
+
       {
         text: "STEP AWAY",
         next: "awakening"
       }
+
     ]
+
   },
 
 
   inscription: {
+
     title: "THE MEMORY",
 
     text:
@@ -79,19 +97,24 @@ const scenes = {
       "Maya knows the answer is somewhere in what she has already learned.",
 
     choices: [
+
       {
         text: "SEARCH THE BOOK",
         action: "searchBook"
       },
+
       {
         text: "RETURN TO THE TABLET",
         next: "tablet"
       }
+
     ]
+
   },
 
 
   search: {
+
     title: "THE CHAMBER",
 
     text:
@@ -99,19 +122,24 @@ const scenes = {
       "a small metallic object.",
 
     choices: [
+
       {
         text: "TAKE THE OBJECT",
         action: "takeArtifact"
       },
+
       {
         text: "RETURN TO THE TABLET",
         next: "awakening"
       }
+
     ]
+
   },
 
 
   artifact: {
+
     title: "THE ARTIFACT",
 
     text:
@@ -119,19 +147,24 @@ const scenes = {
       "A strange symbol is engraved on its surface.",
 
     choices: [
+
       {
         text: "EXAMINE THE SYMBOL",
         action: "artifactClue"
       },
+
       {
         text: "RETURN TO THE CHAMBER",
         next: "awakening"
       }
+
     ]
+
   },
 
 
   touchTablet: {
+
     title: "THE AWAKENING",
 
     text:
@@ -139,15 +172,19 @@ const scenes = {
       "A vibration moves through the chamber.",
 
     choices: [
+
       {
         text: "CONTINUE",
         action: "awaken"
       }
+
     ]
+
   },
 
 
   awakened: {
+
     title: "THE EYE OPENS",
 
     text:
@@ -155,15 +192,19 @@ const scenes = {
       "Somewhere below the chamber, something has awakened.",
 
     choices: [
+
       {
         text: "SEARCH FOR THE SOURCE",
         action: "searchSource"
       }
+
     ]
+
   },
 
 
   lockedDoor: {
+
     title: "THE LOCKED DOOR",
 
     text:
@@ -171,16 +212,21 @@ const scenes = {
       "There is no handle. Only a symbol in the center.",
 
     choices: [
+
       {
         text: "USE THE BOOK CLUE",
         action: "useBookClue"
       },
+
       {
         text: "STEP AWAY",
         next: "awakened"
       }
+
     ]
+
   },
+
 
   doorOpen: {
 
@@ -195,6 +241,32 @@ const scenes = {
       {
         text: "ENTER THE PASSAGE",
         action: "enterPassage"
+      }
+
+    ]
+
+  },
+
+
+  passage: {
+
+    title: "THE DARKNESS",
+
+    text:
+      "Maya enters the passage. Behind her, the door closes. " +
+      "The darkness stretches ahead. On the stone wall, " +
+      "three faint symbols begin to appear.",
+
+    choices: [
+
+      {
+        text: "EXAMINE THE SYMBOLS",
+        action: "openChapter2"
+      },
+
+      {
+        text: "CONTINUE INTO THE DARKNESS",
+        action: "continueStory"
       }
 
     ]
@@ -228,31 +300,49 @@ const scenes = {
 
   },
 
-passage: {
 
-  title: "THE DARKNESS",
+  chapter2Reveal: {
 
-  text:
-    "Maya enters the passage. Behind her, the door closes. " +
-    "The darkness stretches ahead. On the stone wall, " +
-    "three faint symbols begin to appear.",
+    title: "THE PATTERN",
 
-  choices: [
+    text:
+      "The three photographs were taken in different places, " +
+      "yet the same symbols appeared in every discovery. " +
+      "Maya realizes the tablet is connected to something much older.",
 
-    {
-      text: "EXAMINE THE SYMBOLS",
-      action: "openChapter2"
-    },
+    choices: [
 
-    {
-      text: "CONTINUE INTO THE DARKNESS",
-      action: "continueStory"
-    }
+      {
+        text: "CONTINUE",
+        action: "continueStory"
+      }
 
-  ]
+    ]
 
-},
-  
+  },
+
+
+  leave: {
+
+    title: "THE EXIT",
+
+    text:
+      "Maya steps away from the chamber. " +
+      "Something tells her she will have to return.",
+
+    choices: [
+
+      {
+        text: "RETURN",
+        next: "awakening"
+      }
+
+    ]
+
+  }
+
+};
+
 
 /* =========================================================
    START GAME
@@ -261,15 +351,25 @@ passage: {
 function startGame() {
 
   gameState = {
+
     scene: "awakening",
+
     inventory: [],
+
     clues: [],
+
     flags: {},
+
     bookRead: false
+
   };
 
+  saveGame();
+
   showScreen("gameScreen");
+
   renderScene();
+
 }
 
 
@@ -281,7 +381,17 @@ function renderScene() {
 
   const scene = scenes[gameState.scene];
 
-  if (!scene) return;
+  if (!scene) {
+
+    console.error(
+      "Scene not found:",
+      gameState.scene
+    );
+
+    return;
+
+  }
+
 
   const title =
     document.getElementById("sceneTitle");
@@ -292,11 +402,23 @@ function renderScene() {
   const choices =
     document.getElementById("choices");
 
-  if (!title || !text || !choices) return;
 
-  title.textContent = scene.title;
+  if (!title || !text || !choices) {
 
-  text.textContent = scene.text;
+    console.error(
+      "Game interface elements are missing."
+    );
+
+    return;
+
+  }
+
+
+  title.textContent =
+    scene.title;
+
+  text.textContent =
+    scene.text;
 
   choices.innerHTML = "";
 
@@ -306,27 +428,44 @@ function renderScene() {
     const button =
       document.createElement("button");
 
-    button.textContent = choice.text;
+    button.type = "button";
+
+    button.textContent =
+      choice.text;
 
 
-    button.onclick = function() {
+    button.addEventListener(
+      "click",
+      function() {
 
-      if (choice.next) {
-        gameState.scene = choice.next;
+        if (choice.next) {
+
+          gameState.scene =
+            choice.next;
+
+        }
+
+
+        if (choice.action) {
+
+          runAction(
+            choice.action
+          );
+
+        }
+
+
+        renderScene();
+
+        saveGame();
+
       }
-
-      if (choice.action) {
-        runAction(choice.action);
-      }
-
-      renderScene();
-
-      saveGame();
-
-    };
+    );
 
 
-    choices.appendChild(button);
+    choices.appendChild(
+      button
+    );
 
   });
 
@@ -356,7 +495,8 @@ function runAction(action) {
 
       }
 
-      gameState.scene = "artifact";
+      gameState.scene =
+        "artifact";
 
       break;
 
@@ -379,14 +519,16 @@ function runAction(action) {
 
     case "awaken":
 
-      gameState.scene = "awakened";
+      gameState.scene =
+        "awakened";
 
       break;
 
 
     case "searchSource":
 
-      gameState.scene = "lockedDoor";
+      gameState.scene =
+        "lockedDoor";
 
       break;
 
@@ -400,7 +542,8 @@ function runAction(action) {
 
     case "enterPassage":
 
-      gameState.scene = "passage";
+      gameState.scene =
+        "passage";
 
       break;
 
@@ -413,25 +556,25 @@ function runAction(action) {
 
       break;
 
-        case "openChapter2":
 
-  if (gameState.flags.chapter2Solved) {
+    case "openChapter2":
 
-    gameState.scene = "chapter2Complete";
+      if (
+        gameState.flags.chapter2Solved
+      ) {
 
-  }
+        gameState.scene =
+          "chapter2Complete";
 
-  else {
+      }
+      else {
 
-    openChapter2Puzzle();
+        openChapter2Puzzle();
 
-  }
+      }
 
-  break;
+      break;
 
-  }
-
-}
 
     case "chapter2Reveal":
 
@@ -439,47 +582,70 @@ function runAction(action) {
         "Three ancient discoveries share the same symbols."
       );
 
-      gameState.flags.threePhotographs = true;
-
-      gameState.scene = "passage";
+      gameState.flags.threePhotographs =
+        true;
 
       break;
 
-/* =========================================================
-   OPEN BOOK
-   ========================================================= */
-
-function openBookForClue() {
-
-  gameState.bookRead = true;
-
-  saveGame();
-
-  window.location.href = "book.html";
+  }
 
 }
 
 
 /* =========================================================
-   BOOK CLUE PUZZLE
+   BOOK
+   ========================================================= */
+
+function openBook() {
+
+  window.location.href =
+    "book.html";
+
+}
+
+
+function openBookForClue() {
+
+  gameState.bookRead =
+    true;
+
+  saveGame();
+
+  window.location.href =
+    "book.html";
+
+}
+
+
+/* =========================================================
+   CHAPTER 1 PUZZLE
    ========================================================= */
 
 function checkBookClue() {
 
   const puzzleScreen =
-    document.getElementById("puzzleScreen");
+    document.getElementById(
+      "puzzleScreen"
+    );
 
   const answerInput =
-    document.getElementById("puzzleAnswer");
+    document.getElementById(
+      "puzzleAnswer"
+    );
 
   const message =
-    document.getElementById("puzzleMessage");
+    document.getElementById(
+      "puzzleMessage"
+    );
 
 
-  if (!puzzleScreen || !answerInput) {
+  if (
+    !puzzleScreen ||
+    !answerInput
+  ) {
 
     alert(
-      "The puzzle screen could not be found."
+      "Puzzle screen could not be loaded."
     );
 
     return;
@@ -487,38 +653,51 @@ function checkBookClue() {
   }
 
 
-  puzzleScreen.classList.add("active");
+  puzzleScreen.classList.add(
+    "active"
+  );
 
   answerInput.value = "";
 
+
   if (message) {
-    message.textContent = "";
+
+    message.textContent =
+      "";
+
   }
 
 
-  setTimeout(function() {
+  setTimeout(
+    function() {
 
-    answerInput.focus();
+      answerInput.focus();
 
-  }, 100);
+    },
+    100
+  );
 
 }
 
 
-/* =========================================================
-   SUBMIT CHAPTER 1 ANSWER
-   ========================================================= */
-
 function submitPuzzle() {
 
   const answerInput =
-    document.getElementById("puzzleAnswer");
+    document.getElementById(
+      "puzzleAnswer"
+    );
 
   const message =
-    document.getElementById("puzzleMessage");
+    document.getElementById(
+      "puzzleMessage"
+    );
 
 
-  if (!answerInput) return;
+  if (!answerInput) {
+
+    return;
+
+  }
 
 
   const answer =
@@ -527,20 +706,17 @@ function submitPuzzle() {
       .toLowerCase();
 
 
-  /*
-    CHAPTER 1 BOOK CLUE
+  if (
+    answer === "yehoshua"
+  ) {
 
-    The player must discover this
-    by reading the book.
-  */
-
-  if (answer === "yehoshua") {
-
-    gameState.flags.chapter1Solved = true;
+    gameState.flags.chapter1Solved =
+      true;
 
     addClue(
-      "Chapter 1 solved — the name was recognized."
+      "Chapter 1 has been solved."
     );
+
 
     if (message) {
 
@@ -550,20 +726,23 @@ function submitPuzzle() {
     }
 
 
-    setTimeout(function() {
+    setTimeout(
+      function() {
 
-      closePanels();
+        closePanels();
 
-      gameState.scene = "doorOpen";
+        gameState.scene =
+          "doorOpen";
 
-      renderScene();
+        renderScene();
 
-      saveGame();
+        saveGame();
 
-    }, 1200);
+      },
+      1200
+    );
 
   }
-
   else {
 
     if (message) {
@@ -573,7 +752,9 @@ function submitPuzzle() {
 
     }
 
-    answerInput.value = "";
+
+    answerInput.value =
+      "";
 
     answerInput.focus();
 
@@ -581,29 +762,45 @@ function submitPuzzle() {
 
 }
 
+
 /* =========================================================
-   CHAPTER 2 — THREE PHOTOGRAPHS PUZZLE
+   CHAPTER 2 PUZZLE
    ========================================================= */
 
 function openChapter2Puzzle() {
 
   const screen =
-    document.getElementById("chapter2PuzzleScreen");
+    document.getElementById(
+      "chapter2PuzzleScreen"
+    );
 
   const first =
-    document.getElementById("photoAnswer1");
+    document.getElementById(
+      "photoAnswer1"
+    );
 
   const second =
-    document.getElementById("photoAnswer2");
+    document.getElementById(
+      "photoAnswer2"
+    );
 
   const third =
-    document.getElementById("photoAnswer3");
+    document.getElementById(
+      "photoAnswer3"
+    );
 
   const message =
-    document.getElementById("chapter2Message");
+    document.getElementById(
+      "chapter2Message"
+    );
 
 
-  if (!screen || !first || !second || !third) {
+  if (
+    !screen ||
+    !first ||
+    !second ||
+    !third
+  ) {
 
     alert(
       "Chapter 2 puzzle could not be loaded."
@@ -614,49 +811,60 @@ function openChapter2Puzzle() {
   }
 
 
-  screen.classList.add("active");
+  screen.classList.add(
+    "active"
+  );
 
   first.value = "";
   second.value = "";
   third.value = "";
 
+
   if (message) {
-    message.textContent = "";
+
+    message.textContent =
+      "";
+
   }
 
 
-  setTimeout(function() {
+  setTimeout(
+    function() {
 
-    first.focus();
+      first.focus();
 
-  }, 100);
+    },
+    100
+  );
 
 }
 
-
-/* =========================================================
-   SUBMIT CHAPTER 2 PUZZLE
-   ========================================================= */
 
 function submitChapter2Puzzle() {
 
   const first =
     document
-      .getElementById("photoAnswer1")
+      .getElementById(
+        "photoAnswer1"
+      )
       .value
       .trim()
       .toLowerCase();
 
   const second =
     document
-      .getElementById("photoAnswer2")
+      .getElementById(
+        "photoAnswer2"
+      )
       .value
       .trim()
       .toLowerCase();
 
   const third =
     document
-      .getElementById("photoAnswer3")
+      .getElementById(
+        "photoAnswer3"
+      )
       .value
       .trim()
       .toLowerCase();
@@ -667,30 +875,16 @@ function submitChapter2Puzzle() {
     );
 
 
-  /*
-    Chapter 2 answers.
-
-    The player discovers these
-    by reading Chapter Two.
-  */
-
-  const correctFirst =
-    first === "baghdad";
-
-  const correctSecond =
-    second === "israel";
-
-  const correctThird =
+  const correct =
+    first === "baghdad" &&
+    second === "israel" &&
     third === "europe";
 
 
-  if (
-    correctFirst &&
-    correctSecond &&
-    correctThird
-  ) {
+  if (correct) {
 
-    gameState.flags.chapter2Solved = true;
+    gameState.flags.chapter2Solved =
+      true;
 
     addClue(
       "Chapter 2 solved — the three photographs were identified."
@@ -705,20 +899,23 @@ function submitChapter2Puzzle() {
     }
 
 
-    setTimeout(function() {
+    setTimeout(
+      function() {
 
-      closePanels();
+        closePanels();
 
-      gameState.scene = "chapter2Complete";
+        gameState.scene =
+          "chapter2Complete";
 
-      renderScene();
+        renderScene();
 
-      saveGame();
+        saveGame();
 
-    }, 1200);
+      },
+      1200
+    );
 
   }
-
   else {
 
     if (message) {
@@ -732,37 +929,57 @@ function submitChapter2Puzzle() {
 
 }
 
+
 /* =========================================================
-   ADD CLUE
+   CLUES
    ========================================================= */
 
 function addClue(text) {
 
-  if (!gameState.clues.includes(text)) {
+  if (
+    !gameState.clues.includes(
+      text
+    )
+  ) {
 
-    gameState.clues.push(text);
+    gameState.clues.push(
+      text
+    );
 
   }
 
 
   const notice =
-    document.getElementById("clueNotice");
+    document.getElementById(
+      "clueNotice"
+    );
 
 
-  if (!notice) return;
+  if (!notice) {
+
+    return;
+
+  }
 
 
   notice.textContent =
     "🧩 NEW CLUE DISCOVERED";
 
-  notice.classList.remove("hidden");
+  notice.classList.remove(
+    "hidden"
+  );
 
 
-  setTimeout(function() {
+  setTimeout(
+    function() {
 
-    notice.classList.add("hidden");
+      notice.classList.add(
+        "hidden"
+      );
 
-  }, 3000);
+    },
+    3000
+  );
 
 }
 
@@ -774,36 +991,49 @@ function addClue(text) {
 function openInventory() {
 
   const container =
-    document.getElementById("inventory");
+    document.getElementById(
+      "inventory"
+    );
 
 
-  if (!container) return;
+  if (!container) {
+
+    return;
+
+  }
 
 
-  container.innerHTML = "";
+  container.innerHTML =
+    "";
 
 
-  if (gameState.inventory.length === 0) {
+  if (
+    gameState.inventory.length === 0
+  ) {
 
     container.innerHTML =
       "<p>Your inventory is empty.</p>";
 
   }
-
   else {
 
     gameState.inventory.forEach(
       function(item) {
 
         const div =
-          document.createElement("div");
+          document.createElement(
+            "div"
+          );
 
-        div.className = "item";
+        div.className =
+          "item";
 
         div.textContent =
           "🎒 " + item;
 
-        container.appendChild(div);
+        container.appendChild(
+          div
+        );
 
       }
     );
@@ -811,43 +1041,63 @@ function openInventory() {
   }
 
 
-  document
-    .getElementById("inventoryScreen")
-    .classList.add("active");
+  const screen =
+    document.getElementById(
+      "inventoryScreen"
+    );
+
+
+  if (screen) {
+
+    screen.classList.add(
+      "active"
+    );
+
+  }
 
 }
 
 
 /* =========================================================
-   CLUES
+   CLUE MENU
    ========================================================= */
 
 function openClues() {
 
   const container =
-    document.getElementById("clues");
+    document.getElementById(
+      "clues"
+    );
 
 
-  if (!container) return;
+  if (!container) {
+
+    return;
+
+  }
 
 
-  container.innerHTML = "";
+  container.innerHTML =
+    "";
 
 
-  if (gameState.clues.length === 0) {
+  if (
+    gameState.clues.length === 0
+  ) {
 
     container.innerHTML =
       "<p>No clues discovered yet.</p>";
 
   }
-
   else {
 
     gameState.clues.forEach(
       function(clue) {
 
         const div =
-          document.createElement("div");
+          document.createElement(
+            "div"
+          );
 
         div.className =
           "clueItem";
@@ -855,7 +1105,9 @@ function openClues() {
         div.textContent =
           "🧩 " + clue;
 
-        container.appendChild(div);
+        container.appendChild(
+          div
+        );
 
       }
     );
@@ -863,9 +1115,19 @@ function openClues() {
   }
 
 
-  document
-    .getElementById("clueScreen")
-    .classList.add("active");
+  const screen =
+    document.getElementById(
+      "clueScreen"
+    );
+
+
+  if (screen) {
+
+    screen.classList.add(
+      "active"
+    );
+
+  }
 
 }
 
@@ -876,10 +1138,24 @@ function openClues() {
 
 function saveGame() {
 
-  localStorage.setItem(
-    SAVE_KEY,
-    JSON.stringify(gameState)
-  );
+  try {
+
+    localStorage.setItem(
+      SAVE_KEY,
+      JSON.stringify(
+        gameState
+      )
+    );
+
+  }
+  catch (error) {
+
+    console.error(
+      "Could not save game:",
+      error
+    );
+
+  }
 
 }
 
@@ -891,12 +1167,16 @@ function saveGame() {
 function loadGame() {
 
   const saved =
-    localStorage.getItem(SAVE_KEY);
+    localStorage.getItem(
+      SAVE_KEY
+    );
 
 
   if (!saved) {
 
-    alert("No saved game found.");
+    alert(
+      "No saved game found."
+    );
 
     return;
 
@@ -906,17 +1186,35 @@ function loadGame() {
   try {
 
     gameState =
-      JSON.parse(saved);
+      JSON.parse(
+        saved
+      );
 
-    showScreen("gameScreen");
+
+    if (
+      !gameState.scene ||
+      !scenes[gameState.scene]
+    ) {
+
+      throw new Error(
+        "Invalid saved scene."
+      );
+
+    }
+
+
+    showScreen(
+      "gameScreen"
+    );
 
     renderScene();
 
   }
-
   catch (error) {
 
-    console.error(error);
+    console.error(
+      error
+    );
 
     alert(
       "The saved game could not be loaded."
@@ -934,21 +1232,31 @@ function loadGame() {
 function showScreen(id) {
 
   document
-    .querySelectorAll(".screen")
-    .forEach(function(screen) {
+    .querySelectorAll(
+      ".screen"
+    )
+    .forEach(
+      function(screen) {
 
-      screen.classList.remove("active");
+        screen.classList.remove(
+          "active"
+        );
 
-    });
+      }
+    );
 
 
   const screen =
-    document.getElementById(id);
+    document.getElementById(
+      id
+    );
 
 
   if (screen) {
 
-    screen.classList.add("active");
+    screen.classList.add(
+      "active"
+    );
 
   }
 
@@ -962,21 +1270,17 @@ function showScreen(id) {
 function closePanels() {
 
   document
-    .querySelectorAll(".overlay")
-    .forEach(function(panel) {
+    .querySelectorAll(
+      ".overlay"
+    )
+    .forEach(
+      function(panel) {
 
-      panel.classList.remove("active");
+        panel.classList.remove(
+          "active"
+        );
 
-    });
-
-}
-
-/* =========================================================
-   OPEN BOOK
-   ========================================================= */
-
-function openBook() {
-
-  window.location.href = "book.html";
+      }
+    );
 
 }
