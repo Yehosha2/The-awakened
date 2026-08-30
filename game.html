@@ -183,6 +183,64 @@
 
     </section>
 
+<!-- BOOK CLUE PUZZLE -->
+
+<section
+  id="puzzleScreen"
+  class="overlay"
+>
+
+  <div class="panel">
+
+    <button
+      class="close"
+      onclick="closePanels()"
+    >
+      ×
+    </button>
+
+    <h2>THE TABLET</h2>
+
+    <p>
+      The inscription contains a name.
+    </p>
+
+    <p>
+      You have encountered this name
+      somewhere in the book.
+    </p>
+
+    <p>
+      <strong>
+        Return to Chapter One.
+      </strong>
+    </p>
+
+    <p>
+      What was the name?
+    </p>
+
+    <input
+      id="puzzleAnswer"
+      type="text"
+      autocomplete="off"
+      placeholder="ENTER THE NAME"
+    >
+
+    <button
+      onclick="submitPuzzle()"
+    >
+      UNLOCK
+    </button>
+
+    <p
+      id="puzzleMessage"
+    ></p>
+
+  </div>
+
+</section>
+    
   </main>
 
 
