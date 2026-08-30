@@ -7,20 +7,11 @@
 
 const SAVE_KEY = "theAwakenedGameSave";
 
-
-/* =========================================================
-   GAME STATE
-   ========================================================= */
-
 let gameState = {
   scene: "awakening",
-
   inventory: [],
-
   clues: [],
-
   flags: {},
-
   bookRead: false
 };
 
@@ -32,7 +23,6 @@ let gameState = {
 const scenes = {
 
   awakening: {
-
     title: "THE TABLET",
 
     text:
@@ -41,29 +31,23 @@ const scenes = {
       "At the center of the room stood a tablet covered in symbols.",
 
     choices: [
-
       {
         text: "EXAMINE THE TABLET",
         next: "tablet"
       },
-
       {
         text: "SEARCH THE CHAMBER",
         next: "search"
       },
-
       {
         text: "LEAVE THE CHAMBER",
         next: "leave"
       }
-
     ]
-
   },
 
 
   tablet: {
-
     title: "THE INSCRIPTION",
 
     text:
@@ -71,29 +55,23 @@ const scenes = {
       "She had seen something like it before.",
 
     choices: [
-
       {
         text: "READ THE INSCRIPTION",
         next: "inscription"
       },
-
       {
         text: "TOUCH THE TABLET",
         next: "touchTablet"
       },
-
       {
         text: "STEP AWAY",
         next: "awakening"
       }
-
     ]
-
   },
 
 
   inscription: {
-
     title: "THE MEMORY",
 
     text:
@@ -101,24 +79,19 @@ const scenes = {
       "Maya knows the answer is somewhere in what she has already learned.",
 
     choices: [
-
       {
         text: "SEARCH THE BOOK",
         action: "searchBook"
       },
-
       {
         text: "RETURN TO THE TABLET",
         next: "tablet"
       }
-
     ]
-
   },
 
 
   search: {
-
     title: "THE CHAMBER",
 
     text:
@@ -126,24 +99,19 @@ const scenes = {
       "a small metallic object.",
 
     choices: [
-
       {
         text: "TAKE THE OBJECT",
         action: "takeArtifact"
       },
-
       {
         text: "RETURN TO THE TABLET",
         next: "awakening"
       }
-
     ]
-
   },
 
 
   artifact: {
-
     title: "THE ARTIFACT",
 
     text:
@@ -151,24 +119,19 @@ const scenes = {
       "A strange symbol is engraved on its surface.",
 
     choices: [
-
       {
         text: "EXAMINE THE SYMBOL",
         action: "artifactClue"
       },
-
       {
         text: "RETURN TO THE CHAMBER",
         next: "awakening"
       }
-
     ]
-
   },
 
 
   touchTablet: {
-
     title: "THE AWAKENING",
 
     text:
@@ -176,19 +139,15 @@ const scenes = {
       "A vibration moves through the chamber.",
 
     choices: [
-
       {
         text: "CONTINUE",
         action: "awaken"
       }
-
     ]
-
   },
 
 
   awakened: {
-
     title: "THE EYE OPENS",
 
     text:
@@ -196,19 +155,15 @@ const scenes = {
       "Somewhere below the chamber, something has awakened.",
 
     choices: [
-
       {
         text: "SEARCH FOR THE SOURCE",
         action: "searchSource"
       }
-
     ]
-
   },
 
 
   lockedDoor: {
-
     title: "THE LOCKED DOOR",
 
     text:
@@ -216,24 +171,19 @@ const scenes = {
       "There is no handle. Only a symbol in the center.",
 
     choices: [
-
       {
         text: "USE THE BOOK CLUE",
         action: "useBookClue"
       },
-
       {
         text: "STEP AWAY",
         next: "awakened"
       }
-
     ]
-
   },
 
 
   doorOpen: {
-
     title: "THE PASSAGE",
 
     text:
@@ -241,33 +191,26 @@ const scenes = {
       "The ancient door opens into darkness.",
 
     choices: [
-
       {
         text: "ENTER THE PASSAGE",
         action: "enterPassage"
       }
-
     ]
-
   },
 
 
   passage: {
-
     title: "THE DARKNESS",
 
     text:
       "Maya enters the passage. Behind her, the door closes.",
 
     choices: [
-
       {
         text: "CONTINUE",
         action: "continueStory"
       }
-
     ]
-
   }
 
 };
@@ -280,28 +223,20 @@ const scenes = {
 function startGame() {
 
   gameState = {
-
     scene: "awakening",
-
     inventory: [],
-
     clues: [],
-
     flags: {},
-
     bookRead: false
-
   };
 
   showScreen("gameScreen");
-
   renderScene();
-
 }
 
 
 /* =========================================================
-   RENDER
+   RENDER SCENE
    ========================================================= */
 
 function renderScene() {
@@ -310,36 +245,40 @@ function renderScene() {
 
   if (!scene) return;
 
-  document.getElementById("sceneTitle").textContent =
-    scene.title;
+  const title =
+    document.getElementById("sceneTitle");
 
-  document.getElementById("storyText").textContent =
-    scene.text;
+  const text =
+    document.getElementById("storyText");
 
   const choices =
     document.getElementById("choices");
 
+  if (!title || !text || !choices) return;
+
+  title.textContent = scene.title;
+
+  text.textContent = scene.text;
+
   choices.innerHTML = "";
 
-  scene.choices.forEach(choice => {
+
+  scene.choices.forEach(function(choice) {
 
     const button =
       document.createElement("button");
 
     button.textContent = choice.text;
 
-    button.onclick = function () {
+
+    button.onclick = function() {
 
       if (choice.next) {
-
         gameState.scene = choice.next;
-
       }
 
       if (choice.action) {
-
         runAction(choice.action);
-
       }
 
       renderScene();
@@ -347,6 +286,7 @@ function renderScene() {
       saveGame();
 
     };
+
 
     choices.appendChild(button);
 
@@ -441,7 +381,7 @@ function runAction(action) {
 
 
 /* =========================================================
-   BOOK SYSTEM
+   OPEN BOOK
    ========================================================= */
 
 function openBookForClue() {
@@ -456,22 +396,25 @@ function openBookForClue() {
 
 
 /* =========================================================
-   BOOK CLUE CHECK
+   BOOK CLUE PUZZLE
    ========================================================= */
 
 function checkBookClue() {
 
-  /*
-     TEMPORARY DEVELOPMENT LOGIC
+  const puzzleScreen =
+    document.getElementById("puzzleScreen");
 
-     Later we will replace this with the
-     REAL clues extracted from THE AWAKENED.
-  */
+  const answerInput =
+    document.getElementById("puzzleAnswer");
 
-  if (!gameState.bookRead) {
+  const message =
+    document.getElementById("puzzleMessage");
+
+
+  if (!puzzleScreen || !answerInput) {
 
     alert(
-      "You need to read the book to discover this clue."
+      "The puzzle screen could not be found."
     );
 
     return;
@@ -479,19 +422,97 @@ function checkBookClue() {
   }
 
 
-  /*
-     DEVELOPMENT FLAG
+  puzzleScreen.classList.add("active");
 
-     The real puzzle system will be added here.
+  answerInput.value = "";
+
+  if (message) {
+    message.textContent = "";
+  }
+
+
+  setTimeout(function() {
+
+    answerInput.focus();
+
+  }, 100);
+
+}
+
+
+/* =========================================================
+   SUBMIT CHAPTER 1 ANSWER
+   ========================================================= */
+
+function submitPuzzle() {
+
+  const answerInput =
+    document.getElementById("puzzleAnswer");
+
+  const message =
+    document.getElementById("puzzleMessage");
+
+
+  if (!answerInput) return;
+
+
+  const answer =
+    answerInput.value
+      .trim()
+      .toLowerCase();
+
+
+  /*
+    CHAPTER 1 BOOK CLUE
+
+    The player must discover this
+    by reading the book.
   */
 
-  gameState.flags.firstBookClue = true;
+  if (answer === "yehoshua") {
 
-  addClue(
-    "You remembered a clue from the book."
-  );
+    gameState.flags.chapter1Solved = true;
 
-  gameState.scene = "doorOpen";
+    addClue(
+      "Chapter 1 solved — the name was recognized."
+    );
+
+    if (message) {
+
+      message.textContent =
+        "✓ CORRECT — THE TABLET RESPONDS.";
+
+    }
+
+
+    setTimeout(function() {
+
+      closePanels();
+
+      gameState.scene = "doorOpen";
+
+      renderScene();
+
+      saveGame();
+
+    }, 1200);
+
+  }
+
+  else {
+
+    if (message) {
+
+      message.textContent =
+        "The inscription remains silent.";
+
+    }
+
+    answerInput.value = "";
+
+    answerInput.focus();
+
+  }
 
 }
 
@@ -512,13 +533,17 @@ function addClue(text) {
   const notice =
     document.getElementById("clueNotice");
 
+
+  if (!notice) return;
+
+
   notice.textContent =
     "🧩 NEW CLUE DISCOVERED";
 
   notice.classList.remove("hidden");
 
 
-  setTimeout(function () {
+  setTimeout(function() {
 
     notice.classList.add("hidden");
 
@@ -536,6 +561,10 @@ function openInventory() {
   const container =
     document.getElementById("inventory");
 
+
+  if (!container) return;
+
+
   container.innerHTML = "";
 
 
@@ -548,19 +577,21 @@ function openInventory() {
 
   else {
 
-    gameState.inventory.forEach(function (item) {
+    gameState.inventory.forEach(
+      function(item) {
 
-      const div =
-        document.createElement("div");
+        const div =
+          document.createElement("div");
 
-      div.className = "item";
+        div.className = "item";
 
-      div.textContent =
-        "🎒 " + item;
+        div.textContent =
+          "🎒 " + item;
 
-      container.appendChild(div);
+        container.appendChild(div);
 
-    });
+      }
+    );
 
   }
 
@@ -573,13 +604,17 @@ function openInventory() {
 
 
 /* =========================================================
-   CLUE MENU
+   CLUES
    ========================================================= */
 
 function openClues() {
 
   const container =
     document.getElementById("clues");
+
+
+  if (!container) return;
+
 
   container.innerHTML = "";
 
@@ -593,19 +628,22 @@ function openClues() {
 
   else {
 
-    gameState.clues.forEach(function (clue) {
+    gameState.clues.forEach(
+      function(clue) {
 
-      const div =
-        document.createElement("div");
+        const div =
+          document.createElement("div");
 
-      div.className = "clueItem";
+        div.className =
+          "clueItem";
 
-      div.textContent =
-        "🧩 " + clue;
+        div.textContent =
+          "🧩 " + clue;
 
-      container.appendChild(div);
+        container.appendChild(div);
 
-    });
+      }
+    );
 
   }
 
@@ -618,7 +656,7 @@ function openClues() {
 
 
 /* =========================================================
-   SAVE
+   SAVE GAME
    ========================================================= */
 
 function saveGame() {
@@ -632,7 +670,7 @@ function saveGame() {
 
 
 /* =========================================================
-   LOAD
+   LOAD GAME
    ========================================================= */
 
 function loadGame() {
@@ -663,11 +701,11 @@ function loadGame() {
 
   catch (error) {
 
+    console.error(error);
+
     alert(
       "The saved game could not be loaded."
     );
-
-    console.error(error);
 
   }
 
@@ -682,7 +720,7 @@ function showScreen(id) {
 
   document
     .querySelectorAll(".screen")
-    .forEach(function (screen) {
+    .forEach(function(screen) {
 
       screen.classList.remove("active");
 
@@ -691,6 +729,7 @@ function showScreen(id) {
 
   const screen =
     document.getElementById(id);
+
 
   if (screen) {
 
@@ -709,7 +748,7 @@ function closePanels() {
 
   document
     .querySelectorAll(".overlay")
-    .forEach(function (panel) {
+    .forEach(function(panel) {
 
       panel.classList.remove("active");
 
