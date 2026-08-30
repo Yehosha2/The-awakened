@@ -372,3 +372,38 @@ header small {
   }
 
 }
+
+/* =========================================
+   BOOK CLUE PUZZLE
+   ========================================= */
+
+#puzzleScreen input {
+  width: 100%;
+  padding: 15px;
+  margin: 15px 0;
+  box-sizing: border-box;
+
+  background: #050505;
+  color: #eee;
+
+  border: 1px solid #555;
+  border-radius: 8px;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 18px;
+
+  text-align: center;
+  letter-spacing: 2px;
+}
+
+#puzzleScreen input:focus {
+  outline: none;
+  border-color: #aaa;
+}
+
+#puzzleMessage {
+  min-height: 25px;
+  margin-top: 15px;
+  text-align: center;
+  line-height: 1.5;
+}
